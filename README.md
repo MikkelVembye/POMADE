@@ -17,10 +17,6 @@ You can install the development version of POMADE like so:
 devtools::install_github("MikkelVembye/POMADE")
 ```
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
-```
-
 ## Example
 
 This is a basic example which shows you how to solve a common problem:

@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of POMADE package is to provide approximation and plot
+The goal of the POMADE package is to provide approximation and plot
 functions for conducting power analysis of the CHE, MLMA, and CE models
 for meta-analysis of dependent effect sizes developed by Vembye,
 Pustejovsky, & Pigott (2022).
@@ -26,7 +26,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(POMADE)
-## basic example code
 ```
 
 # Reference

@@ -24,7 +24,7 @@ The goal of POMADE is to ...
 
 You can install the development version of POMADE like so:
 
-```{r}
+```{r, eval = FALSE}
 
 # install.packages("devtools")
 devtools::install_github("MikkelVembye/POMADE")

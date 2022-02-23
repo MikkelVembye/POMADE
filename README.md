@@ -9,9 +9,10 @@
 <!-- badges: end -->
 
 The goal of the POMADE package is to provide approximation and plot
-functions for conducting power analysis of the CHE, MLMA, and CE models
-for meta-analysis of dependent effect sizes developed by Vembye,
-Pustejovsky, & Pigott (2022).
+functions for conducting power analysis of the correlated-hierarchical
+effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects
+(CE) models for meta-analysis of dependent effect sizes developed by
+Vembye, Pustejovsky, & Pigott (2022).
 
 ## Installation
 

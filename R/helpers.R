@@ -3,14 +3,8 @@
 #--------------------------------------------------------------------------
 
 #' @importFrom stats qt
-#' @export
-
-stats::qt
-
 #' @importFrom stats pt
-#' @export
 
-stats::pt
 
 
 

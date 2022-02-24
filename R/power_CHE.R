@@ -20,7 +20,9 @@
 #' @param average_power Average power across the x iterated power estimations
 #' @param seed Set seed to ensure reproducibility of the iterated power approximations
 #'
-#' @return A data frame with results related to power
+#' @return Returns a data frame with information about the sampling methods, type of model, smallest effect size
+#' considered to be of practical concern, the estimate variance for the effect size, degrees of freedom
+#' the power estimate, and the number of iterations
 #' @importFrom magrittr %>%
 #' @importFrom stats df
 #' @import dplyr

@@ -15,6 +15,8 @@ Authors@R: c(
            )
 Maintainer: Mikkel Vembye <mikkel.vembye@gmail.com>
 Description: Provides functions to compute and plot power for meta-analysis of dependent effect sizes.
+Depends:
+    R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

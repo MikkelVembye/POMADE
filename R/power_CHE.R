@@ -314,7 +314,7 @@ power_CHE_engine <-
 
     if (!is.null(sample_sizes) & !is.null(sigma2js)) stop("Either use sample sizes or sigma2js")
 
-    res <- dplyr::tibble()
+    res <- tibble()
 
     if (!is.null(sample_sizes)){
 
@@ -351,14 +351,14 @@ power_CHE_engine <-
       # Changed df_CHE_satt from df. Why should it be df_CHE_satt there?
       power_CHE_naive <- power_t(df = J - 1, lambda = lambda, alpha = alpha, df_test = J - 1)
 
-      res1 <- dplyr::tibble(
+      res1 <- tibble(
         var_b = var_b,
         df = J - 1,
         power_CHE_naive,
         method = "CHE-Model"
       )
 
-      res <- dplyr::bind_rows(res, res1)
+      res <- bind_rows(res, res1)
 
     }
 
@@ -375,14 +375,14 @@ power_CHE_engine <-
 
       power_CHE_satt <- power_t(df = df_CHE_satt, lambda = lambda, alpha = alpha)
 
-      res2 <- dplyr::tibble(
+      res2 <- tibble(
         var_b = var_b,
         df = df_CHE_satt,
         power_CHE_satt,
         method = "CHE-Model+Satt"
       )
 
-      res <-  dplyr::bind_rows(res, res2)
+      res <-  bind_rows(res, res2)
 
 
     }
@@ -395,18 +395,19 @@ power_CHE_engine <-
       power_CHE_RVE <- power_t(df = df_CHE_app, lambda = lambda, alpha = alpha)
 
       res3 <-
-        dplyr::tibble(
+        tibble(
           var_b,
           df = df_CHE_app,
           power_CHE_RVE,
           method = "CHE-RVE"
         )
 
-      res <- dplyr::bind_rows(res, res3)
+      res <- bind_rows(res, res3)
 
 
     }
 
-    res %>% dplyr::mutate(vectorof = vectorof)
+    res %>% mutate(vectorof = vectorof)
 
   }
+

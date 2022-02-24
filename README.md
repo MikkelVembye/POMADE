@@ -31,6 +31,10 @@ This is a basic example which shows you how to solve a common problem:
 library(POMADE)
 ```
 
+# Acknowledgments
+
+Thanks to Savhannah Schulz for making our hex stickers.
+
 # Reference
 
 Vembye, Pustejovsky, & Pigott (2022). Power Approximations for

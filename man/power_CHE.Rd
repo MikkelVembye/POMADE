@@ -71,7 +71,7 @@ the power estimate, and the number of iterations
 Approximate power for the correlated-hierarchical effects (CHE) model
 }
 \examples{
-balanced_CHE_power <-
+balanced_CHE_RVE_power <-
  power_CHE(
   J = 50,
   tau2 = 0.2^2,
@@ -86,6 +86,6 @@ balanced_CHE_power <-
   seed = 240222
  )
 
-balanced_CHE_power
+balanced_CHE_RVE_power
 
 }

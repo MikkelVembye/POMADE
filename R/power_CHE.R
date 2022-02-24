@@ -30,7 +30,7 @@
 #' @export
 #'
 #' @examples
-#' balanced_CHE_power <-
+#' balanced_CHE_RVE_power <-
 #'  power_CHE(
 #'   J = 50,
 #'   tau2 = 0.2^2,
@@ -45,7 +45,7 @@
 #'   seed = 240222
 #'  )
 #'
-#' balanced_CHE_power
+#' balanced_CHE_RVE_power
 #'
 
 power_CHE <-

@@ -40,6 +40,24 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(POMADE)
+
+power_CHE_RVE_balanced <- 
+ power_CHE(
+  J = 50,
+  tau2 = 0.2^2,
+  omega2 = 0.1^2,
+  beta = 0.1,
+  rho = 0.7,
+  var_df = "RVE",
+  sample_size_method = "balanced",
+  k_mean = 4,
+  N_mean = 50,
+  alpha = 0.05,
+  seed = 240222
+)
+
+power_CHE_RVE_balanced
+
 ```
 
 # Acknowledgments 

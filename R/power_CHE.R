@@ -48,9 +48,12 @@
 
 power_CHE <-
   function(J, tau2, omega2, beta, rho,
-           var_df = c("Model" , "Satt", "RVE"),
+
+           var_df = c("Model", "Satt", "RVE"),
+
            sample_size_method = c("balanced", "stylized", "empirical"),
-           sigma2_method = c("balanced","empirical"),
+           sigma2_method = c("balanced", "empirical"),
+
            k_mean = NULL,
 
            # Sample sample sizes operations

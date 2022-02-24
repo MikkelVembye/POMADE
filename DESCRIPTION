@@ -17,6 +17,7 @@ Maintainer: Mikkel Vembye <mikkel.vembye@gmail.com>
 Description: Provides functions to compute and plot power for meta-analysis of dependent effect sizes.
 License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
@@ -32,3 +33,4 @@ Suggests:
     roxygen2,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Language: en-US

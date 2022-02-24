@@ -29,27 +29,32 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(POMADE)
+library(dplyr)
 
-power_CHE_RVE_balanced <- 
+coteach_dat <- VWB22_pilot
+
+dat_kjsigma2j <- select(coteach_dat, kj, sigma2j = vg_ms_mean)
+
+
+power_CHE_RVE_empirical <- 
  power_CHE(
-  J = 50,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  J = 76,
+  tau2 = 0.1^2,
+  omega2 = 0.25^2,
   beta = 0.1,
   rho = 0.7,
   var_df = "RVE",
-  sample_size_method = "balanced",
-  k_mean = 4,
-  N_mean = 50,
+  sigma2_method = "empirical",
+  pilot_data_kjsigma2 = dat_kjsigma2j,
   alpha = 0.05,
-  seed = 240222
+  seed = 10052510
 )
 
-power_CHE_RVE_balanced
+power_CHE_RVE_empirical
 #> # A tibble: 1 x 7
-#>   samp_method           method     es   var_b    df power_sig05 iterations
-#>   <chr>                 <chr>   <dbl>   <dbl> <dbl>       <dbl>      <dbl>
-#> 1 balanced sample sizes CHE-RVE   0.1 0.00209    49       0.573        100
+#>   samp_method        method     es   var_b    df power_sig05 iterations
+#>   <chr>              <chr>   <dbl>   <dbl> <dbl>       <dbl>      <dbl>
+#> 1 empirical sigma2js CHE-RVE   0.1 0.00134  40.9       0.761        100
 ```
 
 # Acknowledgments

@@ -25,16 +25,18 @@ devtools::install_github("MikkelVembye/POMADE")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Example of how to approximate power for the CHE-RVE model (Pustejovsky &
+Tipton, 2021)
 
 ``` r
 library(POMADE)
 library(dplyr)
 
+#?VWB22_pilot
 coteach_dat <- VWB22_pilot
+#glimpse(coteach_dat)
 
 dat_kjsigma2j <- select(coteach_dat, kj, sigma2j = vg_ms_mean)
-
 
 power_CHE_RVE_empirical <- 
  power_CHE(
@@ -63,6 +65,10 @@ Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for
 making our hex stickers.
 
 # Reference
+
+Pustejovsky & Tipton (2021). Meta-analysis with Robust Variance
+Estimation: Expanding the range of working models. *Prevention Science*,
+1-14
 
 Vembye, Pustejovsky, & Pigott (2022). Power Approximations for
 Meta-Analysis of Dependent Effect sizes.

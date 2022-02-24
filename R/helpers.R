@@ -36,3 +36,7 @@ power_t <- function(df, lambda, alpha, df_test = df, g = 1) {
 n_ES_empirical <- function(dat, J) {
   dat[sample(NROW(dat), size = J, replace = TRUE),]
 }
+
+
+# Manage dplyr behavior
+utils::globalVariables(c("samp_method", "method", "vectorof", "var_b", "es"))

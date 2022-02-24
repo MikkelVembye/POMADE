@@ -411,4 +411,4 @@ power_CHE_engine <-
 
   }
 
-utils::globalVariables(c("samp_method", "method", "vectorof", "var_b", "es"))
+

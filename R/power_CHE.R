@@ -232,7 +232,7 @@ power_CHE <-
           .id = "samp_method"
         )
 
-        res5 <- bind_rows(res, res5)
+        res <- bind_rows(res, res5)
 
 
       }
@@ -246,7 +246,7 @@ power_CHE <-
           .id = "samp_method"
         )
 
-        res6 <- bind_rows(res, res6)
+        res <- bind_rows(res, res6)
 
 
       }

@@ -6,8 +6,6 @@
 #' @importFrom stats pt
 
 
-
-
 # Satterthwaite df approximation
 
 Satt_df <- function(wj) {

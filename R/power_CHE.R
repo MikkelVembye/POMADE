@@ -1,4 +1,4 @@
-
+#' @importFrom magrittr %>%
 
 #--------------------------------------------------------------------------
 # Power function engine for the CHE model with RVE (HELPER FUNCTION)

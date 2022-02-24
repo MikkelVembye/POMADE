@@ -61,7 +61,7 @@ power_CHE_RVE_balanced
 ```
 
 # Acknowledgments 
-Thanks to Savhannah Schulz for making our hex stickers.   
+Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for making our hex stickers.   
 
 # Reference
 

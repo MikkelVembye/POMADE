@@ -3,6 +3,7 @@
 export(effective_sample_sizes)
 export(power_CHE)
 export(power_plot)
+export(traffic_light_power_plot)
 import(dplyr)
 importFrom(magrittr,"%>%")
 importFrom(stats,cor)

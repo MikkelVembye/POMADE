@@ -12,7 +12,11 @@ The goal of the POMADE package is to provide approximation and plot
 functions for conducting power analysis of the correlated-hierarchical
 effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects
 (CE) models for meta-analysis of dependent effect sizes developed by
-Vembye, Pustejovsky, & Pigott (2022).
+Vembye, Pustejovsky, & Pigott (2022). These approximations replace
+Hedges & Pigott’s (2001) previous power approximation based on the
+assumption of independence between effect sizes which has been shown to
+work inadequately to predict power for models that handle dependent
+effect sizes.
 
 ## Installation
 
@@ -65,6 +69,9 @@ Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for
 making our hex stickers.
 
 # Reference
+
+Hedges & Pigott (2001). The Power of Statistical Tests in Meta-Analysis.
+*Psychological Methods*, 6(3), 203
 
 Pustejovsky & Tipton (2021). Meta-analysis with Robust Variance
 Estimation: Expanding the range of working models. *Prevention Science*,

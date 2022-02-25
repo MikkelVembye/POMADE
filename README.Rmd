@@ -25,7 +25,7 @@ The goal of the POMADE package is to provide approximation and plot functions fo
 
 ## Installation
 
-You can install the development version of POMADE like so:
+You can install the development version from [GitHub](https://github.com/) with:
 
 ```{r, eval = FALSE}
 
@@ -67,6 +67,71 @@ power_CHE_RVE_empirical <-
 power_CHE_RVE_empirical
 
 ```
+
+Making a power plot  to assess power across a range of plausible scenarios
+
+```{r example2, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+
+power_CHE_RVE_plot <- 
+  power_plot(
+    J = seq(50, 100, 10), 
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CHE",  # Default
+    var_df = "RVE", # Default
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    iterations = 1, # Default
+    seed = 10052510
+    
+  )
+
+power_CHE_RVE_plot
+
+```
+
+Color plot
+
+```{r example3, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+
+power_CHE_RVE_color_plot <- 
+  power_plot(
+    J = seq(50, 100, 10), 
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CHE",
+    var_df = "RVE",
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    color = TRUE,
+    color_brewer = TRUE,
+    iterations = 1, # Default
+    seed = 10052510
+  )
+
+power_CHE_RVE_color_plot 
+
+```
+
+Traffic light power plot aiming to flesh out the likelihood of the given assumptions made by the reviewers
+
+```{r example4, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+
+# To save plot use below commands
+#png("traffic_light_power_plot.png", height = 7,  width = 12, units = "in", res = 600)
+#dev.off()
+traffic_light_power_plot(
+  power_plot = power_CHE_RVE_color_plot,
+  assumptions = c("unlikely", "likely", "expected", "likely", 
+                  "unlikely", "likely", "expected", "unlikely")
+)
+
+```
+
 
 # Acknowledgments 
 Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for making our hex stickers.   

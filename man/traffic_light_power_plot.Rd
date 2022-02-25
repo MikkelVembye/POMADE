@@ -9,12 +9,12 @@ traffic_light_power_plot(power_plot, assumptions)
 \arguments{
 \item{power_plot}{Facet grid \code{power_plot} object}
 
-\item{assumptions}{Assumption regarding the likelihood of the given scenario
+\item{assumptions}{Assumptions regarding the likelihood of the included scenarios
 in the \code{power_plot}. Make assumptions from upper-left strip to lower-right strip}
 }
 \value{
-Return a traffic light power plot
+Returns a traffic light power plot
 }
 \description{
-Make traffic light power plot
+Traffic light coloring of the strips of a \code{power_plot}
 }

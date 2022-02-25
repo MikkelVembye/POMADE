@@ -1,10 +1,12 @@
 #' @title Make traffic light power plot
 #'
+#' @description Traffic light coloring of the strips of a \code{power_plot}
+#'
 #' @param power_plot Facet grid \code{power_plot} object
-#' @param assumptions Assumption regarding the likelihood of the given scenario
+#' @param assumptions Assumptions regarding the likelihood of the included scenarios
 #' in the \code{power_plot}. Make assumptions from upper-left strip to lower-right strip
 #'
-#' @return Return a traffic light power plot
+#' @return Returns a traffic light power plot
 #' @export
 #'
 #'

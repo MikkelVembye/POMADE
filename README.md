@@ -20,7 +20,8 @@ effect sizes.
 
 ## Installation
 
-You can install the development version of POMADE like so:
+You can install the development version from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -62,6 +63,72 @@ power_CHE_RVE_empirical
 #>   <chr>              <chr>   <dbl>   <dbl> <dbl>       <dbl>      <dbl>
 #> 1 empirical sigma2js CHE-RVE   0.1 0.00134  40.9       0.761        100
 ```
+
+Making a power plot to assess power across a range of plausible
+scenarios
+
+``` r
+power_CHE_RVE_plot <- 
+  power_plot(
+    J = seq(50, 100, 10), 
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CHE",  # Default
+    var_df = "RVE", # Default
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    iterations = 1, # Default
+    seed = 10052510
+    
+  )
+
+power_CHE_RVE_plot
+```
+
+<img src="man/figures/README-example2-1.png" width="100%" />
+
+Color plot
+
+``` r
+power_CHE_RVE_color_plot <- 
+  power_plot(
+    J = seq(50, 100, 10), 
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CHE",
+    var_df = "RVE",
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    color = TRUE,
+    color_brewer = TRUE,
+    iterations = 1, # Default
+    seed = 10052510
+  )
+
+power_CHE_RVE_color_plot 
+```
+
+<img src="man/figures/README-example3-1.png" width="100%" />
+
+Traffic light power plot aiming to flesh out the likelihood of the given
+assumptions made by the reviewers
+
+``` r
+# To save plot use below commands
+#png("traffic_light_power_plot.png", height = 7,  width = 12, units = "in", res = 600)
+#dev.off()
+traffic_light_power_plot(
+  power_plot = power_CHE_RVE_color_plot,
+  assumptions = c("unlikely", "likely", "expected", "likely", 
+                  "unlikely", "likely", "expected", "unlikely")
+)
+```
+
+<img src="man/figures/README-example4-1.png" width="100%" />
 
 # Acknowledgments
 

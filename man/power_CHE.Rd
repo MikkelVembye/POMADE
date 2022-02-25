@@ -63,7 +63,7 @@ power_CHE(
 \item{seed}{Set seed to ensure reproducibility of the iterated power approximations}
 }
 \value{
-Returns a data frame with information about the sampling methods, type of model, smallest effect size
+Returns a \code{tibble} with information about the sampling methods, type of model, smallest effect size
 considered to be of practical concern, the estimate variance for the effect size, degrees of freedom
 the power estimate, and the number of iterations
 }

@@ -2,8 +2,10 @@
 
 export(effective_sample_sizes)
 export(power_CHE)
+export(power_plot)
 import(dplyr)
 importFrom(magrittr,"%>%")
+importFrom(stats,cor)
 importFrom(stats,df)
 importFrom(stats,pt)
 importFrom(stats,qt)

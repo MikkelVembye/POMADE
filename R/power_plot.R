@@ -12,6 +12,7 @@
 #' @param var_df Insert
 #' @param N_mean Insert
 #' @param pilot_data_kjN Insert
+#' @param sigma2_mean Insert
 #' @param pilot_data_kjsigma2 Insert
 #' @param alpha Insert
 #' @param iterations Insert
@@ -31,6 +32,7 @@
 #' @param breaks Insert
 #' @param limits Insert
 #' @param legend_position Insert
+#' @param power_data Insert
 #'
 #' @return Returns a facet_grid power plot
 #' @export
@@ -52,7 +54,7 @@ power_plot <- function(
   pilot_data_kjN = NULL,
 
   # Sampling variance methods
-  # Add more options
+  sigma2_mean = NULL,
   pilot_data_kjsigma2 = NULL,
   alpha = .05,
   iterations = 100,
@@ -73,7 +75,9 @@ power_plot <- function(
   grid = TRUE,
   breaks = seq(min(J), max(J), 10),
   limits = c(min(J), max(J)),
-  legend_position = "bottom"
+  legend_position = "bottom",
+
+  power_data = FALSE
 
 ){
 
@@ -136,6 +140,26 @@ power_plot <- function(
         tidyr::unnest(res)
     }
 
+    # Approximation based on sigma2j methods
+
+    if (!is.null(k_mean) & !is.null(sigma2_mean)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CHE,
+                            var_df = var_df,
+                            sigma2_method = "balanced",
+                            k_mean = k_mean,
+                            sigma2_mean = sigma2_mean,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
     if (!is.null(pilot_data_kjsigma2)){
 
     dat <-
@@ -154,6 +178,7 @@ power_plot <- function(
     }
   }
 
+  if (power_data) { return(dat) }
 
   plot_dat <-
     dat %>%

@@ -15,6 +15,7 @@ power_plot(
   var_df = "RVE",
   N_mean = NULL,
   pilot_data_kjN = NULL,
+  sigma2_mean = NULL,
   pilot_data_kjsigma2 = NULL,
   alpha = 0.05,
   iterations = 100,
@@ -33,7 +34,8 @@ power_plot(
   grid = TRUE,
   breaks = seq(min(J), max(J), 10),
   limits = c(min(J), max(J)),
-  legend_position = "bottom"
+  legend_position = "bottom",
+  power_data = FALSE
 )
 }
 \arguments{
@@ -56,6 +58,8 @@ power_plot(
 \item{N_mean}{Insert}
 
 \item{pilot_data_kjN}{Insert}
+
+\item{sigma2_mean}{Insert}
 
 \item{pilot_data_kjsigma2}{Insert}
 
@@ -94,6 +98,8 @@ power_plot(
 \item{limits}{Insert}
 
 \item{legend_position}{Insert}
+
+\item{power_data}{Insert}
 }
 \value{
 Returns a facet_grid power plot

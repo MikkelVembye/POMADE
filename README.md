@@ -77,7 +77,6 @@ power_CHE_RVE_plot <-
     rho = c(.2, .4, .7, .9),
     model = "CHE",  # Default
     var_df = "RVE", # Default
-    sigma2_method = "empirical",
     pilot_data_kjsigma2 = dat_kjsigma2j,
     expected_studies = c(66, 86),
     iterations = 1, # Default 100
@@ -102,7 +101,6 @@ power_CHE_RVE_color_plot <-
     rho = c(.2, .4, .7, .9),
     model = "CHE",
     var_df = "RVE",
-    sigma2_method = "empirical",
     pilot_data_kjsigma2 = dat_kjsigma2j,
     expected_studies = c(66, 86),
     color = TRUE,

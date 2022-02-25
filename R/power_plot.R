@@ -10,9 +10,8 @@
 #' @param k_mean Insert
 #' @param model Insert
 #' @param var_df Insert
-#' @param sample_size_method Insert
 #' @param N_mean Insert
-#' @param sigma2_method Insert
+#' @param pilot_data_kjN Insert
 #' @param pilot_data_kjsigma2 Insert
 #' @param alpha Insert
 #' @param iterations Insert
@@ -48,13 +47,12 @@ power_plot <- function(
   J, tau2, omega2, beta, rho, k_mean = NULL,
   model = "CHE",
   var_df = "RVE",
-  sample_size_method = NULL,
   # Sample size methods
   N_mean = NULL,
+  pilot_data_kjN = NULL,
 
   # Sampling variance methods
   # Add more options
-  sigma2_method = NULL,
   pilot_data_kjsigma2 = NULL,
   alpha = .05,
   iterations = 100,
@@ -98,8 +96,6 @@ power_plot <- function(
   if (length(model) > 1) stop("Specify one model, only")
   if (length(var_df) > 1) stop("Specify one model, only")
   if (is.null(seed)) stop("Set seed to ensure reproducibility")
-  if ("empirical" %in% sigma2_method & is.null(pilot_data_kjsigma2)) stop("Enter pilot data")
-  #if (is.null(expected_studies)) stop("Indicate the number or interval of the expected numbers of studies in model")
 
   # ADD CE AND MLMA PLUS EMPIRICAL AND SIMULATED SAMPLE SIZES AND BALANCED SAMPLE SIZES AND SIGMA2JS
 
@@ -113,7 +109,7 @@ power_plot <- function(
           res = purrr::pmap(.l = params,
                             .f = power_CHE,
                             var_df = var_df,
-                            sample_size_method = sample_size_method,
+                            sample_size_method = "balanced",
                             k_mean = k_mean,
                             N_mean = N_mean,
                             alpha = alpha,
@@ -123,6 +119,22 @@ power_plot <- function(
         tidyr::unnest(res)
     }
 
+    if (!is.null(pilot_data_kjN)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CHE,
+                            var_df = var_df,
+                            sample_size_method = "empirical",
+                            pilot_data_kjN = pilot_data_kjN,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
 
     if (!is.null(pilot_data_kjsigma2)){
 
@@ -132,7 +144,7 @@ power_plot <- function(
         res = purrr::pmap(.l = params,
                    .f = power_CHE,
                    var_df = var_df,
-                   sigma2_method = sigma2_method,
+                   sigma2_method = "empirical",
                    pilot_data_kjsigma2 = pilot_data_kjsigma2,
                    alpha = alpha,
                    iterations = iterations,

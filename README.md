@@ -28,7 +28,7 @@ You can install the development version from
 devtools::install_github("MikkelVembye/POMADE")
 ```
 
-## Example
+## Example (Hej Simon)
 
 Example of how to approximate power for the CHE-RVE model (Pustejovsky &
 Tipton, 2021)

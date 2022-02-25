@@ -286,3 +286,5 @@ power_plot <- function(
   }
 
 }
+
+gc()

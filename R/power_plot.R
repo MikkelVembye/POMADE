@@ -2,37 +2,44 @@
 
 #' @title Power plot function
 #'
-#' @param J Insert
-#' @param tau2 Insert
-#' @param omega2 Insert
-#' @param beta Insert
-#' @param rho Insert
-#' @param k_mean Insert
-#' @param model Insert
-#' @param var_df Insert
-#' @param N_mean Insert
-#' @param pilot_data_kjN Insert
-#' @param sigma2_mean Insert
-#' @param pilot_data_kjsigma2 Insert
-#' @param alpha Insert
-#' @param iterations Insert
-#' @param power_min Insert
-#' @param expected_studies Insert
-#' @param seed Insert
-#' @param ylab Insert
-#' @param xlab Insert
-#' @param Numbers Insert
-#' @param number_size Insert
-#' @param color Insert
-#' @param color_brewer Insert
-#' @param brewer_type Insert
-#' @param palette Insert
-#' @param scales_free Insert
-#' @param grid Insert
-#' @param breaks Insert
-#' @param limits Insert
-#' @param legend_position Insert
-#' @param power_data Insert
+#' @param J A sequence running from the minimum to maximum number of studies
+#' expected to be found
+#' @param tau2 Varying between-study variance estimates
+#' @param omega2 Varying within-study variance estimates
+#' @param beta Smallest effect size of practical concern. Insert one value only
+#' @param rho Sample correlation coefficients
+#' @param k_mean Average number of effect sizes per study
+#' @param model Model (either CHE, MLMA, or CE)
+#' @param var_df Indicate variance and degrees of freedom estimation
+#' ("Model", "Satt", "RVE")
+#' @param N_mean Average sample size
+#' @param pilot_data_kjN Pilot data including a vector of kjs and sample sizes.
+#' If clustering it presented in studies, use effective sample sizes.
+#' @param sigma2_mean Average sampling variance
+#' @param pilot_data_kjsigma2 Pilot data including a vector of kjs and sampling variance.
+#' If clustering it presented in studies, this should be reflected int the sampling variance
+#' estimates.
+#' @param alpha Nominal level of statistical significance
+#' @param iterations Number of times power should be calculated when based on
+#' either simulated or empirical values for kj and sample sizes or sampling variance estimates
+#' @param power_min Minimum acceptable power level
+#' @param expected_studies Range in which the expected number of studies
+#' to be found is present.
+#' @param seed Set seed to ensure reproducibility of the plot
+#' @param ylab Change default ylab setting
+#' @param xlab Change default xlab setting
+#' @param Numbers Numbering plot in facet grid (Default = \code{TRUE})
+#' @param number_size Size of numbers on plots
+#' @param color If \code{ggplot2} colors should be used
+#' @param color_brewer Customize color brewer
+#' @param brewer_type Customize color brewer
+#' @param palette Customize color brewer
+#' @param scales_free Free scales in \code{facet_grid}
+#' @param grid Control background grids
+#' @param breaks Control breaks
+#' @param limits Control limits
+#' @param legend_position Control legend position
+#' @param power_data Print approximated data. If \code{TRUE}, it returns the dataset only
 #'
 #' @return Returns a facet_grid power plot
 #' @export

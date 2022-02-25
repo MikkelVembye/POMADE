@@ -39,67 +39,74 @@ power_plot(
 )
 }
 \arguments{
-\item{J}{Insert}
+\item{J}{A sequence running from the minimum to maximum number of studies
+expected to be found}
 
-\item{tau2}{Insert}
+\item{tau2}{Varying between-study variance estimates}
 
-\item{omega2}{Insert}
+\item{omega2}{Varying within-study variance estimates}
 
-\item{beta}{Insert}
+\item{beta}{Smallest effect size of practical concern. Insert one value only}
 
-\item{rho}{Insert}
+\item{rho}{Sample correlation coefficients}
 
-\item{k_mean}{Insert}
+\item{k_mean}{Average number of effect sizes per study}
 
-\item{model}{Insert}
+\item{model}{Model (either CHE, MLMA, or CE)}
 
-\item{var_df}{Insert}
+\item{var_df}{Indicate variance and degrees of freedom estimation
+("Model", "Satt", "RVE")}
 
-\item{N_mean}{Insert}
+\item{N_mean}{Average sample size}
 
-\item{pilot_data_kjN}{Insert}
+\item{pilot_data_kjN}{Pilot data including a vector of kjs and sample sizes.
+If clustering it presented in studies, use effective sample sizes.}
 
-\item{sigma2_mean}{Insert}
+\item{sigma2_mean}{Average sampling variance}
 
-\item{pilot_data_kjsigma2}{Insert}
+\item{pilot_data_kjsigma2}{Pilot data including a vector of kjs and sampling variance.
+If clustering it presented in studies, this should be reflected int the sampling variance
+estimates.}
 
-\item{alpha}{Insert}
+\item{alpha}{Nominal level of statistical significance}
 
-\item{iterations}{Insert}
+\item{iterations}{Number of times power should be calculated when based on
+either simulated or empirical values for kj and sample sizes or sampling variance estimates}
 
-\item{power_min}{Insert}
+\item{power_min}{Minimum acceptable power level}
 
-\item{expected_studies}{Insert}
+\item{expected_studies}{Range in which the expected number of studies
+to be found is present.}
 
-\item{seed}{Insert}
+\item{seed}{Set seed to ensure reproducibility of the plot}
 
-\item{ylab}{Insert}
+\item{ylab}{Change default ylab setting}
 
-\item{xlab}{Insert}
+\item{xlab}{Change default xlab setting}
 
-\item{Numbers}{Insert}
+\item{Numbers}{Numbering plot in facet grid (Default = \code{TRUE})}
 
-\item{number_size}{Insert}
+\item{number_size}{Size of numbers on plots}
 
-\item{color}{Insert}
+\item{color}{If \code{ggplot2} colors should be used}
 
-\item{color_brewer}{Insert}
+\item{color_brewer}{Customize color brewer}
 
-\item{brewer_type}{Insert}
+\item{brewer_type}{Customize color brewer}
 
-\item{palette}{Insert}
+\item{palette}{Customize color brewer}
 
-\item{scales_free}{Insert}
+\item{scales_free}{Free scales in \code{facet_grid}}
 
-\item{grid}{Insert}
+\item{grid}{Control background grids}
 
-\item{breaks}{Insert}
+\item{breaks}{Control breaks}
 
-\item{limits}{Insert}
+\item{limits}{Control limits}
 
-\item{legend_position}{Insert}
+\item{legend_position}{Control legend position}
 
-\item{power_data}{Insert}
+\item{power_data}{Print approximated data. If \code{TRUE}, it returns the dataset only}
 }
 \value{
 Returns a facet_grid power plot

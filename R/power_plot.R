@@ -10,6 +10,8 @@
 #' @param k_mean Insert
 #' @param model Insert
 #' @param var_df Insert
+#' @param sample_size_method Insert
+#' @param N_mean Insert
 #' @param sigma2_method Insert
 #' @param pilot_data_kjsigma2 Insert
 #' @param alpha Insert
@@ -46,13 +48,13 @@ power_plot <- function(
   J, tau2, omega2, beta, rho, k_mean = NULL,
   model = "CHE",
   var_df = "RVE",
-
+  sample_size_method = NULL,
   # Sample size methods
-  #TODO
+  N_mean = NULL,
 
   # Sampling variance methods
   # Add more options
-  sigma2_method = "empirical",
+  sigma2_method = NULL,
   pilot_data_kjsigma2 = NULL,
   alpha = .05,
   iterations = 100,
@@ -103,6 +105,26 @@ power_plot <- function(
 
   if ("CHE" %in% model){
 
+    if (!is.null(k_mean) & !is.null(N_mean)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CHE,
+                            var_df = var_df,
+                            sample_size_method = sample_size_method,
+                            k_mean = k_mean,
+                            N_mean = N_mean,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
+
+    if (!is.null(pilot_data_kjsigma2)){
 
     dat <-
       params %>%
@@ -117,7 +139,7 @@ power_plot <- function(
                    seed = seed)
       ) %>%
       tidyr::unnest(res)
-
+    }
   }
 
 

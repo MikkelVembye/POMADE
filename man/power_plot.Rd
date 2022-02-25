@@ -13,7 +13,9 @@ power_plot(
   k_mean = NULL,
   model = "CHE",
   var_df = "RVE",
-  sigma2_method = "empirical",
+  sample_size_method = "balanced",
+  N_mean = NULL,
+  sigma2_method = NULL,
   pilot_data_kjsigma2 = NULL,
   alpha = 0.05,
   iterations = 100,
@@ -51,6 +53,10 @@ power_plot(
 \item{model}{Insert}
 
 \item{var_df}{Insert}
+
+\item{sample_size_method}{Insert}
+
+\item{N_mean}{Insert}
 
 \item{sigma2_method}{Insert}
 

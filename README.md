@@ -28,7 +28,7 @@ You can install the development version from
 devtools::install_github("MikkelVembye/POMADE")
 ```
 
-## Example (Hej Simon)
+## Example
 
 Example of how to approximate power for the CHE-RVE model (Pustejovsky &
 Tipton, 2021)
@@ -79,7 +79,7 @@ power_CHE_RVE_plot <-
     var_df = "RVE", # Default
     pilot_data_kjsigma2 = dat_kjsigma2j,
     expected_studies = c(66, 86),
-    iterations = 1, # Default
+    iterations = 100, # Default
     seed = 10052510
     
   )
@@ -105,7 +105,7 @@ power_CHE_RVE_color_plot <-
     expected_studies = c(66, 86),
     color = TRUE,
     color_brewer = TRUE,
-    iterations = 1, # Default
+    iterations = 100, # Default
     seed = 10052510
   )
 

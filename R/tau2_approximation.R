@@ -31,7 +31,7 @@ tau2_approximation <-
            df_minus2 = TRUE){
 
     if (length(sample_size) > 2) stop("Insert sample size for treatment and control group only")
-    if (sum(sample_size) > 300) warning("This function is made for effetive sample size only")
+    if (sum(sample_size) > 500) warning("This function is made for effetive sample size only")
 
     # Determines if -2 appears in the denominator of the scale precistion term
     # of the var calculation

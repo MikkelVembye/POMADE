@@ -18,3 +18,30 @@ Returns a traffic light power plot
 \description{
 Traffic light coloring of the strips of a \code{power_plot}
 }
+\examples{
+power_CHE_RVE_color_plot <-
+  power_plot(
+    J = seq(50, 100, 10),
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CHE",
+    var_df = "RVE",
+    k_mean = 5, N_mean = 100,
+    expected_studies = c(66, 86),
+    color = TRUE,
+    color_brewer = TRUE,
+    iterations = 1,
+    seed = 10052510
+  )
+
+power_CHE_RVE_color_plot
+
+traffic_light_power_plot(
+  power_plot = power_CHE_RVE_color_plot,
+  assumptions = c("unlikely", "likely", "expected", "likely",
+                  "unlikely", "likely", "expected", "unlikely")
+)
+
+}

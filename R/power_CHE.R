@@ -328,11 +328,20 @@ power_CHE_engine <-
 
     lambda <- (beta - d) / sqrt(var_b)
 
+    x <- sum(wj^2) / W
+    y <- sum(wj^2 / kj) / W
+
+    a <- x^2 + W * x - 2 * sum(wj^3) / W
+    b <- y^2 + sum(wj^2 / kj^2) + sum((kj - 1) / (omega2 + (1 - rho) * sigma2j)^2) - 2 * sum(wj^3 / kj^2) / W
+    c <- x * y + W * y - 2 * sum(wj^3 / kj) / W
+
+    df_CHE_satt <- (a * b - c^2) / (a * y^2 + b * x^2 - 2 * c * x * y)
+
 
     if ("Model" %in% var_df) {
 
-      # Changed df_CHE_satt from df. Why should it be df_CHE_satt there?
-      power_CHE_naive <- power_t(df = J - 1, lambda = lambda, alpha = alpha, df_test = J - 1)
+      # Why should it be df_CHE_satt here and not J-1?
+      power_CHE_naive <- power_t(df = df_CHE_satt, lambda = lambda, alpha = alpha, df_test = J - 1)
 
       res1 <- tibble(
         var_b = var_b,
@@ -346,15 +355,6 @@ power_CHE_engine <-
     }
 
     if ("Satt" %in% var_df) {
-
-      x <- sum(wj^2) / W
-      y <- sum(wj^2 / kj) / W
-
-      a <- x^2 + W * x - 2 * sum(wj^3) / W
-      b <- y^2 + sum(wj^2 / kj^2) + sum((kj - 1) / (omega2 + (1 - rho) * sigma2j)^2) - 2 * sum(wj^3 / kj^2) / W
-      c <- x * y + W * y - 2 * sum(wj^3 / kj) / W
-
-      df_CHE_satt <- (a * b - c^2) / (a * y^2 + b * x^2 - 2 * c * x * y)
 
       power_CHE_satt <- power_t(df = df_CHE_satt, lambda = lambda, alpha = alpha)
 

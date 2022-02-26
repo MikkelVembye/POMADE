@@ -11,7 +11,7 @@ power_plot(
   beta,
   rho,
   k_mean = NULL,
-  model = "CHE",
+  model = c("CHE", "MLMA"),
   var_df = "RVE",
   N_mean = NULL,
   pilot_data_kjN = NULL,

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of the POMADE package is to provide approximation and plot functions for conducting power analysis of the correlated-hierarchical effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects (CE) models for meta-analysis of dependent effect sizes developed by Vembye, Pustejovsky, & Pigott (2022). These approximations replace Hedges & Pigott's (2001) previous power approximation based on the assumption of independence between effect sizes which has been shown to work inadequately to predict power for models that handle dependent effect sizes.
+The goal of the POMADE package is to provide approximation and plot functions for conducting power analysis of the correlated-hierarchical effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects (CE) models for meta-analysis of dependent effect sizes developed and tested by Vembye, Pustejovsky, & Pigott (2022). These approximations replace Hedges & Pigott's (2001) previous power approximation based on the assumption of independence between effect sizes which has been shown to work inadequately to predict power for models that handle dependent effect sizes.
 
 ## Installation
 
@@ -76,7 +76,7 @@ power_CHE_RVE_plot <-
   power_plot(
     J = seq(50, 100, 10), 
     tau2 = c(0, 0.05, 0.1, 0.2)^2,
-    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    omega2 = c(0.05, 0.15, 0.25, 0.35)^2,
     beta = 0.1,
     rho = c(.2, .4, .7, .9),
     model = "CHE",  # Default
@@ -100,7 +100,7 @@ power_CHE_RVE_color_plot <-
   power_plot(
     J = seq(50, 100, 10), 
     tau2 = c(0, 0.05, 0.1, 0.2)^2,
-    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    omega2 = c(0.05, 0.15, 0.25, 0.35)^2,
     beta = 0.1,
     rho = c(.2, .4, .7, .9),
     model = "CHE",

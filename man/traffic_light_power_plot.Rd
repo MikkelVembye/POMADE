@@ -19,6 +19,13 @@ Returns a traffic light power plot
 Traffic light coloring of the strips of a \code{power_plot}
 }
 \examples{
+
+library(dplyr)
+
+coteach_dat <- VWB22_pilot
+dat_kjsigma2j <- dplyr::select(coteach_dat, kj, sigma2j = vg_ms_mean)
+
+
 power_CHE_RVE_color_plot <-
   power_plot(
     J = seq(50, 100, 10),
@@ -28,7 +35,7 @@ power_CHE_RVE_color_plot <-
     rho = c(.2, .4, .7, .9),
     model = "CHE",
     var_df = "RVE",
-    k_mean = 5, N_mean = 100,
+    pilot_data_kjsigma2 = dat_kjsigma2j,
     expected_studies = c(66, 86),
     color = TRUE,
     color_brewer = TRUE,

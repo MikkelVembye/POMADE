@@ -43,8 +43,6 @@ power_CHE_RVE_color_plot <-
     seed = 10052510
   )
 
-power_CHE_RVE_color_plot
-
 traffic_light_power_plot(
   power_plot = power_CHE_RVE_color_plot,
   assumptions = c("unlikely", "likely", "expected", "likely",

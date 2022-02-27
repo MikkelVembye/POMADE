@@ -2,6 +2,7 @@
 
 export(cluster_bias_adjustment)
 export(effective_sample_sizes)
+export(power_CE)
 export(power_CHE)
 export(power_MLMA)
 export(power_plot)

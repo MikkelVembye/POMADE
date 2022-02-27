@@ -51,7 +51,7 @@
 #' coteach_dat <- VWB22_pilot
 #' dat_kjsigma2j <- dplyr::select(coteach_dat, kj, sigma2j = vg_ms_mean)
 #'
-#' # Color format
+#' # CHE-RVE model
 #'
 #' power_CHE_RVE_color_plot <-
 #'   power_plot(
@@ -72,6 +72,48 @@
 #'
 #' power_CHE_RVE_color_plot
 #'
+#' # CE-RVE model
+#'
+#' power_CE_RVE_color_plot <-
+#'   power_plot(
+#'     J = seq(50, 100, 10),
+#'     tau2 = c(0, 0.05, 0.1, 0.2)^2,
+#'     omega2 = c(0.05, 0.15, 0.25, .35)^2,
+#'     beta = 0.1,
+#'     rho = c(.2, .4, .7, .9),
+#'     model = "CE",
+#'     var_df = "RVE",
+#'     pilot_data_kjsigma2 = dat_kjsigma2j,
+#'     expected_studies = c(66, 86),
+#'     color = TRUE,
+#'     color_brewer = TRUE,
+#'     iterations = 1,
+#'     seed = 10052510
+#'   )
+#'
+#' power_CE_RVE_color_plot
+#'
+#' # MLMA-RVE model
+#'
+#' power_MLMA_RVE_color_plot <-
+#'   power_plot(
+#'     J = seq(50, 100, 10),
+#'     tau2 = c(0, 0.05, 0.1, 0.2)^2,
+#'     omega2 = c(0.05, 0.15, 0.25, .35)^2,
+#'     beta = 0.1,
+#'     rho = c(.2, .4, .7, .9),
+#'     model = "MLMA",
+#'     var_df = "RVE",
+#'     pilot_data_kjsigma2 = dat_kjsigma2j,
+#'     expected_studies = c(66, 86),
+#'     color = TRUE,
+#'     color_brewer = TRUE,
+#'     iterations = 1,
+#'     seed = 10052510
+#'   )
+#'
+#' power_MLMA_RVE_color_plot
+#'
 #'
 #' @importFrom magrittr %>%
 #' @importFrom stats df cor
@@ -82,7 +124,7 @@
 power_plot <- function(
   # Approximation features
   J, tau2, omega2, beta, rho, k_mean = NULL,
-  model = c("CHE", "MLMA"),
+  model = c("CHE", "MLMA", "CE"),
   var_df = "RVE",
   # Sample size methods
   N_mean = NULL,
@@ -136,7 +178,83 @@ power_plot <- function(
   if (length(var_df) > 1) stop("Specify one model, only")
   if (is.null(seed)) stop("Set seed to ensure reproducibility")
 
-  # ADD CE AND MLMA PLUS EMPIRICAL AND SIMULATED SAMPLE SIZES AND BALANCED SAMPLE SIZES AND SIGMA2JS
+  # ADD  SIMULATED SAMPLE SIZES (AND SIGMA2JS?)
+
+  if ("CE" %in% model){
+
+    if (!is.null(k_mean) & !is.null(N_mean)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CE,
+                            var_df = var_df,
+                            sample_size_method = "balanced",
+                            k_mean = k_mean,
+                            N_mean = N_mean,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
+    if (!is.null(pilot_data_kjN)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CE,
+                            var_df = var_df,
+                            sample_size_method = "empirical",
+                            pilot_data_kjN = pilot_data_kjN,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
+    # Approximation based on sigma2j methods
+
+    if (!is.null(k_mean) & !is.null(sigma2_mean)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CE,
+                            var_df = var_df,
+                            sigma2_method = "balanced",
+                            k_mean = k_mean,
+                            sigma2_mean = sigma2_mean,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
+    if (!is.null(pilot_data_kjsigma2)){
+
+      dat <-
+        params %>%
+        mutate(
+          res = purrr::pmap(.l = params,
+                            .f = power_CE,
+                            var_df = var_df,
+                            sigma2_method = "empirical",
+                            pilot_data_kjsigma2 = pilot_data_kjsigma2,
+                            alpha = alpha,
+                            iterations = iterations,
+                            seed = seed)
+        ) %>%
+        tidyr::unnest(res)
+    }
+
+  }
 
   if ("MLMA" %in% model){
 

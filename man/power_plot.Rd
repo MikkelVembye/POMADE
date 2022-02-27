@@ -11,7 +11,7 @@ power_plot(
   beta,
   rho,
   k_mean = NULL,
-  model = c("CHE", "MLMA"),
+  model = c("CHE", "MLMA", "CE"),
   var_df = "RVE",
   N_mean = NULL,
   pilot_data_kjN = NULL,
@@ -121,7 +121,7 @@ library(dplyr)
 coteach_dat <- VWB22_pilot
 dat_kjsigma2j <- dplyr::select(coteach_dat, kj, sigma2j = vg_ms_mean)
 
-# Color format
+# CHE-RVE model
 
 power_CHE_RVE_color_plot <-
   power_plot(
@@ -141,6 +141,48 @@ power_CHE_RVE_color_plot <-
   )
 
 power_CHE_RVE_color_plot
+
+# CE-RVE model
+
+power_CE_RVE_color_plot <-
+  power_plot(
+    J = seq(50, 100, 10),
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "CE",
+    var_df = "RVE",
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    color = TRUE,
+    color_brewer = TRUE,
+    iterations = 1,
+    seed = 10052510
+  )
+
+power_CE_RVE_color_plot
+
+# MLMA-RVE model
+
+power_MLMA_RVE_color_plot <-
+  power_plot(
+    J = seq(50, 100, 10),
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, .35)^2,
+    beta = 0.1,
+    rho = c(.2, .4, .7, .9),
+    model = "MLMA",
+    var_df = "RVE",
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    expected_studies = c(66, 86),
+    color = TRUE,
+    color_brewer = TRUE,
+    iterations = 1,
+    seed = 10052510
+  )
+
+power_MLMA_RVE_color_plot
 
 
 }

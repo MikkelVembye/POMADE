@@ -308,10 +308,17 @@ power_MLMA_engine <-
 
       vectorof <- "sigma2js"
 
-      if (length(sigma2js) != J) sigma2j <- rep(sigma2js, length.out = J)
-      if (length(kj) != J) kj <- rep(kj, length.out = J)
+      if (length(sigma2js) != J){
 
-      sigma2j <- sigma2js
+        sigma2j <- rep(sigma2js, length.out = J)
+
+      } else if (length(sigma2js) == J) {
+
+        sigma2j <- sigma2js
+
+      }
+
+      if (length(kj) != J) kj <- rep(kj, length.out = J)
 
     }
 

@@ -30,6 +30,8 @@ devtools::install_github("MikkelVembye/POMADE")
 
 ## Example
 
+### Power for finding smallest effect size of pratical/substantial concern
+
 Example of how to approximate power for the CHE-RVE model (Pustejovsky &
 Tipton, 2021)
 

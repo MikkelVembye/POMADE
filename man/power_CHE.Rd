@@ -52,11 +52,11 @@ power_CHE(
 
 \item{sigma2_mean}{Average sampling variance}
 
-\item{pilot_data_kjsigma2}{Pilot data containing kjs and sigma2js}
+\item{pilot_data_kjsigma2}{Pilot data containing vectors of kjs and sigma2js}
 
 \item{alpha}{statistical significance level}
 
-\item{iterations}{Number of iterations}
+\item{iterations}{Number of iterations (default = 100)}
 
 \item{average_power}{Average power across the x iterated power estimations}
 

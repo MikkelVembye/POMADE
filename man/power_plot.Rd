@@ -71,7 +71,7 @@ estimates.}
 \item{alpha}{Nominal level of statistical significance}
 
 \item{iterations}{Number of times power should be calculated when based on
-either simulated or empirical values for kj and sample sizes or sampling variance estimates}
+either simulated or empirical values for kjs and sample sizes or sampling variance estimates}
 
 \item{power_min}{Minimum acceptable power level}
 

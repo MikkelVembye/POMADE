@@ -2,7 +2,7 @@
 % Please edit documentation in R/MDES_CHE.R
 \name{MDES_CHE}
 \alias{MDES_CHE}
-\title{Minimum Detectable Effect Sizes (MDES) for the CHE model}
+\title{Minimum Detectable Effect Size (MDES) for the CHE model}
 \usage{
 MDES_CHE(
   J,
@@ -57,7 +57,7 @@ the preset significant and power levels, the minimum detectable effect size unde
 data and model conditions, and the number of iterations
 }
 \description{
-Minimum Detectable Effect Sizes (MDES) for the CHE model
+Minimum Detectable Effect Size (MDES) for the CHE model
 }
 \examples{
 library(POMADE)

@@ -89,7 +89,52 @@ power_CHE_RVE_plot
 
 <img src="man/figures/README-example2-1.png" width="100%" />
 
-Color plot
+### Minimum Detectable Effect Size (MDES)
+
+It is, furthermore, possible to obtained the minimum detectable effect
+size (MDES) with a preset level of significance and power. This can, for
+example, be obtained from
+
+``` r
+MDES_CHE(
+ J = 60,
+ var_df = "RVE",
+ tau2 = 0.2^2,
+ omega2 = 0.1^2,
+ rho = 0.7,
+ pilot_data_kjsigma2 = dat_kjsigma2j,
+ seed = 08042022
+)
+#> # A tibble: 1 x 6
+#>   samp_method       method  alpha target_power  MDES iterations
+#>   <chr>             <chr>   <dbl>        <dbl> <dbl>      <dbl>
+#> 1 empirical sigma2s CHE-RVE  0.05          0.8 0.128        100
+```
+
+and plotted across plausible scenarios via
+
+``` r
+# As default the function set alpha = .05 and power = .8
+
+MDES_CHE_plot <- 
+  MDES_plot(
+    
+    J = seq(50, 100, 10),
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, 0.35)^2,
+    rho = c(.2, .4, .7, .9),
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    iterations = 1, # Default = 100
+    seed = 10052510,
+    expected_studies = c(66, 86)
+)
+
+MDES_CHE_plot
+```
+
+<img src="man/figures/README-example3-1.png" width="100%" />
+
+### Color plot
 
 ``` r
 power_CHE_RVE_color_plot <- 
@@ -112,7 +157,9 @@ power_CHE_RVE_color_plot <-
 power_CHE_RVE_color_plot 
 ```
 
-<img src="man/figures/README-example3-1.png" width="100%" />
+<img src="man/figures/README-example4-1.png" width="100%" />
+
+### Traffic light power plot
 
 Traffic light power plot aiming to flesh out the likelihood of the given
 assumptions made by the reviewers
@@ -128,7 +175,7 @@ traffic_light_power_plot(
 )
 ```
 
-<img src="man/figures/README-example4-1.png" width="100%" />
+<img src="man/figures/README-example5-1.png" width="100%" />
 
 # Acknowledgments
 

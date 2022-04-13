@@ -21,8 +21,8 @@
 #' MDES_CHE(
 #'  J = 60,
 #'  var_df = "RVE",
-#'  tau2 = 0,
-#'  omega2 = 0,
+#'  tau2 = 0.2^2,
+#'  omega2 = 0.1^2,
 #'  rho = 0.7,
 #'  pilot_data_kjsigma2 = dat_kjsigma2j,
 #'  seed = 08042022

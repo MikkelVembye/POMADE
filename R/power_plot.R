@@ -21,7 +21,7 @@
 #' estimates.
 #' @param alpha Nominal level of statistical significance
 #' @param iterations Number of times power should be calculated when based on
-#' either simulated or empirical values for kj and sample sizes or sampling variance estimates
+#' either simulated or empirical values for kjs and sample sizes or sampling variance estimates
 #' @param power_min Minimum acceptable power level
 #' @param expected_studies Range in which the expected number of studies
 #' to be found is present.

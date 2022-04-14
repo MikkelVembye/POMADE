@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/POMADE_hex.png" align="right" alt="" width="180" />
+<img src="man/figures/POMADE_hex2.png" align="right" alt="" width="180" />
 
 # POMADE
 

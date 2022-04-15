@@ -91,10 +91,72 @@ power_CHE_RVE_plot
 
 <img src="man/figures/README-example2-1.png" width="100%" />
 
+### Number of studies needed to obtained the smallest ES of interest
+
+The power approximation formulas can, furthermore, be used to understand
+how many studies are needed to find a given effect size considered to be
+the smallest of practical concern. This can be conducted via
+
+``` r
+find_J_CHE(
+  mu = 0.1,
+  tau2 = 0.1^2,
+  omega2 = 0.25^2,
+  rho = 0.7,
+  pilot_data_kjsigma2 = dat_kjsigma2j,
+  seed = 10052510
+)
+#> # A tibble: 1 x 6
+#>   samp_method       method  alpha target_power J_needed iterations
+#>   <chr>             <chr>   <dbl>        <dbl>    <dbl>      <dbl>
+#> 1 empirical sigma2s CHE-RVE  0.05          0.8       84        100
+```
+
+and plotted via
+
+``` r
+J_plot1 <- find_J_plot(
+
+  mu = 0.1,
+  tau2 = c(0, 0.05, 0.1, 0.2)^2,
+  omega2 = c(0.05, 0.15, 0.25, 0.35)^2,
+  rho = c(.2, .4, .7, .9),
+  pilot_data_kjsigma2 = dat_kjsigma2j,
+  iterations = 1,
+  seed = 10052510
+
+)
+
+J_plot1
+```
+
+<img src="man/figures/README-example3-1.png" width="100%" />
+
+Alternatively, reviewers investigate how the number of studies needed
+varies across the assumed value of the smallest effect effect of
+practical concern.
+
+``` r
+J_plot2 <- 
+  find_J_plot(
+    
+    mu = c(0.1, 0.15, 0.2),
+    tau2 = c(0, 0.05, 0.1, 0.2)^2,
+    omega2 = c(0.05, 0.15, 0.25, 0.35)^2,
+    rho = c(.2, .4, .7, .9),
+    pilot_data_kjsigma2 = dat_kjsigma2j,
+    iterations = 1,
+    seed = 10052510
+    
+  ); J_plot2
+```
+
+<img src="man/figures/README-example4-1.png" width="100%" />
+
 ### Minimum Detectable Effect Size (MDES)
 
-It is, furthermore, possible to obtained the minimum detectable effect
-size (MDES) with a preset level of significance and power. This can, for
+It is, moreover, possible to obtained the minimum detectable effect size
+(MDES) with a preset level of significance and power. This can, for
 example, be obtained from
 
 ``` r
@@ -134,7 +196,7 @@ MDES_CHE_plot <-
 MDES_CHE_plot
 ```
 
-<img src="man/figures/README-example3-1.png" width="100%" />
+<img src="man/figures/README-example5-1.png" width="100%" />
 
 ### Color plot
 
@@ -159,7 +221,7 @@ power_CHE_RVE_color_plot <-
 power_CHE_RVE_color_plot 
 ```
 
-<img src="man/figures/README-example4-1.png" width="100%" />
+<img src="man/figures/README-example6-1.png" width="100%" />
 
 ### Traffic light power plot
 
@@ -177,7 +239,7 @@ traffic_light_power_plot(
 )
 ```
 
-<img src="man/figures/README-example5-1.png" width="100%" />
+<img src="man/figures/README-example7-1.png" width="100%" />
 
 # Acknowledgments
 

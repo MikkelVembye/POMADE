@@ -42,5 +42,5 @@ n_ES_empirical <- function(dat, J) {
 utils::globalVariables(
   c("samp_method", "method", "vectorof", "var_b", "es",
     "res", "tau", "omega", "power_sig05", "Power", "label", "MDES", "pilot_dat",
-    "sigma2_method", "mdes_data")
+    "sigma2_method", "mdes_data", "J_needed", "tau_name")
 )

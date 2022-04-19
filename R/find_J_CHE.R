@@ -77,6 +77,7 @@ find_J_CHE <- function(
   res <- tibble(
     samp_method = paste(sigma2_method, "sigma2s"),
     method = paste("CHE", var_df, sep = "-"),
+    es = mu,
     alpha = alpha,
     target_power = target_power,
     J_needed = J_needed,

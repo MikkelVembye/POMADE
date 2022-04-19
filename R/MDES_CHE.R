@@ -61,6 +61,7 @@ MDES_CHE <- function(
   res <- tibble(
     samp_method = paste(sigma2_method, "sigma2s"),
     method = paste("CHE", var_df, sep = "-"),
+    N_studies = J,
     alpha = alpha,
     target_power = target_power,
     MDES = stats::uniroot(f, interval = interval, extendInt = extendInt)$root,

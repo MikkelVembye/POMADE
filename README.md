@@ -106,10 +106,10 @@ find_J_CHE(
   pilot_data_kjsigma2 = dat_kjsigma2j,
   seed = 10052510
 )
-#> # A tibble: 1 x 6
-#>   samp_method       method  alpha target_power J_needed iterations
-#>   <chr>             <chr>   <dbl>        <dbl>    <dbl>      <dbl>
-#> 1 empirical sigma2s CHE-RVE  0.05          0.8       84        100
+#> # A tibble: 1 x 7
+#>   samp_method       method     es alpha target_power J_needed iterations
+#>   <chr>             <chr>   <dbl> <dbl>        <dbl>    <dbl>      <dbl>
+#> 1 empirical sigma2s CHE-RVE   0.1  0.05          0.8       84        100
 ```
 
 and plotted via
@@ -161,18 +161,18 @@ example, be obtained from
 
 ``` r
 MDES_CHE(
- J = 60,
+ J = 76,
  var_df = "RVE",
- tau2 = 0.2^2,
- omega2 = 0.1^2,
+ tau2 = 0.1^2,
+ omega2 = 0.25^2,
  rho = 0.7,
  pilot_data_kjsigma2 = dat_kjsigma2j,
  seed = 08042022
 )
-#> # A tibble: 1 x 6
-#>   samp_method       method  alpha target_power  MDES iterations
-#>   <chr>             <chr>   <dbl>        <dbl> <dbl>      <dbl>
-#> 1 empirical sigma2s CHE-RVE  0.05          0.8 0.128        100
+#> # A tibble: 1 x 7
+#>   samp_method       method  N_studies alpha target_power  MDES iterations
+#>   <chr>             <chr>       <dbl> <dbl>        <dbl> <dbl>      <dbl>
+#> 1 empirical sigma2s CHE-RVE        76  0.05          0.8 0.106        100
 ```
 
 and plotted across plausible scenarios via

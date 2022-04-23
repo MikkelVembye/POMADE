@@ -223,7 +223,7 @@ find_J_plot <-
 
       } else{
 
-        xlab <- "ES level SD"
+        xlab <- "Effect size level SD"
 
       }
 

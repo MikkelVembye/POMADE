@@ -30,9 +30,6 @@
 #'
 #' balanced_CE_RVE_power
 #'
-#'
-
-# TEST
 
 power_CE <-
   function(J, tau2, omega2, beta, rho,

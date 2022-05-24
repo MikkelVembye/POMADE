@@ -30,7 +30,7 @@
 #'
 #' balanced_CE_RVE_power
 #'
-#'Test
+
 
 
 power_CE <-

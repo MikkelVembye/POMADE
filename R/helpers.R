@@ -37,6 +37,40 @@ n_ES_empirical <- function(dat, J) {
   dat[sample(NROW(dat), size = J, replace = TRUE),]
 }
 
+# Helper function described in supplementary material of Vembye, Pustejovsky, & Pigott (2022)
+
+CHE_KL <- function(to, tau, omega, phi, rho, k_j, sigmasq_j) {
+
+  trs_j <- to[1]^2 + rho * sigmasq_j
+  ors_j <- to[2]^2 + (1 - rho) * sigmasq_j
+  w_j <- k_j / (k_j * trs_j + ors_j)
+  W <- sum(w_j)
+
+  tausq_ps_j <- tau^2 + phi * sigmasq_j
+  omegasq_ps_j <- omega^2 + (1 - phi) * sigmasq_j
+  wj_star <- k_j / (k_j * tausq_ps_j + omegasq_ps_j)
+
+  A1 <- sum((k_j - 1) * omegasq_ps_j / ors_j)
+  A2 <- sum(w_j / wj_star)
+  A3 <- sum(w_j^2 / wj_star) / W
+  B <- sum((k_j - 1) * log(ors_j) - log(w_j / k_j))
+  C <- log(W)
+
+  A1 + A2 - A3 + B + C
+
+}
+
+
+find_tau_omega <- function(tau, omega, phi, rho, k_j, sigmasq_j) {
+
+  res <- stats::optim(par = c(tau + 0.001, omega + 0.001), fn = CHE_KL,
+                      tau = tau, omega = omega, phi = phi, rho = rho,
+                      k_j = k_j, sigmasq_j = sigmasq_j,
+                      lower = c(0,0), method = "L-BFGS-B")
+
+  data.frame(tau_tilde = res$par[1], omega_tilde = res$par[2])
+}
+
 
 # Manage dplyr behavior
 utils::globalVariables(

@@ -1,9 +1,24 @@
 # Test
 
-#power_MADE <-
-#  function(...){
-#
-#  }
+power_MADE <-
+  function(
+  J, tau2, omega2, beta, rho,
+  sigma2_dist = NULL,
+  n_ES_dist = NULL,
+  model = "CHE",
+  var_df = "RVE",
+  alpha = 0.05,
+  d = 0
+  ){
+
+    res <- tibble()
+
+    kjs <- list()
+    sigma2js <- list()
+
+
+
+}
 
 
 power_MADE_engine <-
@@ -60,7 +75,7 @@ power_MADE_engine <-
           var_b = var_b,
           df = J - 1,
           power_CHE_model,
-          method = "CHE-Model"
+          model = "CHE-Model"
         ) %>%
           bind_rows(res, .)
 
@@ -75,7 +90,7 @@ power_MADE_engine <-
           var_b = var_b,
           df = round(df_CHE_satt, 1),
           power_CHE_satt,
-          method = "CHE-Model+Satt"
+          model = "CHE-Model+Satt"
         ) %>%
           bind_rows(res, .)
 
@@ -94,7 +109,7 @@ power_MADE_engine <-
             var_b,
             df = df_CHE_app,
             power_CHE_RVE,
-            method = "CHE-RVE"
+            model = "CHE-RVE"
           ) %>%
           bind_rows(res, .)
 
@@ -149,7 +164,7 @@ power_MADE_engine <-
           var_b = S_t,
           df = J - 1,
           power_MLMA_model,
-          method = "MLMA-Model"
+          model = "MLMA-Model"
         ) %>%
           bind_rows(res, .)
 
@@ -164,7 +179,7 @@ power_MADE_engine <-
           var_b = S_t,
           df = df_MLMA_satt,
           power_MLMA_satt,
-          method = "MLMA-Model+Satt"
+          model = "MLMA-Model+Satt"
         ) %>%
           bind_rows(res, .)
 
@@ -184,7 +199,7 @@ power_MADE_engine <-
             var_b = S_t,
             df = df_MLMA_app,
             power_MLMA_RVE,
-            method = "MLMA-RVE"
+            model = "MLMA-RVE"
           ) %>%
             bind_rows(res, .)
 
@@ -220,7 +235,7 @@ power_MADE_engine <-
           var_b = S_dd,
           df = df_CE_app,
           power_CE,
-          method = "CE-RVE"
+          model = "CE-RVE"
         ) %>%
           bind_rows(res, .)
 
@@ -231,7 +246,118 @@ power_MADE_engine <-
   }
 
 
+power_MADE_engine2 <-
+  function(
+    J, tau2, omega2, beta, rho,
 
+    sigma2_dist = NULL,
+    n_ES_dist = NULL,
+
+    model = "CHE",
+    var_df = "RVE",
+    alpha = 0.05,
+    d = 0,
+    iterations = 5,
+    average_power = TRUE,
+    seed = NULL
+  ){
+
+
+  ###################################
+  # Sampling variance estimates
+  ###################################
+
+  sigma2js <- list()
+
+  # Assuming balanced sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) == 1){
+
+    samp_method_sigma2 <- "balanced"
+
+    sigma2js <- c(sigma2js, sigma2_dist)
+
+  }
+
+  # Stylized distribution of sampling variance estimates
+  if (is.function(sigma2_dist)){
+
+    samp_method_sigma2 <- "stylized"
+
+    stylized_sigma2 <- purrr::rerun(iterations, sigma2_dist(J))
+    sigma2js <- c(sigma2js, purrr::map(stylized_sigma2, ~ .x))
+
+  }
+
+  # Empirical distribution of sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1){
+
+    samp_method_sigma2 <- "empirical"
+
+    pilot_sigma2 <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
+    sigma2js <- c(sigma2js, purrr::map(pilot_sigma2, ~ .x))
+
+  }
+
+  ###################################
+  # Number of effect size per study
+  ###################################
+
+  kjs <- list()
+
+  # Assuming that all studies yields the same number of effect sizes
+  if (is.numeric(n_ES_dist) & length(n_ES_dist) == 1){
+
+    samp_method_kj <- "balanced"
+
+    kjs <- c(kjs, n_ES_dist)
+
+  }
+
+  # Stylized distribution of the number of effect sizes per study
+  if (is.function(n_ES_dist)){
+
+    samp_method_kj <- "stylized"
+
+    stylized_kjs <- purrr::rerun(iterations, n_ES_dist(J))
+    kjs <- c(kjs, purrr::map(stylized_kjs, ~ .x))
+
+  }
+
+  # Empirical distribution of the number of effect sizes per study
+  if (is.numeric(n_ES_dist) & length(n_ES_dist) > 1){
+
+    samp_method_kj <- "empirical"
+
+    pilot_kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
+    kjs <- c(kjs, purrr::map(pilot_kjs, ~ .x))
+
+  }
+
+  # Generate results across iterations
+
+  res_raw <- purrr::map2_dfr(
+    .x = sigma2js, .y = kjs, .f = power_MADE_engine,
+    J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
+    model = model, var_df, alpha = alpha, d = d, .id = "iteration"
+  )
+
+  res_raw <-
+    res_raw |>
+    mutate(
+      samp_method_sigma2 = samp_method_sigma2,
+      samp_method_kj = samp_method_kj,
+      J = J,
+      tau2 = tau2,
+      omega2 = omega2,
+      beta = beta,
+      rho = rho,
+      alpha = alpha,
+      d = d
+    )
+
+  res_raw
+
+}
 
 
 

@@ -1,4 +1,4 @@
-1. Sample size, sigma2j, and k_j arguments. For power_CHE() and related functions, consider dropping the arguments related to sample size (or handling the conversion from sample size to sampling variance in a separate set of functions). This would a) simplify the functions slightly and b) allow the functions to be applied for other effect size metrics besides SMDs.
+1. Sample size, sigma2j, and k_j arguments. For power_CHE() and related functions, consider dropping the arguments related to sample size (or handling the conversion from sample size to sampling variance in a separate set of functions). This would a) simplify the functions slightly and b) allow the functions to be applied for other effect size metrics besides SMDs. DONE
 
 2. Also consider simplifying the inputs for these quantities, using the following argument structure:
 

@@ -18,8 +18,8 @@ power_MADE <-
   ) {
 
     model <- match.arg(model, c("CHE","MLMA","CE"), several.ok = TRUE)
-    var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok =)
-    if ("CE" %in% model & ! "RVE" %in% var_df) stop("CE model is only available for var_df = 'RVE'.")
+    var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok = TRUE)
+    if ("CE" %in% model & !("RVE" %in% var_df)) stop("CE model is only available for var_df = 'RVE'.")
 
     design_factors <-
       list(
@@ -363,8 +363,8 @@ power_MADE_engine2 <-
     samp_method_kj <- "empirical_combi"
 
     pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
-
-    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(NROW(dat), size = J, replace = TRUE),])
+    id <- seq_along(sigma2_dist)
+    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J, replace = TRUE),])
     sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
     kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
 

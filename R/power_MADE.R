@@ -37,7 +37,7 @@ power_MADE <-
       params %>%
       mutate(
         res = purrr::pmap(.l = params,
-                          .f = power_MADE_engine2,
+                          .f = power_MADE_engine,
                           alpha = alpha,
                           model = model,
                           var_df = var_df,
@@ -55,6 +55,125 @@ power_MADE <-
 
 
 power_MADE_engine <-
+  function(
+    J, tau2, omega2, beta, rho,
+    alpha = 0.05,
+    d = 0,
+
+    model = "CHE",
+    var_df = "RVE",
+
+    sigma2_dist = NULL,
+    n_ES_dist = NULL,
+
+    iterations = 5,
+    average_power = TRUE,
+    seed = NULL
+  ){
+
+  if (!is.null(seed)) set.seed(seed)
+
+  ###################################
+  # Sampling variance estimates
+  ###################################
+
+  # Assuming balanced sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
+
+    samp_method_sigma2 <- "balanced"
+    sigma2js <- sigma2_dist
+
+  }
+
+  # Stylized distribution of sampling variance estimates
+  if (is.function(sigma2_dist)) {
+
+    samp_method_sigma2 <- "stylized"
+    sigma2js <- purrr::rerun(iterations, sigma2_dist(J))
+
+  }
+
+  # Empirical distribution of sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
+
+    samp_method_sigma2 <- "empirical"
+    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
+
+  }
+
+  ###################################
+  # Number of effect size per study
+  ###################################
+
+  if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
+
+    # Assuming that all studies yields the same number of effect sizes
+    samp_method_kj <- "balanced"
+    kjs <- n_ES_dist
+
+  } else if (is.function(n_ES_dist)) {
+
+    # Stylized distribution of the number of effect sizes per study
+    samp_method_kj <- "stylized"
+    kjs <- purrr::rerun(iterations, n_ES_dist(J))
+
+  } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
+
+    # Empirical distribution of the number of effect sizes per study
+    samp_method_kj <- "empirical"
+    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
+
+  } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
+
+    # If both sigma2js and kjs are empirically obtained
+
+    samp_method_sigma2 <- "empirical_combi"
+    samp_method_kj <- "empirical_combi"
+
+    pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
+    id <- seq_along(sigma2_dist)
+    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J, replace = TRUE),])
+    sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
+    kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
+
+  }
+
+
+  # Generate results across iterations
+
+  res <-
+    purrr::map2_dfr(
+      .x = sigma2js, .y = kjs, .f = power_MADE_single,
+      J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
+      model = model, var_df, alpha = alpha, d = d, .id = "iteration"
+    ) |>
+    mutate(
+      samp_method_sigma2 = samp_method_sigma2,
+      samp_method_kj = samp_method_kj,
+    )
+
+  if (average_power) {
+
+    res <-
+      res |>
+      group_by(alpha, model, samp_method_sigma2, samp_method_kj) |>
+      summarise(
+        across(c(var_b, df, power), mean),
+        iterations = n(),
+        .groups = "drop"
+      ) %>%
+      relocate(model:samp_method_kj, .after = iterations)
+
+  }
+
+  return(res)
+
+}
+
+
+
+
+power_MADE_single <-
   function(
     J, tau2, omega2, beta, rho,
     sigma2j,
@@ -240,7 +359,7 @@ power_MADE_engine <-
             power = power_MLMA_RVE,
             model = "MLMA-RVE"
           ) %>%
-            bind_rows(res, .)
+          bind_rows(res, .)
 
       }
 
@@ -277,132 +396,13 @@ power_MADE_engine <-
           power = power_CE,
           model = "CE-RVE"
         ) %>%
-          bind_rows(res, .)
+        bind_rows(res, .)
 
     }
 
     res
 
   }
-
-
-power_MADE_engine2 <-
-  function(
-    J, tau2, omega2, beta, rho,
-    alpha = 0.05,
-    d = 0,
-
-    model = "CHE",
-    var_df = "RVE",
-
-    sigma2_dist = NULL,
-    n_ES_dist = NULL,
-
-    iterations = 5,
-    average_power = TRUE,
-    seed = NULL
-  ){
-
-  if (!is.null(seed)) set.seed(seed)
-
-  ###################################
-  # Sampling variance estimates
-  ###################################
-
-  # Assuming balanced sampling variance estimates across studies
-  if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
-
-    samp_method_sigma2 <- "balanced"
-    sigma2js <- sigma2_dist
-
-  }
-
-  # Stylized distribution of sampling variance estimates
-  if (is.function(sigma2_dist)) {
-
-    samp_method_sigma2 <- "stylized"
-    sigma2js <- purrr::rerun(iterations, sigma2_dist(J))
-
-  }
-
-  # Empirical distribution of sampling variance estimates across studies
-  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
-
-    samp_method_sigma2 <- "empirical"
-    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
-
-  }
-
-  ###################################
-  # Number of effect size per study
-  ###################################
-
-  if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
-
-    # Assuming that all studies yields the same number of effect sizes
-    samp_method_kj <- "balanced"
-    kjs <- n_ES_dist
-
-  } else if (is.function(n_ES_dist)) {
-
-    # Stylized distribution of the number of effect sizes per study
-    samp_method_kj <- "stylized"
-    kjs <- purrr::rerun(iterations, n_ES_dist(J))
-
-  } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
-
-    # Empirical distribution of the number of effect sizes per study
-    samp_method_kj <- "empirical"
-    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
-
-  } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
-
-    # If both sigma2js and kjs are empirically obtained
-
-    samp_method_sigma2 <- "empirical_combi"
-    samp_method_kj <- "empirical_combi"
-
-    pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
-    id <- seq_along(sigma2_dist)
-    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J, replace = TRUE),])
-    sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
-    kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
-
-  }
-
-
-  # Generate results across iterations
-
-  res <-
-    purrr::map2_dfr(
-      .x = sigma2js, .y = kjs, .f = power_MADE_engine,
-      J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
-      model = model, var_df, alpha = alpha, d = d, .id = "iteration"
-    ) |>
-    mutate(
-      samp_method_sigma2 = samp_method_sigma2,
-      samp_method_kj = samp_method_kj,
-    )
-
-  if (average_power) {
-
-    res <-
-      res |>
-      group_by(alpha, model, samp_method_sigma2, samp_method_kj) |>
-      summarise(
-        across(c(var_b, df, power), mean),
-        iterations = n(),
-        .groups = "drop"
-      ) %>%
-      relocate(model:samp_method_kj, .after = iterations)
-
-  }
-
-  return(res)
-
-}
-
-
 
 
 

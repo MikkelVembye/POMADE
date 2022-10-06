@@ -15,7 +15,11 @@ power_MADE <-
     iterations = 100,
     average_power = TRUE,
     seed = NULL
-  ){
+  ) {
+
+    model <- match.arg(model, c("CHE","MLMA","CE"), several.ok = TRUE)
+    var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok =)
+    if ("CE" %in% model & ! "RVE" %in% var_df) stop("CE model is only available for var_df = 'RVE'.")
 
     design_factors <-
       list(
@@ -24,9 +28,7 @@ power_MADE <-
         omega2 = omega2,
         beta = beta,
         rho = rho,
-        alpha = alpha,
         d = d
-
       )
 
     params <- purrr::cross_df(design_factors)
@@ -36,6 +38,7 @@ power_MADE <-
       mutate(
         res = purrr::pmap(.l = params,
                           .f = power_MADE_engine2,
+                          alpha = alpha,
                           model = model,
                           var_df = var_df,
                           sigma2_dist = sigma2_dist,
@@ -45,10 +48,6 @@ power_MADE <-
                           seed = seed)
       ) %>%
       tidyr::unnest(res)
-
-    if (length(sigma2_dist) == 1 & length(n_ES_dist) == 1 & is.numeric(sigma2_dist) & is.numeric(n_ES_dist)){
-      dat <- select(dat, -iterations)
-    }
 
     dat
 
@@ -65,7 +64,7 @@ power_MADE_engine <-
     alpha,
     d
 
-  ){
+  ) {
 
 
     if (length(sigma2j) != J) sigma2j <- rep(sigma2j, length.out = J)
@@ -78,7 +77,7 @@ power_MADE_engine <-
     # CHE models
     ###################
 
-    if("CHE" %in% model) {
+    if ("CHE" %in% model) {
 
       # Equation 6 in Vembye, Pustejovsky, & Pigott (2022)
       wj <- kj / (kj * tau2 + kj * rho * sigma2j + omega2 + (1 - rho) * sigma2j)
@@ -108,6 +107,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = var_b,
           df = J - 1,
+          alpha = alpha,
           power = power_CHE_model,
           model = "CHE-Model"
         ) %>%
@@ -115,7 +115,7 @@ power_MADE_engine <-
 
       }
 
-      if ("Satt" %in% var_df){
+      if ("Satt" %in% var_df) {
 
         # Equation 11 in Vembye, Pustejovsky, & Pigott (2022)
         power_CHE_satt <- power_t(df = df_CHE_satt, lambda = lambda, alpha = alpha)
@@ -123,6 +123,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = var_b,
           df = round(df_CHE_satt, 1),
+          alpha = alpha,
           power = power_CHE_satt,
           model = "CHE-Model+Satt"
         ) %>%
@@ -130,7 +131,7 @@ power_MADE_engine <-
 
       }
 
-      if ("RVE" %in% var_df){
+      if ("RVE" %in% var_df) {
 
         # Equation 16 in Vembye, Pustejovsky, & Pigott (2022)
         df_CHE_app <- Satt_df(wj)
@@ -142,6 +143,7 @@ power_MADE_engine <-
           tibble(
             var_b,
             df = df_CHE_app,
+            alpha = alpha,
             power = power_CHE_RVE,
             model = "CHE-RVE"
           ) %>%
@@ -197,6 +199,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = S_t,
           df = J - 1,
+          alpha = alpha,
           power = power_MLMA_model,
           model = "MLMA-Model"
         ) %>%
@@ -204,7 +207,7 @@ power_MADE_engine <-
 
       }
 
-      if ("Satt" %in% var_df){
+      if ("Satt" %in% var_df) {
 
         # Equation 23 in Vembye, Pustejovsky, & Pigott (2022)
         power_MLMA_satt <- power_t(df = df_MLMA_satt, lambda = lambda_MLMA, alpha = alpha, g = g)
@@ -212,6 +215,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = S_t,
           df = df_MLMA_satt,
+          alpha = alpha,
           power = power_MLMA_satt,
           model = "MLMA-Model+Satt"
         ) %>%
@@ -219,7 +223,7 @@ power_MADE_engine <-
 
       }
 
-      if ("RVE" %in% var_df){
+      if ("RVE" %in% var_df) {
 
         # Equation 16 in Vembye, Pustejovsky, & Pigott (2022)
         # w_j substituted with w^tilde_j
@@ -232,6 +236,7 @@ power_MADE_engine <-
           tibble(
             var_b = S_t,
             df = df_MLMA_app,
+            alpha = alpha,
             power = power_MLMA_RVE,
             model = "MLMA-RVE"
           ) %>%
@@ -245,7 +250,7 @@ power_MADE_engine <-
     # CE-RVE model
     ###################
 
-    if ("CE" %in% model & "RVE" %in% var_df){
+    if ("CE" %in% model & "RVE" %in% var_df) {
 
       tau2_e <- tau2 + omega2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
 
@@ -268,6 +273,7 @@ power_MADE_engine <-
         tibble(
           var_b = S_dd,
           df = df_CE_app,
+          alpha = alpha,
           power = power_CE,
           model = "CE-RVE"
         ) %>%
@@ -303,34 +309,27 @@ power_MADE_engine2 <-
   # Sampling variance estimates
   ###################################
 
-  sigma2js <- list()
-
   # Assuming balanced sampling variance estimates across studies
-  if (is.numeric(sigma2_dist) & length(sigma2_dist) == 1){
+  if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
 
     samp_method_sigma2 <- "balanced"
-
-    sigma2js <- c(sigma2js, sigma2_dist)
+    sigma2js <- sigma2_dist
 
   }
 
   # Stylized distribution of sampling variance estimates
-  if (is.function(sigma2_dist)){
+  if (is.function(sigma2_dist)) {
 
     samp_method_sigma2 <- "stylized"
-
-    stylized_sigma2 <- purrr::rerun(iterations, sigma2_dist(J))
-    sigma2js <- c(sigma2js, purrr::map(stylized_sigma2, ~ .x))
+    sigma2js <- purrr::rerun(iterations, sigma2_dist(J))
 
   }
 
   # Empirical distribution of sampling variance estimates across studies
-  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)){
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
 
     samp_method_sigma2 <- "empirical"
-
-    pilot_sigma2 <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
-    sigma2js <- c(sigma2js, purrr::map(pilot_sigma2, ~ .x))
+    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
 
   }
 
@@ -338,104 +337,68 @@ power_MADE_engine2 <-
   # Number of effect size per study
   ###################################
 
-  kjs <- list()
+  if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
 
-  # Assuming that all studies yields the same number of effect sizes
-  if (is.numeric(n_ES_dist) & length(n_ES_dist) == 1){
-
+    # Assuming that all studies yields the same number of effect sizes
     samp_method_kj <- "balanced"
+    kjs <- n_ES_dist
 
-    kjs <- c(kjs, n_ES_dist)
+  } else if (is.function(n_ES_dist)) {
 
-  }
-
-  # Stylized distribution of the number of effect sizes per study
-  if (is.function(n_ES_dist)){
-
+    # Stylized distribution of the number of effect sizes per study
     samp_method_kj <- "stylized"
+    kjs <- purrr::rerun(iterations, n_ES_dist(J))
 
-    stylized_kjs <- purrr::rerun(iterations, n_ES_dist(J))
-    kjs <- c(kjs, purrr::map(stylized_kjs, ~ .x))
+  } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
 
-  }
-
-  # Empirical distribution of the number of effect sizes per study
-  if (is.numeric(n_ES_dist) & length(n_ES_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)){
-
+    # Empirical distribution of the number of effect sizes per study
     samp_method_kj <- "empirical"
+    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
 
-    pilot_kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
-    kjs <- c(kjs, purrr::map(pilot_kjs, ~ .x))
+  } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
 
-  }
-
-  # If both sigma2js and kjs are empirically obtained
-
-  if (length(sigma2_dist) > 1 & length(n_ES_dist) > 1 & length(sigma2_dist) == length(n_ES_dist)){
+    # If both sigma2js and kjs are empirically obtained
 
     samp_method_sigma2 <- "empirical_combi"
     samp_method_kj <- "empirical_combi"
 
     pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
 
-
-    pilot_sigma2j_kj <- purrr::rerun(iterations, n_ES_empirical(pilot_data, J))
-    sigma2js <- c(sigma2js, purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j))
-    kjs <- c(kjs, purrr::map(pilot_sigma2j_kj, ~ .x$kj))
-
+    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(NROW(dat), size = J, replace = TRUE),])
+    sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
+    kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
 
   }
 
 
   # Generate results across iterations
 
-  res_raw <- purrr::map2_dfr(
-    .x = sigma2js, .y = kjs, .f = power_MADE_engine,
-    J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
-    model = model, var_df, alpha = alpha, d = d, .id = "iteration"
-  )
-
-  res_raw <-
-    res_raw |>
+  res <-
+    purrr::map2_dfr(
+      .x = sigma2js, .y = kjs, .f = power_MADE_engine,
+      J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
+      model = model, var_df, alpha = alpha, d = d, .id = "iteration"
+    ) |>
     mutate(
       samp_method_sigma2 = samp_method_sigma2,
       samp_method_kj = samp_method_kj,
-      J = J,
-      tau2 = tau2,
-      omega2 = omega2,
-      beta = beta,
-      rho = rho,
-      alpha = alpha,
-      d = d
-    ) |>
-    relocate(J:rho, .after = iteration)
+    )
 
-  res_raw
+  if (average_power) {
 
-  if (average_power){
-
-    final_res <-
-      res_raw |>
-      group_by(model) |>
+    res <-
+      res |>
+      group_by(alpha, model, samp_method_sigma2, samp_method_kj) |>
       summarise(
         across(c(var_b, df, power), mean),
+        iterations = n(),
         .groups = "drop"
-      ) |>
-      mutate(
-        iterations = iterations,
-        samp_method_sigma2 = samp_method_sigma2,
-        samp_method_kj = samp_method_kj
-      )
-
-  } else {
-
-    # I am uncertain about this part, and currently it cannot be used in the
-    # power_MADE function
-    final_res <- res_raw
+      ) %>%
+      relocate(model:samp_method_kj, .after = iterations)
 
   }
 
-  final_res
+  return(res)
 
 }
 

@@ -1,7 +1,7 @@
 # Building and testing
 
-library(devtools)
 library(usethis)
+library(devtools)
 
 options(pillar.sigfig = 4) # ensure tibble include 4 digits
 options(tibble.width = Inf)

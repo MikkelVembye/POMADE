@@ -21,13 +21,22 @@ Satt_df <- function(wj) {
 
 # Power calculation
 
+# Older version
+#power_t <- function(df, lambda, alpha, df_test = df, g = 1) {
+#  crit <- g * qt(1 - alpha / 2, df = df_test)
+#  pwr_lower <- pt(-crit, df = df, ncp = lambda, lower.tail = TRUE)
+#  pwr_upper <- pt(crit, df = df, ncp = lambda, lower.tail = FALSE)
+#  pwr <- pwr_lower + pwr_upper
+#  names(pwr) <- paste0("power_sig", substr(formatC(alpha, digits = 2, format = "f"), 3, 4))
+#  do.call(data.frame, args = as.list(pwr))
+#}
+
 power_t <- function(df, lambda, alpha, df_test = df, g = 1) {
   crit <- g * qt(1 - alpha / 2, df = df_test)
   pwr_lower <- pt(-crit, df = df, ncp = lambda, lower.tail = TRUE)
   pwr_upper <- pt(crit, df = df, ncp = lambda, lower.tail = FALSE)
   pwr <- pwr_lower + pwr_upper
-  names(pwr) <- paste0("power_sig", substr(formatC(alpha, digits = 2, format = "f"), 3, 4))
-  do.call(data.frame, args = as.list(pwr))
+  pwr
 }
 
 

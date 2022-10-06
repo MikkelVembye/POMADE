@@ -2,21 +2,55 @@
 
 power_MADE <-
   function(
-  J, tau2, omega2, beta, rho,
-  sigma2_dist = NULL,
-  n_ES_dist = NULL,
-  model = "CHE",
-  var_df = "RVE",
-  alpha = 0.05,
-  d = 0
+    J, tau2, omega2, beta, rho,
+    alpha = 0.05,
+    d = 0,
+
+    model = "CHE",
+    var_df = "RVE",
+
+    sigma2_dist = NULL,
+    n_ES_dist = NULL,
+
+    iterations = 100,
+    average_power = TRUE,
+    seed = NULL
   ){
 
-    res <- tibble()
+    design_factors <-
+      list(
+        J = J,
+        tau2 = tau2,
+        omega2 = omega2,
+        beta = beta,
+        rho = rho,
+        alpha = alpha,
+        d = d
 
-    kjs <- list()
-    sigma2js <- list()
+      )
 
+    params <- purrr::cross_df(design_factors)
 
+    dat <-
+      params %>%
+      mutate(
+        res = purrr::pmap(.l = params,
+                          .f = power_MADE_engine2,
+                          model = model,
+                          var_df = var_df,
+                          sigma2_dist = sigma2_dist,
+                          n_ES_dist = n_ES_dist,
+                          iterations = iterations,
+                          average_power = average_power,
+                          seed = seed)
+      ) %>%
+      tidyr::unnest(res)
+
+    if (length(sigma2_dist) == 1 & length(n_ES_dist) == 1 & is.numeric(sigma2_dist) & is.numeric(n_ES_dist)){
+      dat <- select(dat, -iterations)
+    }
+
+    dat
 
 }
 
@@ -74,7 +108,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = var_b,
           df = J - 1,
-          power_CHE_model,
+          power = power_CHE_model,
           model = "CHE-Model"
         ) %>%
           bind_rows(res, .)
@@ -89,7 +123,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = var_b,
           df = round(df_CHE_satt, 1),
-          power_CHE_satt,
+          power = power_CHE_satt,
           model = "CHE-Model+Satt"
         ) %>%
           bind_rows(res, .)
@@ -108,7 +142,7 @@ power_MADE_engine <-
           tibble(
             var_b,
             df = df_CHE_app,
-            power_CHE_RVE,
+            power = power_CHE_RVE,
             model = "CHE-RVE"
           ) %>%
           bind_rows(res, .)
@@ -163,7 +197,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = S_t,
           df = J - 1,
-          power_MLMA_model,
+          power = power_MLMA_model,
           model = "MLMA-Model"
         ) %>%
           bind_rows(res, .)
@@ -178,7 +212,7 @@ power_MADE_engine <-
         res <- tibble(
           var_b = S_t,
           df = df_MLMA_satt,
-          power_MLMA_satt,
+          power = power_MLMA_satt,
           model = "MLMA-Model+Satt"
         ) %>%
           bind_rows(res, .)
@@ -198,7 +232,7 @@ power_MADE_engine <-
           tibble(
             var_b = S_t,
             df = df_MLMA_app,
-            power_MLMA_RVE,
+            power = power_MLMA_RVE,
             model = "MLMA-RVE"
           ) %>%
             bind_rows(res, .)
@@ -215,7 +249,7 @@ power_MADE_engine <-
 
       tau2_e <- tau2 + omega2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
 
-      # _d = dotdot
+      # _dd = dotdot
       wj_dd <- 1 / (sigma2j + tau2_e)
 
       W_dd <- sum(wj_dd)
@@ -234,7 +268,7 @@ power_MADE_engine <-
         tibble(
           var_b = S_dd,
           df = df_CE_app,
-          power_CE,
+          power = power_CE,
           model = "CE-RVE"
         ) %>%
           bind_rows(res, .)
@@ -249,19 +283,21 @@ power_MADE_engine <-
 power_MADE_engine2 <-
   function(
     J, tau2, omega2, beta, rho,
+    alpha = 0.05,
+    d = 0,
+
+    model = "CHE",
+    var_df = "RVE",
 
     sigma2_dist = NULL,
     n_ES_dist = NULL,
 
-    model = "CHE",
-    var_df = "RVE",
-    alpha = 0.05,
-    d = 0,
     iterations = 5,
     average_power = TRUE,
     seed = NULL
   ){
 
+  if (!is.null(seed)) set.seed(seed)
 
   ###################################
   # Sampling variance estimates
@@ -289,7 +325,7 @@ power_MADE_engine2 <-
   }
 
   # Empirical distribution of sampling variance estimates across studies
-  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1){
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)){
 
     samp_method_sigma2 <- "empirical"
 
@@ -324,7 +360,7 @@ power_MADE_engine2 <-
   }
 
   # Empirical distribution of the number of effect sizes per study
-  if (is.numeric(n_ES_dist) & length(n_ES_dist) > 1){
+  if (is.numeric(n_ES_dist) & length(n_ES_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)){
 
     samp_method_kj <- "empirical"
 
@@ -332,6 +368,24 @@ power_MADE_engine2 <-
     kjs <- c(kjs, purrr::map(pilot_kjs, ~ .x))
 
   }
+
+  # If both sigma2js and kjs are empirically obtained
+
+  if (length(sigma2_dist) > 1 & length(n_ES_dist) > 1 & length(sigma2_dist) == length(n_ES_dist)){
+
+    samp_method_sigma2 <- "empirical_combi"
+    samp_method_kj <- "empirical_combi"
+
+    pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
+
+
+    pilot_sigma2j_kj <- purrr::rerun(iterations, n_ES_empirical(pilot_data, J))
+    sigma2js <- c(sigma2js, purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j))
+    kjs <- c(kjs, purrr::map(pilot_sigma2j_kj, ~ .x$kj))
+
+
+  }
+
 
   # Generate results across iterations
 
@@ -353,9 +407,35 @@ power_MADE_engine2 <-
       rho = rho,
       alpha = alpha,
       d = d
-    )
+    ) |>
+    relocate(J:rho, .after = iteration)
 
   res_raw
+
+  if (average_power){
+
+    final_res <-
+      res_raw |>
+      group_by(model) |>
+      summarise(
+        across(c(var_b, df, power), mean),
+        .groups = "drop"
+      ) |>
+      mutate(
+        iterations = iterations,
+        samp_method_sigma2 = samp_method_sigma2,
+        samp_method_kj = samp_method_kj
+      )
+
+  } else {
+
+    # I am uncertain about this part, and currently it cannot be used in the
+    # power_MADE function
+    final_res <- res_raw
+
+  }
+
+  final_res
 
 }
 

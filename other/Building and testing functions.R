@@ -25,8 +25,8 @@ power_MADE(
   rho = 0.7,
   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-  model = c("CHE", "MLMA", "CE"),
-  var_df = c("Model", "Satt", "RVE"),
+  #model = c("CHE", "MLMA", "CE"),
+  #var_df = c("Model", "Satt", "RVE"),
   alpha = c(0.01, 0.05),
   seed = 10052510,
   average_power = TRUE

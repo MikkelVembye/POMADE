@@ -1,4 +1,4 @@
-# Test
+# INSERT ARGUMENT DESCRIPTION
 
 power_MADE <-
   function(
@@ -102,12 +102,12 @@ power_MADE_engine <-
   }
 
   ###################################
-  # Number of effect size per study
+  # Number of effect sizes per study
   ###################################
 
   if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
 
-    # Assuming that all studies yields the same number of effect sizes
+    # Assuming that all studies yield the same number of effect sizes
     samp_method_kj <- "balanced"
     kjs <- n_ES_dist
 

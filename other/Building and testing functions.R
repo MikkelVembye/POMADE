@@ -11,12 +11,64 @@ options(dplyr.summarise.inform = FALSE)
 
 # Creates new coding script
 #use_r("power_MADE")
-use_r("MDES_MADE")
+#use_r("MDES_MADE")
 
 load_all()
 
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
+
+
+MDES_MADE(
+  J = c(20, 40),
+  tau2 = 0.2^2,
+  omega2 = 0.1^2,
+  mu = 0.1,
+  rho = 0.7,
+  #target_power = c(0.7, .8),
+  #alpha = c(0.01, 0.05),
+  #model = c("CHE", "MLMA", "CE"),
+  #var_df = c("Model", "Satt", "RVE"),
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  seed = 10052510
+)
+
+MDES_MADE(
+  J = 40,
+  tau2 = 0.2^2,
+  omega2 = 0.1^2,
+  mu = 0.1,
+  rho = 0.7,
+  target_power = c(.7, .8),
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
+  sigma2_dist = 4/100,
+  n_ES_dist = 5.5,
+  seed = 10052510
+)
+
+MDES_MADE_engine(
+  J = 40,
+  tau2 = 0.2^2,
+  omega2 = 0.1^2,
+  mu = 0.1,
+  rho = 0.7,
+  target_power = .8,
+
+  model = "CHE",
+  var_df = "Satt",
+
+  sigma2_dist = 4/100,
+  n_ES_dist = 5.5,
+  seed = 10052510
+)
+
+
+
+
+
+
 
 power_MADE(
   J = c(40),
@@ -27,7 +79,7 @@ power_MADE(
   sigma2_dist = sigma2_dist,
   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
   #model = c("CHE", "MLMA", "CE"),
-  #var_df = c("Model", "Satt", "RVE"),
+  var_df = "Satt",
   alpha = .05,
   seed = 10052510,
   average_power = TRUE

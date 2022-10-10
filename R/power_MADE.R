@@ -2,7 +2,7 @@
 
 power_MADE <-
   function(
-    J, tau2, omega2, beta, rho,
+    J, tau2, omega2, mu, rho,
     alpha = 0.05,
     d = 0,
 
@@ -35,7 +35,7 @@ power_MADE <-
         J = J,
         tau2 = tau2,
         omega2 = omega2,
-        beta = beta,
+        mu = mu,
         rho = rho,
         d = d
       )
@@ -65,7 +65,7 @@ power_MADE <-
 
 power_MADE_engine <-
   function(
-    J, tau2, omega2, beta, rho,
+    J, tau2, omega2, mu, rho,
     alpha = 0.05,
     d = 0,
 
@@ -153,7 +153,7 @@ power_MADE_engine <-
   res <-
     purrr::map2_dfr(
       .x = sigma2js, .y = kjs, .f = power_MADE_single,
-      J = J, tau2 = tau2, omega2 = omega2, beta = beta, rho = rho,
+      J = J, tau2 = tau2, omega2 = omega2, mu = mu, rho = rho,
       model = model, var_df, alpha = alpha, d = d, .id = "iteration"
     ) |>
     mutate(
@@ -184,7 +184,7 @@ power_MADE_engine <-
 
 power_MADE_single <-
   function(
-    J, tau2, omega2, beta, rho,
+    J, tau2, omega2, mu, rho,
     sigma2j,
     kj,
     model = c("CHE", "MLMA", "CE"),
@@ -215,7 +215,7 @@ power_MADE_single <-
       var_b <- 1 / W
 
       # Equation 10 in Vembye, Pustejovsky, & Pigott (2022)
-      lambda <- (beta - d) / sqrt(var_b)
+      lambda <- (mu - d) / sqrt(var_b)
 
       x <- sum(wj^2) / W
       y <- sum(wj^2 / kj) / W
@@ -303,7 +303,7 @@ power_MADE_single <-
       # Equation 22 in Vembye, Pustejovsky, & Pigott (2022)
       S_t <- 1/W_t^2 * sum(wj_t^2 * (tau2 + rho * sigma2j + (omega2 + (1 - rho) * sigma2j) / kj) )
 
-      lambda_MLMA <- (beta - d) / sqrt(S_t)
+      lambda_MLMA <- (mu - d) / sqrt(S_t)
 
 
       x_t <- sum(wj_t^2) / W_t
@@ -389,7 +389,7 @@ power_MADE_single <-
 
       S_dd <- 1/W_dd^2 * sum(wj_dd^2 * (tau2 + rho * sigma2j + (1 / kj) * (omega2 + (1 - rho) * sigma2j)) )
 
-      lambda_CE <- (beta - d) / sqrt(S_dd)
+      lambda_CE <- (mu - d) / sqrt(S_dd)
 
       # Equation 16 in Vembye, Pustejovsky, & Pigott (2022)
       # w_j substituted with w^dotdot_j

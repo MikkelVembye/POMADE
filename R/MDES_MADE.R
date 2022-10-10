@@ -6,7 +6,6 @@ MDES_MADE <-
     J,
     tau2,
     omega2,
-    mu,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -19,13 +18,12 @@ MDES_MADE <-
     n_ES_dist = NULL,
 
     iterations = 5,
-    average_power = TRUE,
     seed = NULL,
     interval = c(0,2),
     extendInt = "no"
-  ){
+  ) {
 
-    if(is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1){
+    if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
 
       warning(paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
                      "regarding the study precision (sigma2js) and the number of effect sizes per study (kjs). ",
@@ -43,7 +41,6 @@ MDES_MADE <-
         J = J,
         tau2 = tau2,
         omega2 = omega2,
-        mu = mu,
         rho = rho,
         alpha = alpha,
         target_power = target_power,
@@ -53,13 +50,13 @@ MDES_MADE <-
         )
 
     params <- purrr::cross_df(design_factors) |>
-      filter(!c(model == "CE" & stringr::str_detect(var_df, "Model|Satt")))
+      filter(model != "CE" | var_df == "RVE")
 
 
     res <- purrr::pmap_dfr(
       .l = params, .f = MDES_MADE_engine,
       sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-      average_power = average_power, seed = seed, interval = interval, extendInt = extendInt
+      seed = seed, interval = interval, extendInt = extendInt
     )
 
     res |>
@@ -72,7 +69,6 @@ MDES_MADE_engine <-
     J,
     tau2,
     omega2,
-    mu,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -85,103 +81,84 @@ MDES_MADE_engine <-
     n_ES_dist = NULL,
 
     iterations = 5,
-    average_power = TRUE,
     seed = NULL,
     interval = c(0,2),
     extendInt = "no"
-
-  ){
-
-
-   f <- function(mu){
-
-     power_MADE(J = J, tau2 = tau2, omega2 = omega2,
-                mu = mu, rho = rho, alpha = alpha, d = d,
-                model = model, var_df = var_df,
-                sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
-                iterations = iterations, average_power = average_power,
-                seed = seed
-                )$power - target_power
-
-   }
-
-   ####################################
-   # Sampling variance estimates labels
-   ####################################
-
-   # Assuming balanced sampling variance estimates across studies
-   if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
-
-     samp_method_sigma2 <- "balanced"
-
-   }
-
-   # Stylized distribution of sampling variance estimates
-   if (is.function(sigma2_dist)) {
-
-     samp_method_sigma2 <- "stylized"
-
-   }
-
-   # Empirical distribution of sampling variance estimates across studies
-   if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
-
-     samp_method_sigma2 <- "empirical"
-
-   }
-
-   #########################################
-   # Number of effect sizes per study labels
-   #########################################
-
-   if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
-
-     # Assuming that all studies yield the same number of effect sizes
-     samp_method_kj <- "balanced"
-
-   } else if (is.function(n_ES_dist)) {
-
-     # Stylized distribution of the number of effect sizes per study
-     samp_method_kj <- "stylized"
-
-   } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
-
-     # Empirical distribution of the number of effect sizes per study
-     samp_method_kj <- "empirical"
-
-   } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
-
-     # If both sigma2js and kjs are empirically obtained
-
-     samp_method_sigma2 <- "empirical_combi"
-     samp_method_kj <- "empirical_combi"
-
-   }
-
-   MDES <- suppressWarnings(stats::uniroot(f, interval = interval, extendInt = extendInt))$root
-
-   # To align the results with the power_MADE function
-   if ("Satt" %in% var_df) var_df <- "Model+Satt"
-
-   res <- tibble(
-     N_studies = J,
-     tau2 = tau2,
-     omega2 = omega2,
-     mu = mu,
-     rho = rho,
-     d = d,
-     alpha = alpha,
-     target_power = target_power,
-     MDES = MDES,
-     iterations = iterations,
-     model = paste(model, var_df, sep = "-"),
-     samp_method_sigma2 = samp_method_sigma2,
-     samp_method_kj = samp_method_kj
-   )
-
-   res
+  ) {
 
 
+  ####################################
+  # Sampling variance estimates labels
+  ####################################
+
+  # Assuming balanced sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
+   samp_method_sigma2 <- "balanced"
+  }
+
+  # Stylized distribution of sampling variance estimates
+  if (is.function(sigma2_dist)) {
+   samp_method_sigma2 <- "stylized"
+  }
+
+  # Empirical distribution of sampling variance estimates across studies
+  if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
+   samp_method_sigma2 <- "empirical"
+  }
+
+  #########################################
+  # Number of effect sizes per study labels
+  #########################################
+
+  if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
+   # Assuming that all studies yield the same number of effect sizes
+   samp_method_kj <- "balanced"
+  } else if (is.function(n_ES_dist)) {
+   # Stylized distribution of the number of effect sizes per study
+   samp_method_kj <- "stylized"
+  } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
+   # Empirical distribution of the number of effect sizes per study
+   samp_method_kj <- "empirical"
+  } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
+   # If both sigma2js and kjs are empirically obtained
+   samp_method_sigma2 <- "empirical_combi"
+   samp_method_kj <- "empirical_combi"
+  }
+
+
+  f <- function(mu) {
+
+  power_MADE_engine(
+    J = J, tau2 = tau2, omega2 = omega2,
+    mu = mu, rho = rho, alpha = alpha, d = d,
+    model = model, var_df = var_df,
+    sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
+    iterations = iterations, average_power = TRUE,
+    seed = seed
+  )$power - target_power
+
+  }
+
+  MDES <- suppressWarnings(stats::uniroot(f, interval = interval, extendInt = extendInt))$root
+
+  # To align the results with the power_MADE function
+  if ("Satt" %in% var_df) var_df <- "Model+Satt"
+
+  tibble(
+   N_studies = J,
+   tau2 = tau2,
+   omega2 = omega2,
+   mu = mu,
+   rho = rho,
+   d = d,
+   alpha = alpha,
+   target_power = target_power,
+   MDES = MDES,
+   iterations = iterations,
+   model = paste(model, var_df, sep = "-"),
+   samp_method_sigma2 = samp_method_sigma2,
+   samp_method_kj = samp_method_kj
+  )
 
 }
 

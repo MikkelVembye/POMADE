@@ -1,4 +1,4 @@
-# INSERT ARGUMENT DESCRIPTION
+# Test
 
 power_MADE <-
   function(
@@ -16,15 +16,6 @@ power_MADE <-
     average_power = TRUE,
     seed = NULL
   ) {
-
-    if(is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1){
-
-      warning(paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
-      "regarding the study precision (sigma2js) and the number of effect sizes per study (kjs). ",
-      "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)"),
-      call. = FALSE)
-
-    }
 
     model <- match.arg(model, c("CHE","MLMA","CE"), several.ok = TRUE)
     var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok = TRUE)
@@ -111,12 +102,12 @@ power_MADE_engine <-
   }
 
   ###################################
-  # Number of effect sizes per study
+  # Number of effect size per study
   ###################################
 
   if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
 
-    # Assuming that all studies yield the same number of effect sizes
+    # Assuming that all studies yields the same number of effect sizes
     samp_method_kj <- "balanced"
     kjs <- n_ES_dist
 

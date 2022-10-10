@@ -65,6 +65,53 @@ find_tau_omega <- function(tau, omega, phi, rho, k_j, sigmasq_j) {
 }
 
 
+check_power <- function(J, tau2, omega2, rho,
+                        model = "CHE",
+                        var_df = "RVE",
+                        alpha = .05,
+                        target_power = .80,
+                        sigma2_dist = NULL, n_ES_dist = NULL,
+                        iterations = 100L,
+                        seed = NULL) {
+
+  mdes <- MDES_MADE(
+    J = J,
+    tau2 = tau2,
+    omega2 = omega2,
+    rho = rho,
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    model = model,
+    var_df = var_df,
+    alpha = alpha,
+    target_power = target_power,
+    iterations = iterations,
+    seed = seed
+  ) %>%
+    mutate(
+      var_df = stringr::str_sub(stringr::str_extract(model, "-.+$"),2,-1),
+      model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
+      var_df = recode(var_df, "Model+Satt" = "Satt")
+    ) %>%
+    select(J = N_studies, mu = MDES, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
+
+  power <-
+    mdes |>
+    select(-target_power) |>
+    purrr::pmap_dfr(
+    .f = power_MADE_engine,
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    average_power = TRUE,
+    seed = seed
+  )
+
+  mdes %>%
+    select(-model, -var_df, -alpha, -iterations) %>%
+    bind_cols(power)
+}
+
+
 # Manage dplyr behavior
 utils::globalVariables(
   c("samp_method", "method", "vectorof", "var_b", "es",

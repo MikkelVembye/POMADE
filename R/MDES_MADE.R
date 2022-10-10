@@ -17,7 +17,7 @@ MDES_MADE <-
     sigma2_dist = NULL,
     n_ES_dist = NULL,
 
-    iterations = 5,
+    iterations = 100,
     seed = NULL,
     interval = c(0,2),
     extendInt = "no"
@@ -148,7 +148,6 @@ MDES_MADE_engine <-
    N_studies = J,
    tau2 = tau2,
    omega2 = omega2,
-   mu = mu,
    rho = rho,
    d = d,
    alpha = alpha,

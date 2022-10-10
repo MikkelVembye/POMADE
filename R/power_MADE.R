@@ -158,10 +158,12 @@ power_MADE_engine <-
       res |>
       group_by(alpha, model, samp_method_sigma2, samp_method_kj) |>
       summarise(
+        mcse = sd(power) / sqrt(n()),
         across(c(var_b, df, power), mean),
         iterations = n(),
         .groups = "drop"
-      ) %>%
+      ) |>
+      relocate(mcse, .after = power) |>
       relocate(model:samp_method_kj, .after = iterations)
 
   }

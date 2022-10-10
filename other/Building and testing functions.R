@@ -23,14 +23,13 @@ MDES_MADE(
   J = c(20, 40),
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
-  #target_power = c(0.7, .8),
-  #alpha = c(0.01, 0.05),
-  #model = c("CHE", "MLMA", "CE"),
-  #var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  target_power = c(0.7, .8),
+  alpha = c(0.01, 0.05),
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
+  sigma2_dist = sigma2_dist,
+  n_ES_dist = n_ES_dist,
   seed = 10052510
 )
 

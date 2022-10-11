@@ -90,7 +90,7 @@ MDES_MADE <-
       filter(model != "CE" | var_df == "RVE")
 
 
-    res <- purrr::pmap_dfr(
+    res <- furrr::future_pmap_dfr(
       .l = params, .f = MDES_MADE_engine,
       sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
       seed = seed, interval = interval, extendInt = "no"

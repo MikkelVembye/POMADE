@@ -91,16 +91,18 @@ power_MADE <-
     dat <-
       params %>%
       mutate(
-        res = purrr::pmap(.l = params,
-                          .f = power_MADE_engine,
-                          alpha = alpha,
-                          model = model,
-                          var_df = var_df,
-                          sigma2_dist = sigma2_dist,
-                          n_ES_dist = n_ES_dist,
-                          iterations = iterations,
-                          average_power = average_power,
-                          seed = seed)
+        res = furrr::future_pmap(
+          .l = params,
+          .f = power_MADE_engine,
+          alpha = alpha,
+          model = model,
+          var_df = var_df,
+          sigma2_dist = sigma2_dist,
+          n_ES_dist = n_ES_dist,
+          iterations = iterations,
+          average_power = average_power,
+          seed = seed
+        )
       ) %>%
       tidyr::unnest(res)
 

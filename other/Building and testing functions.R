@@ -28,16 +28,17 @@ MDES_MADE(
   alpha = c(0.01, 0.05),
   model = c("CHE", "MLMA", "CE"),
   var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = sigma2_dist,
+  sigma2_dist = 4/100,
   n_ES_dist = n_ES_dist,
-  seed = 10052510
+  seed = 10052510,
+  iterations = 5,
+  warning = FALSE
 )
 
 MDES_MADE(
   J = 40,
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
   target_power = c(.7, .8),
   model = c("CHE", "MLMA", "CE"),
@@ -51,7 +52,6 @@ MDES_MADE_engine(
   J = 40,
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
   target_power = .8,
 

@@ -20,15 +20,18 @@ MDES_MADE <-
     iterations = 100,
     seed = NULL,
     interval = c(0,2),
-    extendInt = "no"
+    extendInt = "no",
+    warning = TRUE
   ) {
 
-    if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
+    if (warning && is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
 
-      warning(paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
-                     "regarding the study precision (sigma2js) and the number of effect sizes per study (kjs). ",
-                     "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)"),
-              call. = FALSE)
+      warning(
+        paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
+               "regarding the study precision (sigma2js) and the number of effect sizes per study (kjs). ",
+               "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)"),
+        call. = FALSE
+      )
 
     }
 
@@ -60,7 +63,7 @@ MDES_MADE <-
     )
 
     res |>
-      dplyr::arrange(dplyr::across(N_studies:target_power))
+      dplyr::arrange(dplyr::across(J:target_power))
 }
 
 
@@ -145,7 +148,7 @@ MDES_MADE_engine <-
   if ("Satt" %in% var_df) var_df <- "Model+Satt"
 
   tibble(
-   N_studies = J,
+   J = J,
    tau2 = tau2,
    omega2 = omega2,
    rho = rho,

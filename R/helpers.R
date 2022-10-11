@@ -113,6 +113,27 @@ check_power <- function(J, tau2, omega2, rho,
     bind_cols(power)
 }
 
+check_with_future <- function(f, ..., workers = future::availableCores(), check_time = FALSE) {
+  require(future)
+
+  plan(sequential)
+
+  tm_seq <- system.time(
+    res_seq <- f(...)
+  )
+
+  plan(multisession, workers = workers)
+
+  tm_par <- system.time(
+    res_par <- f(...)
+  )
+
+  plan(sequential)
+
+  list(tm_seq = tm_seq[["elapsed"]], tm_par = tm_par[["elapsed"]], res_seq = res_seq, res_par = res_par)
+}
+
+
 
 # Manage dplyr behavior
 utils::globalVariables(

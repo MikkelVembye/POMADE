@@ -88,6 +88,8 @@ power_MADE <-
 
     params <- purrr::cross_df(design_factors)
 
+    furrr_seed <- if (is.null(seed)) TRUE else NULL
+
     dat <-
       params %>%
       mutate(
@@ -101,7 +103,8 @@ power_MADE <-
           n_ES_dist = n_ES_dist,
           iterations = iterations,
           average_power = average_power,
-          seed = seed
+          seed = seed,
+          .options = furrr::furrr_options(seed = furrr_seed)
         )
       ) %>%
       tidyr::unnest(res)

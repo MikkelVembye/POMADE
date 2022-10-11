@@ -91,11 +91,13 @@ find_J_MADE <-
     params <- purrr::cross_df(design_factors) |>
       filter(model != "CE" | var_df == "RVE")
 
+    furrr_seed <- if (is.null(seed)) TRUE else NULL
 
     res <- furrr::future_pmap_dfr(
       .l = params, .f = find_J_MADE_engine,
       sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-      seed = seed, interval = interval, extendInt = "yes"
+      seed = seed, interval = interval, extendInt = "yes",
+      .options = furrr::furrr_options(seed = furrr_seed)
     )
 
 

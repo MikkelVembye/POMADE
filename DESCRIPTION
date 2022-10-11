@@ -29,6 +29,7 @@ Imports:
     grid,
     magrittr,
     purrr,
+    future,
     furrr,
     rlang (>= 0.4.11),
     stats,

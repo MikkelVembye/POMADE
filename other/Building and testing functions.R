@@ -2,6 +2,8 @@
 
 library(usethis)
 library(devtools)
+library(furrr)
+library(tictoc)
 
 options(pillar.sigfig = 4) # ensure tibble include 4 digits
 options(tibble.width = Inf)
@@ -18,22 +20,26 @@ load_all()
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
 
+#multisession(multisession, workers = future::availableCores()-1)
 
+#tic()
 MDES_MADE(
-  J = c(20, 40),
+  J = c(20, 40, 60),
   tau2 = 0.2^2,
   omega2 = 0.1^2,
   rho = 0.7,
-  target_power = c(0.7, .8),
-  alpha = c(0.01, 0.05),
-  model = c("CHE", "MLMA", "CE"),
-  var_df = c("Model", "Satt", "RVE"),
+  #target_power = c(0.7, .8),
+  #alpha = c(0.01, 0.05),
+  #model = c("CHE", "MLMA", "CE"),
+  #var_df = c("Model", "Satt", "RVE"),
   sigma2_dist = 4/100,
-  n_ES_dist = n_ES_dist,
+  n_ES_dist = 5.5,
   seed = 10052510,
-  iterations = 5,
+  iterations = 50,
   warning = FALSE
 )
+#toc()
+
 
 MDES_MADE(
   J = 40,
@@ -65,23 +71,21 @@ MDES_MADE_engine(
 
 
 
-
-
-
-
 power_MADE(
   J = c(40),
   tau2 = 0.2^2,
   omega2 = 0.1^2,
   mu = 0.1,
   rho = 0.7,
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  sigma2_dist = 4/100,
+  n_ES_dist = n_ES_dist,
   #model = c("CHE", "MLMA", "CE"),
   var_df = "Satt",
+  iterations = 5,
   alpha = .05,
   seed = 10052510,
-  average_power = TRUE
+  average_power = TRUE,
+  warning = TRUE
 )
 
 power_MADE(

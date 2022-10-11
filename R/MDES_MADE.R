@@ -24,7 +24,9 @@ MDES_MADE <-
     warning = TRUE
   ) {
 
-    if (warning && is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
+    if (warning) {
+
+      if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1){
 
       warning(
         paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
@@ -32,6 +34,8 @@ MDES_MADE <-
                "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)"),
         call. = FALSE
       )
+
+      }
 
     }
 
@@ -61,6 +65,7 @@ MDES_MADE <-
       sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
       seed = seed, interval = interval, extendInt = extendInt
     )
+
 
     res |>
       dplyr::arrange(dplyr::across(J:target_power))
@@ -142,7 +147,7 @@ MDES_MADE_engine <-
 
   }
 
-  MDES <- suppressWarnings(stats::uniroot(f, interval = interval, extendInt = extendInt))$root
+  MDES <- stats::uniroot(f, interval = interval, extendInt = extendInt)$root
 
   # To align the results with the power_MADE function
   if ("Satt" %in% var_df) var_df <- "Model+Satt"

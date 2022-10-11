@@ -31,7 +31,7 @@ power_MADE(
 
 \item{omega2}{Within-study variance}
 
-\item{rho}{Correlation coefficient between effect sizes from the same}
+\item{rho}{Correlation coefficient between effect sizes from the same study}
 
 \item{alpha}{Level of statistical significance}
 

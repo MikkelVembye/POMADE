@@ -18,6 +18,12 @@ options(dplyr.summarise.inform = FALSE)
 
 load_all()
 
+install()
+
+library(POMADE)
+
+?POMADE::power_MADE()
+
 set.seed(10052510)
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)

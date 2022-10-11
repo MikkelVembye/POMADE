@@ -1,6 +1,6 @@
 #' @param tau2 Between-study variance
 #' @param omega2 Within-study variance
-#' @param rho Correlation coefficient between effect sizes from the same
+#' @param rho Correlation coefficient between effect sizes from the same study
 #' @param alpha Level of statistical significance
 #' @param d Contrast value
 #' @param model Indicates dependent effect size model

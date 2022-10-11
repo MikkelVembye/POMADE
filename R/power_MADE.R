@@ -1,8 +1,49 @@
-# Test
+
+#' @title Power Approximation for Meta-Analysis of Dependent Effect Sizes
+#'
+#' @param J Number of studies
+#' @param mu Effect size of practical concern
+#' @template common-arg
+#' @param average_power Average power across a number of iteration for each condition
+#'
+#' @return Returns a \code{tibble} with information about the expectation of the number of
+#' studies, the effect size of practical concern, the between-study and within-study variance components,
+#' the sample correlation, the contrast effect, the level of statistical significance,
+#' the sampling variance of overall average effect size of practical concern, the degrees of freedom,
+#' the power, the mcse, the number of iterations, the model to handle dependent effect sizes,
+#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
+#'
+#' @importFrom magrittr %>%
+#' @importFrom stats df
+#' @import dplyr
+#'
+#' @export
+#'
+#' @examples
+#' power <- power_MADE(
+#'    J = c(40, 60),
+#'    mu = 0.1,
+#'    tau2 = 0.2^2,
+#'    omega2 = 0.1^2,
+#'    rho = 0.7,
+#'    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#'    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#'    model = c("CHE", "MLMA", "CE"),
+#'    var_df = c("Model", "Satt", "RVE"),
+#'    alpha = .05,
+#'    seed = 10052510
+#'  )
+#'
+#' power
+#'
+#'
+#'
+#'
+
 
 power_MADE <-
   function(
-    J, tau2, omega2, mu, rho,
+    J, mu, tau2, omega2, rho,
     alpha = 0.05,
     d = 0,
 
@@ -13,9 +54,10 @@ power_MADE <-
     n_ES_dist = NULL,
 
     iterations = 100,
-    average_power = TRUE,
     seed = NULL,
-    warning = TRUE
+    warning = TRUE,
+    average_power = TRUE
+
   ) {
 
 
@@ -41,9 +83,9 @@ power_MADE <-
     design_factors <-
       list(
         J = J,
+        mu = mu,
         tau2 = tau2,
         omega2 = omega2,
-        mu = mu,
         rho = rho,
         d = d
       )
@@ -73,7 +115,7 @@ power_MADE <-
 
 power_MADE_engine <-
   function(
-    J, tau2, omega2, mu, rho,
+    J, mu, tau2, omega2, rho,
     alpha = 0.05,
     d = 0,
 
@@ -161,7 +203,7 @@ power_MADE_engine <-
   res <-
     purrr::map2_dfr(
       .x = sigma2js, .y = kjs, .f = power_MADE_single,
-      J = J, tau2 = tau2, omega2 = omega2, mu = mu, rho = rho,
+      J = J, mu = mu, tau2 = tau2, omega2 = omega2, rho = rho,
       model = model, var_df, alpha = alpha, d = d, .id = "iteration"
     ) |>
     mutate(
@@ -194,7 +236,7 @@ power_MADE_engine <-
 
 power_MADE_single <-
   function(
-    J, tau2, omega2, mu, rho,
+    J, mu, tau2, omega2, rho,
     sigma2j,
     kj,
     model = c("CHE", "MLMA", "CE"),

@@ -1,5 +1,39 @@
-# INSERT ARGUMENTS
 
+#' @title Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent Effect Sizes
+#'
+#' @param J Number of studies
+#' @template common-arg
+#' @param target_power Specifying the target power
+#' @param interval A vector containing the end-points of the interval to be searched for the root
+#'
+#' @return Returns a \code{tibble} with information about the expectation of the number of
+#' studies, the between-study and within-study variance components,
+#' the sample correlation, the contrast effect, the level of statistical significance, the target power value(s),
+#' the minimum detectable effect size, the number of iterations, the model to handle dependent effect sizes,
+#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
+#'
+#' @importFrom stats df
+#' @import dplyr
+#'
+#' @export
+#'
+#' @examples
+#'
+#' mdes <- MDES_MADE(
+#'   J = c(40, 60),
+#'   tau2 = 0.2^2,
+#'   omega2 = 0.1^2,
+#'   rho = 0.7,
+#'   model = c("CHE", "MLMA", "CE"),
+#'   var_df = c("Model", "Satt", "RVE"),
+#'   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#'   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#'   seed = 10052510
+#' )
+#'
+#' mdes
+#'
+#'
 
 MDES_MADE <-
   function(
@@ -19,9 +53,9 @@ MDES_MADE <-
 
     iterations = 100,
     seed = NULL,
-    interval = c(0,2),
-    extendInt = "no",
-    warning = TRUE
+    warning = TRUE,
+    interval = c(0,2)
+
   ) {
 
     if (warning) {
@@ -63,7 +97,7 @@ MDES_MADE <-
     res <- purrr::pmap_dfr(
       .l = params, .f = MDES_MADE_engine,
       sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-      seed = seed, interval = interval, extendInt = extendInt
+      seed = seed, interval = interval, extendInt = "no"
     )
 
 
@@ -137,8 +171,8 @@ MDES_MADE_engine <-
   f <- function(mu) {
 
   power_MADE_engine(
-    J = J, tau2 = tau2, omega2 = omega2,
-    mu = mu, rho = rho, alpha = alpha, d = d,
+    J = J, mu = mu, tau2 = tau2, omega2 = omega2,
+    rho = rho, alpha = alpha, d = d,
     model = model, var_df = var_df,
     sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
     iterations = iterations, average_power = TRUE,

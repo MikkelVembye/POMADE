@@ -14,11 +14,48 @@ options(dplyr.summarise.inform = FALSE)
 # Creates new coding script
 #use_r("power_MADE")
 #use_r("MDES_MADE")
+#use_r("find_J_MADE")
 
 load_all()
 
+set.seed(10052510)
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
+
+
+find_J_MADE(
+  mu = 0.2,
+  tau2 = c(0.1, 0.2)^2,
+  omega2 = 0.25^2,
+  rho = 0.7,
+  target_power = .8,
+
+  model = "CHE", # default
+  var_df = "RVE", # default
+
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  seed = 10052510
+)
+
+#debug(find_J_MADE)
+
+
+find_J_MADE_engine(
+  mu = 0.1,
+  tau2 = 0.1^2,
+  omega2 = 0.25^2,
+  rho = 0.7,
+  target_power = .8,
+
+  #model = "CHE",
+  #var_df = "Satt",
+
+  sigma2_dist = sigma2_dist,
+  n_ES_dist =  n_ES_dist,
+  seed = 10052510
+)
+
 
 #multisession(multisession, workers = future::availableCores()-1)
 
@@ -32,25 +69,24 @@ MDES_MADE(
   #alpha = c(0.01, 0.05),
   #model = c("CHE", "MLMA", "CE"),
   #var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = 4/100,
-  n_ES_dist = 5.5,
+  sigma2_dist = sigma2_dist,
+  n_ES_dist = n_ES_dist,
   seed = 10052510,
-  iterations = 50,
-  warning = FALSE
+  #iterations = 50,
+  #warning = FALSE
 )
 #toc()
 
 
 MDES_MADE(
-  J = 40,
+  J = c(40, 60),
   tau2 = 0.2^2,
   omega2 = 0.1^2,
   rho = 0.7,
-  target_power = c(.7, .8),
   model = c("CHE", "MLMA", "CE"),
   var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = 4/100,
-  n_ES_dist = 5.5,
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
   seed = 10052510
 )
 
@@ -73,11 +109,11 @@ MDES_MADE_engine(
 
 power_MADE(
   J = c(40),
+  mu = 0.1,
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
-  sigma2_dist = 4/100,
+  sigma2_dist = sigma2_dist,
   n_ES_dist = n_ES_dist,
   #model = c("CHE", "MLMA", "CE"),
   var_df = "Satt",
@@ -89,15 +125,15 @@ power_MADE(
 )
 
 power_MADE(
-  J = c(40),
+  J = c(40, 60),
   tau2 = 0.2^2,
   omega2 = 0.1^2,
   mu = 0.1,
   rho = 0.7,
   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-  #model = c("CHE", "MLMA", "CE"),
-  #var_df = c("Model", "Satt", "RVE"),
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
   alpha = .05,
   seed = 10052510,
   average_power = TRUE
@@ -121,9 +157,9 @@ power_MADE(
 
 power_MADE_single(
   J = 40,
+  mu = 0.1,
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
   sigma2j = rgamma(40, shape = 5, rate = 10),
   kj = 5.5,
@@ -138,9 +174,9 @@ n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
 
 power_MADE_engine(
   J = 40,
+  mu = 0.1,
   tau2 = 0.2^2,
   omega2 = 0.1^2,
-  mu = 0.1,
   rho = 0.7,
   sigma2_dist = 4/100,
   n_ES_dist = 5.5,

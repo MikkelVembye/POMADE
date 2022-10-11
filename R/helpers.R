@@ -93,7 +93,7 @@ check_power <- function(J, tau2, omega2, rho,
       model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
       var_df = recode(var_df, "Model+Satt" = "Satt")
     ) %>%
-    select(J = N_studies, mu = MDES, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
+    select(J, mu = MDES, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
 
   power <-
     mdes |>
@@ -115,6 +115,6 @@ check_power <- function(J, tau2, omega2, rho,
 # Manage dplyr behavior
 utils::globalVariables(
   c("samp_method", "method", "vectorof", "var_b", "es",
-    "res", "tau", "omega", "power_sig05", "Power", "label", "MDES", "pilot_dat",
-    "sigma2_method", "mdes_data", "J_needed", "tau_name")
+    "res", "tau", "omega", "power", "Power", "label", "MDES", "pilot_dat",
+    "sigma2_method", "mdes_data", "J_needed", "tau_name", "d", "mcse", "sd", ".")
 )

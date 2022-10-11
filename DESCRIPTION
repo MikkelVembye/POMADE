@@ -2,12 +2,12 @@ Package: POMADE
 Title: POwer for Meta-Analysis of Dependent Effects
 Version: 0.0.0.9999
 Authors@R: c( 
-    person(given = "Mikkel", 
+    person(given = "Mikkel H.", 
            family = "Vembye", 
            email = "mikkel.vembye@gmail.com", 
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9071-0724")),
-    person(given = "James", 
+    person(given = "James E.", 
            family = "Pustejovsky", 
            email = "jepusto@gmail.com", 
            role = c("aut"), 

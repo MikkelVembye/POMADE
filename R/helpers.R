@@ -72,6 +72,7 @@ check_power <- function(J, tau2, omega2, rho,
                         target_power = .80,
                         sigma2_dist = NULL, n_ES_dist = NULL,
                         iterations = 100L,
+                        warning = TRUE,
                         seed = NULL) {
 
   mdes <- MDES_MADE(
@@ -86,6 +87,7 @@ check_power <- function(J, tau2, omega2, rho,
     alpha = alpha,
     target_power = target_power,
     iterations = iterations,
+    warning = warning,
     seed = seed
   ) %>%
     mutate(

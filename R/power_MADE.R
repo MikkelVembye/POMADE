@@ -62,18 +62,14 @@ power_MADE <-
 
 
     if (warning) {
-
-      if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1){
-
+      if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
         warning(
           paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
-                 "regarding the study precision (sigma2js) and the number of effect sizes per study (kjs). ",
-                 "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)"),
+                 "regarding the study precision (sigma2js) or the number of effect sizes per study (kjs). ",
+                 "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)."),
           call. = FALSE
         )
-
       }
-
     }
 
     model <- match.arg(model, c("CHE","MLMA","CE"), several.ok = TRUE)

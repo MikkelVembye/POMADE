@@ -6,18 +6,20 @@ n_ES_emp <- 1 + stats::rpois(pop_size, 3.5 - 1)
 
 test_that("MDES_MADE() works with single parameter values.", {
 
-  mdes <- check_power(
-    J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
-    rho = 0.7,
-    sigma2_dist = 4 / 100,
-    n_ES_dist = 5.5,
-    model = "CHE",
-    var_df = "Satt",
-    alpha = 0.05,
-    target_power = 0.9,
-    seed = 20221010
+  expect_warning(
+    mdes <- check_power(
+      J = 40,
+      tau2 = 0.2^2,
+      omega2 = 0.1^2,
+      rho = 0.7,
+      sigma2_dist = 4 / 100,
+      n_ES_dist = 5.5,
+      model = "CHE",
+      var_df = "Satt",
+      alpha = 0.05,
+      target_power = 0.9,
+      seed = 20221010
+    )
   )
 
   expect_equal(nrow(mdes), 1L)
@@ -33,7 +35,8 @@ test_that("MDES_MADE() works with single parameter values.", {
     model = c("CHE","MLMA"),
     alpha = 0.05,
     target_power = 0.75,
-    seed = 20221011
+    seed = 20221011,
+    warning = FALSE
   )
 
   expect_equal(nrow(mdes), 2L)
@@ -75,21 +78,24 @@ test_that("MDES_MADE() works with single parameter values.", {
 })
 
 
-test_that("power_MADE() works with multiple parameter values.", {
+test_that("MDES_MADE() works with multiple parameter values.", {
 
   skip_on_cran()
 
-  mdes <- check_power(
-    J = c(10,20,40),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
-    rho = 0.3,
-    sigma2_dist = 4 / 100,
-    n_ES_dist = 5.5,
-    model = c("CHE","MLMA", "CE"),
-    var_df = c("Model", "Satt", "RVE"),
-    alpha = 0.05,
-    target_power = c(0.4,0.72)
+  expect_warning(
+    mdes <- check_power(
+      J = c(10,20,40),
+      tau2 = 0.2^2,
+      omega2 = 0.1^2,
+      rho = 0.3,
+      sigma2_dist = 4 / 100,
+      n_ES_dist = 5.5,
+      model = c("CHE","MLMA", "CE"),
+      var_df = c("Model", "Satt", "RVE"),
+      alpha = 0.05,
+      target_power = c(0.4,0.72),
+      seed = 20221014
+    )
   )
 
   expect_equal(nrow(mdes), 6L * 7L)
@@ -120,7 +126,9 @@ test_that("power_MADE() works with multiple parameter values.", {
     n_ES_dist = n_ES_emp,
     model = c("CHE","MLMA"),
     alpha = 0.05,
-    iterations = 5
+    iterations = 5,
+    warning = FALSE,
+    seed = 20221015
   )
 
   expect_equal(nrow(mdes), 12L)
@@ -135,7 +143,8 @@ test_that("power_MADE() works with multiple parameter values.", {
     n_ES_dist = n_ES_emp,
     alpha = c(.01, 0.025, .1),
     target_power = c(0.4,0.72),
-    iterations = 150
+    iterations = 150,
+    seed = 20221016
   )
 
   expect_equal(nrow(mdes), 18L)
@@ -151,7 +160,8 @@ test_that("power_MADE() works with multiple parameter values.", {
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
-    iterations = 2
+    iterations = 2,
+    warning = FALSE
   )
 
   expect_equal(nrow(mdes), 2L * 3L * 2L * 3L * 4L * 3L)
@@ -174,7 +184,8 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
       var_df = "RVE",
       alpha = c(.01, 0.05),
       target_power = 0.05 + 1e-5,
-      iterations = 2
+      iterations = 2,
+      seed = 20221018
     )
 
   # MDES near zero when alpha ~= power
@@ -203,7 +214,8 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
       var_df = "Satt",
       alpha = c(.1, .4),
       target_power = .4 + 1e-5,
-      iterations = 3
+      iterations = 3,
+      seed = 20221019
     )
 
   # MDES near zero when alpha ~= power
@@ -231,7 +243,8 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
       model = c("CHE","MLMA", "CE"),
       var_df = c("Model", "Satt", "RVE"),
       alpha = c(.1, .4),
-      target_power = .4 + 1e-5
+      target_power = .4 + 1e-5,
+      warning = FALSE
     )
 
   # MDES near zero when alpha ~= power
@@ -251,7 +264,7 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
   # constant MDES for balanced designs
   res_balanced %>%
     filter(!(model %in% c("MLMA-Model","MLMA-Model+Satt"))) %>%
-    group_by(N_studies, tau2, omega2, rho, alpha) %>%
+    group_by(J, tau2, omega2, rho, alpha) %>%
     summarise(
       models = n(),
       MDES = diff(range(MDES)),

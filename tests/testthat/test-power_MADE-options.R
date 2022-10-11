@@ -5,21 +5,23 @@ n_ES_emp <- 1 + stats::rpois(pop_size, 5.5 - 1)
 
 test_that("power_MADE() works with single parameter values, averaged power.", {
 
-  power_MADE(
-    J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
-    mu = 0.1,
-    rho = 0.7,
-    sigma2_dist = 4 / 100,
-    n_ES_dist = 5.5,
-    model = "CHE",
-    var_df = "Satt",
-    alpha = 0.05,
-    average_power = TRUE
-  ) %>%
-    nrow() %>%
-    expect_equal(1L)
+  expect_warning(
+    res <- power_MADE(
+      J = 40,
+      tau2 = 0.2^2,
+      omega2 = 0.1^2,
+      mu = 0.1,
+      rho = 0.7,
+      sigma2_dist = 4 / 100,
+      n_ES_dist = 5.5,
+      model = "CHE",
+      var_df = "Satt",
+      alpha = 0.05,
+      average_power = TRUE
+    )
+  )
+
+  expect_equal(nrow(res), 1L)
 
   power_MADE(
     J = 40,
@@ -31,7 +33,8 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
     n_ES_dist = n_ES_emp,
     model = c("CHE","MLMA"),
     alpha = 0.05,
-    average_power = TRUE
+    average_power = TRUE,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(2L)
@@ -72,21 +75,23 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
 
 test_that("power_MADE() works with single parameter values, raw power.", {
 
-  power_MADE(
-    J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
-    mu = 0.1,
-    rho = 0.7,
-    sigma2_dist = 4 / 100,
-    n_ES_dist = 5.5,
-    model = "CHE",
-    var_df = "Satt",
-    alpha = 0.05,
-    average_power = FALSE
-  ) %>%
-    nrow() %>%
-    expect_equal(1L)
+  expect_warning(
+    res <- power_MADE(
+      J = 40,
+      tau2 = 0.2^2,
+      omega2 = 0.1^2,
+      mu = 0.1,
+      rho = 0.7,
+      sigma2_dist = 4 / 100,
+      n_ES_dist = 5.5,
+      model = "CHE",
+      var_df = "Satt",
+      alpha = 0.05,
+      average_power = FALSE
+    )
+  )
+
+  expect_equal(nrow(res), 1L)
 
   power_MADE(
     J = 40,
@@ -99,7 +104,8 @@ test_that("power_MADE() works with single parameter values, raw power.", {
     model = c("CHE","MLMA"),
     alpha = 0.05,
     average_power = FALSE,
-    iterations = 10
+    iterations = 10,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(20L)
@@ -131,7 +137,8 @@ test_that("power_MADE() works with single parameter values, raw power.", {
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
     average_power = FALSE,
-    iterations = 7
+    iterations = 7,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(21L * 7L)
@@ -152,7 +159,8 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
     model = "CHE",
     var_df = "Satt",
     alpha = 0.05,
-    average_power = TRUE
+    average_power = TRUE,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(3L)
@@ -168,7 +176,8 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
     model = c("CHE","MLMA"),
     alpha = 0.05,
     average_power = TRUE,
-    iterations = 5
+    iterations = 5,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(12L)
@@ -220,7 +229,8 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
     model = "CHE",
     var_df = "Satt",
     alpha = 0.05,
-    average_power = FALSE
+    average_power = FALSE,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(3L)
@@ -235,7 +245,8 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
     n_ES_dist = n_ES_emp,
     model = c("CHE","MLMA"),
     alpha = 0.05,
-    average_power = FALSE
+    average_power = FALSE,
+    warning = FALSE
   ) %>%
     nrow() %>%
     expect_equal(12L * 100L)
@@ -308,7 +319,8 @@ test_that("power_MADE() returns alpha when null is true.", {
       var_df = "Satt",
       alpha = seq(.01, 0.4, length.out = 10),
       average_power = FALSE,
-      iterations = 3
+      iterations = 3,
+      warning = FALSE
     )
 
   expect_equal(res_Satt$alpha, res_Satt$power)
@@ -326,7 +338,8 @@ test_that("power_MADE() returns alpha when null is true.", {
       var_df = c("Model", "Satt", "RVE"),
       alpha = seq(0.04, 0.40, length.out = 9),
       average_power = FALSE,
-      iterations = 3
+      iterations = 3,
+      warning = FALSE
     )
 
   expect_equal(res_balanced$alpha, res_balanced$power, tolerance = 5e-5)
@@ -348,6 +361,7 @@ test_that("power_MADE() returns constant power for balanced designs.", {
       var_df = c("Model","Satt","RVE"),
       alpha = seq(.01, 0.4, length.out = 10),
       average_power = FALSE,
+      warning = FALSE
     )
 
   res_comparison <-

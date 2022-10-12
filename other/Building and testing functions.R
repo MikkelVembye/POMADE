@@ -11,6 +11,8 @@ options(dplyr.print_min = 310)
 options(scipen = 10)
 options(dplyr.summarise.inform = FALSE)
 
+Sys.setenv(LANG = "en")
+
 # Creates new coding script
 #use_r("power_MADE")
 #use_r("MDES_MADE")
@@ -71,10 +73,10 @@ MDES_MADE(
   tau2 = 0.2^2,
   omega2 = 0.1^2,
   rho = 0.7,
-  #target_power = c(0.7, .8),
-  #alpha = c(0.01, 0.05),
-  #model = c("CHE", "MLMA", "CE"),
-  #var_df = c("Model", "Satt", "RVE"),
+  target_power = c(0.7, .8),
+  alpha = c(0.01, 0.05),
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
   sigma2_dist = sigma2_dist,
   n_ES_dist = n_ES_dist,
   seed = 10052510,

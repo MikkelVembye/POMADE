@@ -433,6 +433,7 @@ power_MADE_single <-
 
     if ("CE" %in% model & "RVE" %in% var_df) {
 
+      # Equation 17 in Vembye, Pustejovsky, & Pigott (2022)
       tau2_e <- tau2 + omega2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
 
       # _dd = dotdot

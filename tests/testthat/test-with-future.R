@@ -201,3 +201,66 @@ test_that("MDES_MADE() works with future parallelization.", {
   expect_gt(mdes5$tm_seq, mdes5$tm_par)
 
 })
+
+test_that("find_J_MADE() works with future parallelization.", {
+
+  skip_on_cran()
+
+  J1 <- check_with_future(
+    f = find_J_MADE,
+    mu = c(0.1,0.2),
+    tau2 = 0.2^2,
+    omega2 = 0.1^2,
+    rho = 0.3,
+    sigma2_dist = 4 / 100,
+    n_ES_dist = 5.5,
+    model = c("CHE","MLMA"),
+    var_df = c("Satt", "RVE"),
+    alpha = 0.05,
+    target_power = 0.6,
+    seed = 20221014,
+    warning = FALSE,
+    workers = 2L
+  )
+
+  expect_identical(J1$res_seq, J1$res_par)
+  expect_gt(J1$tm_seq, J1$tm_par)
+
+  J2 <- check_with_future(
+    f = find_J_MADE,
+    mu = 0.36,
+    tau2 = 0.2^2,
+    omega2 = 0.1^2,
+    rho = 0.7,
+    sigma2_dist = sigma2_emp,
+    n_ES_dist = n_ES_emp,
+    alpha = c(.01, .1),
+    target_power = c(0.4,0.72),
+    iterations = 10,
+    seed = 20221016,
+    workers = 2L
+  )
+
+  expect_identical(J2$res_seq, J2$res_par)
+  expect_gt(J2$tm_seq, J2$tm_par)
+
+  J3 <- check_with_future(
+    f = find_J_MADE,
+    mu = c(0.2, 0.4),
+    tau2 = c(0.05, 0.09)^2,
+    omega2 = 0.05^2,
+    rho = 0.5,
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    model = c("CHE","CE"),
+    var_df = c("Model", "RVE"),
+    alpha = .03,
+    iterations = 3,
+    warning = FALSE,
+    workers = 2L
+  )
+
+  expect_false(identical(J3$res_seq, J3$res_par))
+  expect_gt(J3$tm_seq, J3$tm_par)
+
+})

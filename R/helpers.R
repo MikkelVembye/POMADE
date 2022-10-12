@@ -168,7 +168,6 @@ check_J <- function(mu, tau2, omega2, rho,
 }
 
 check_with_future <- function(f, ..., workers = future::availableCores(), check_time = FALSE) {
-  require(future)
 
   plan(sequential)
 
@@ -176,13 +175,13 @@ check_with_future <- function(f, ..., workers = future::availableCores(), check_
     res_seq <- f(...)
   )
 
-  plan(multisession, workers = workers)
+  future::plan(future::multisession, workers = workers)
 
   tm_par <- system.time(
     res_par <- f(...)
   )
 
-  plan(sequential)
+  future::plan(future::sequential)
 
   list(tm_seq = tm_seq[["elapsed"]], tm_par = tm_par[["elapsed"]], res_seq = res_seq, res_par = res_par)
 }

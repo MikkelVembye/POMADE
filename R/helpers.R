@@ -113,6 +113,60 @@ check_power <- function(J, tau2, omega2, rho,
     bind_cols(power)
 }
 
+check_J <- function(mu, tau2, omega2, rho,
+                    model = "CHE",
+                    var_df = "RVE",
+                    alpha = .05,
+                    target_power = .80,
+                    sigma2_dist = NULL, n_ES_dist = NULL,
+                    iterations = 100L,
+                    warning = TRUE,
+                    seed = NULL) {
+
+  J_min <- find_J_MADE(
+    mu = mu,
+    tau2 = tau2,
+    omega2 = omega2,
+    rho = rho,
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    model = model,
+    var_df = var_df,
+    alpha = alpha,
+    target_power = target_power,
+    iterations = iterations,
+    warning = warning,
+    seed = seed
+  ) %>%
+    mutate(
+      var_df = stringr::str_sub(stringr::str_extract(model, "-.+$"),2,-1),
+      model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
+      var_df = recode(var_df, "Model+Satt" = "Satt")
+    ) %>%
+    select(J_needed, mu, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
+
+  J_min_pm <-
+    bind_rows(
+      mutate(J_min, J = J_needed - 1, x = "less"),
+      mutate(J_min, J = J_needed, x = "more")
+    )
+
+  J_min_pm |>
+    select(-target_power, -x, -J_needed) |>
+    purrr::pmap_dfr(
+      .f = power_MADE_engine,
+      sigma2_dist = sigma2_dist,
+      n_ES_dist = n_ES_dist,
+      average_power = TRUE,
+      seed = seed
+    ) |>
+    select(samp_method_sigma2, samp_method_sigma2, power) |>
+    bind_cols(J_min_pm) |>
+    select(-J) |>
+    tidyr::pivot_wider(names_from = x, values_from = power)
+
+}
+
 check_with_future <- function(f, ..., workers = future::availableCores(), check_time = FALSE) {
   require(future)
 

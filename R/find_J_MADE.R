@@ -126,7 +126,8 @@ find_J_MADE_engine <-
     iterations = 100,
     seed = NULL,
     interval = c(5,100),
-    extendInt = "yes"
+    extendInt = "yes",
+    tol = .Machine$double.eps^0.25
   ) {
 
 
@@ -170,19 +171,25 @@ find_J_MADE_engine <-
 
 
     f <- function(J) {
-
-      power_MADE_engine(
-        J = J, mu = mu, tau2 = tau2, omega2 = omega2,
+      J_seq <- unique(floor(J), ceiling(J))
+      p <- power_MADE_engine(
+        J = J_seq, mu = mu, tau2 = tau2, omega2 = omega2,
         rho = rho, alpha = alpha, d = d,
         model = model, var_df = var_df,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
         iterations = iterations, average_power = TRUE,
-        seed = seed
-      )$power - target_power
-
+        J_hi = interval[2], seed = seed
+      )
+      power_range <- range(p$power)
+      power_range[1] + (power_range[2] - power_range[1]) * (J - J_seq[1]) - target_power
     }
 
-    J_needed <- stats::uniroot(f, interval = interval, extendInt = extendInt)$root
+    J_needed <- if (f(interval[1]) >= 0) {
+      interval[1]
+    } else {
+      J <- stats::uniroot(f, interval = interval, extendInt = extendInt, tol = tol)$root
+      if (f(floor(J)) > 0) floor(J) else ceiling(J)
+    }
 
     # To align the results with the power_MADE function
     if ("Satt" %in% var_df) var_df <- "Model+Satt"
@@ -195,7 +202,7 @@ find_J_MADE_engine <-
       d = d,
       alpha = alpha,
       target_power = target_power,
-      J_needed = round(J_needed),
+      J_needed = J_needed,
       iterations = iterations,
       model = paste(model, var_df, sep = "-"),
       samp_method_sigma2 = samp_method_sigma2,

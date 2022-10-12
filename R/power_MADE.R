@@ -128,6 +128,7 @@ power_MADE_engine <-
 
     iterations = 5,
     average_power = TRUE,
+    J_hi = J,
     seed = NULL
   ){
 
@@ -149,7 +150,7 @@ power_MADE_engine <-
   if (is.function(sigma2_dist)) {
 
     samp_method_sigma2 <- "stylized"
-    sigma2js <- purrr::rerun(iterations, sigma2_dist(J))
+    sigma2js <- purrr::rerun(iterations, sigma2_dist(J_hi)[1:J])
 
   }
 
@@ -157,7 +158,7 @@ power_MADE_engine <-
   if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
 
     samp_method_sigma2 <- "empirical"
-    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J, replace = TRUE))
+    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J_hi, replace = TRUE)[1:J])
 
   }
 
@@ -175,13 +176,13 @@ power_MADE_engine <-
 
     # Stylized distribution of the number of effect sizes per study
     samp_method_kj <- "stylized"
-    kjs <- purrr::rerun(iterations, n_ES_dist(J))
+    kjs <- purrr::rerun(iterations, n_ES_dist(J_hi)[1:J])
 
   } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
 
     # Empirical distribution of the number of effect sizes per study
     samp_method_kj <- "empirical"
-    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J, replace = TRUE))
+    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J_hi, replace = TRUE)[1:J])
 
   } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
 
@@ -192,7 +193,7 @@ power_MADE_engine <-
 
     pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
     id <- seq_along(sigma2_dist)
-    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J, replace = TRUE),])
+    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J_hi, replace = TRUE)[1:J],])
     sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
     kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
 
@@ -247,6 +248,9 @@ power_MADE_single <-
 
   ) {
 
+
+    # ensure J is an integer
+    J <- as.integer(floor(J))
 
     if (length(sigma2j) != J) sigma2j <- rep(sigma2j, length.out = J)
 

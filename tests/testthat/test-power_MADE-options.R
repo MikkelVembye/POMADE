@@ -8,9 +8,9 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
   expect_warning(
     res <- power_MADE(
       J = 40,
+      mu = 0.1,
       tau2 = 0.2^2,
       omega2 = 0.1^2,
-      mu = 0.1,
       rho = 0.7,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -25,9 +25,9 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -41,9 +41,9 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -56,9 +56,9 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -78,9 +78,9 @@ test_that("power_MADE() works with single parameter values, raw power.", {
   expect_warning(
     res <- power_MADE(
       J = 40,
+      mu = 0.1,
       tau2 = 0.2^2,
       omega2 = 0.1^2,
-      mu = 0.1,
       rho = 0.7,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -95,9 +95,9 @@ test_that("power_MADE() works with single parameter values, raw power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -112,9 +112,9 @@ test_that("power_MADE() works with single parameter values, raw power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -127,9 +127,9 @@ test_that("power_MADE() works with single parameter values, raw power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -150,9 +150,9 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
 
   power_MADE(
     J = c(10,20,40),
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
     n_ES_dist = 5.5,
@@ -167,9 +167,9 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = c(0.1, 0.2, 0.3)^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -184,9 +184,9 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
 
   power_MADE(
     J = seq(10,30,10),
+    mu = seq(0.1,0.6,0.1),
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = seq(0.1,0.6,0.1),
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -199,9 +199,9 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
 
   power_MADE(
     J = c(20,40),
+    mu = seq(0.0,0.8,0.2),
     tau2 = c(0.1, 0.2, 0.3)^2,
     omega2 = c(0.1, 0.2)^2,
-    mu = seq(0.0,0.8,0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -220,9 +220,9 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
 
   power_MADE(
     J = c(10,20,40),
+    mu = 0.1,
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
     n_ES_dist = 5.5,
@@ -237,9 +237,9 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
 
   power_MADE(
     J = 40,
+    mu = 0.1,
     tau2 = c(0.1, 0.2, 0.3)^2,
     omega2 = 0.1^2,
-    mu = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -253,9 +253,9 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
 
   power_MADE(
     J = seq(10,30,10),
+    mu = seq(0.1,0.6,0.1),
     tau2 = 0.2^2,
     omega2 = 0.1^2,
-    mu = seq(0.1,0.6,0.1),
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -268,9 +268,9 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
 
   power_MADE(
     J = c(20,40),
+    mu = seq(0.0,0.8,0.2),
     tau2 = c(0.1, 0.2, 0.3)^2,
     omega2 = c(0.1, 0.2)^2,
-    mu = seq(0.0,0.8,0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -291,9 +291,9 @@ test_that("power_MADE() returns alpha when null is true.", {
   res_RVE <-
     power_MADE(
       J = c(20,40),
+      mu = 0,
       tau2 = c(0.1, 0.2, 0.3)^2,
       omega2 = c(0.1, 0.2)^2,
-      mu = 0,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -309,9 +309,9 @@ test_that("power_MADE() returns alpha when null is true.", {
   res_Satt <-
     power_MADE(
       J = c(20,40),
+      mu = 0,
       tau2 = c(0.1, 0.2, 0.3)^2,
       omega2 = c(0.1, 0.2)^2,
-      mu = 0,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -328,9 +328,9 @@ test_that("power_MADE() returns alpha when null is true.", {
   res_balanced <-
     power_MADE(
       J = c(20,40),
+      mu = 0.0,
       tau2 = c(0.1, 0.2, 0.3)^2,
       omega2 = c(0.1, 0.2)^2,
-      mu = 0.0,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = 4 / 48,
       n_ES_dist = 3,
@@ -351,9 +351,9 @@ test_that("power_MADE() returns constant power for balanced designs.", {
   res <-
     power_MADE(
       J = c(20,40),
+      mu = 0.07,
       tau2 = c(0.1, 0.2, 0.3)^2,
       omega2 = c(0.1, 0.2)^2,
-      mu = 0.07,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = 4 / 48,
       n_ES_dist = 2,
@@ -366,7 +366,7 @@ test_that("power_MADE() returns constant power for balanced designs.", {
 
   res_comparison <-
     res %>%
-    group_by(J, tau2, omega2, mu, rho, alpha) %>%
+    group_by(J, mu, tau2, omega2, rho, alpha) %>%
     summarise(
       models = n(),
       across(c(power,var_b, df), ~ diff(range(.x))),

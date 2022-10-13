@@ -169,7 +169,7 @@ check_J <- function(mu, tau2, omega2, rho,
 
 check_with_future <- function(f, ..., workers = future::availableCores(), check_time = FALSE) {
 
-  plan(sequential)
+  future::plan(future::sequential)
 
   tm_seq <- system.time(
     res_seq <- f(...)
@@ -192,5 +192,6 @@ check_with_future <- function(f, ..., workers = future::availableCores(), check_
 utils::globalVariables(
   c("samp_method", "method", "vectorof", "var_b", "es",
     "res", "tau", "omega", "power", "Power", "label", "MDES", "pilot_dat",
-    "sigma2_method", "mdes_data", "J_needed", "tau_name", "d", "mcse", "sd", ".")
+    "sigma2_method", "mdes_data", "J_needed", "tau_name", "d", "mcse", "sd", ".",
+    "J", "plan", "samp_method_sigma2", "sequential", "x")
 )

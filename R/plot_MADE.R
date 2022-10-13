@@ -9,6 +9,8 @@ plot_MADE <-
     limits = NULL,
     legend_position = "bottom",
     color = FALSE,
+    numbers = TRUE,
+    number_size = 2.5,
     warning = TRUE
   ){
 
@@ -163,6 +165,25 @@ plot_MADE <-
     } else if (length(expected_studies) > 3) {
 
       stop("expected_studies must not exceed 3 values")
+
+    }
+
+    if (numbers){
+
+      label_length <- n_distinct(plot_dat$tau2)*n_distinct(plot_dat$omega2)
+
+      df_text <- tibble(
+        tau_name = factor(rep(unique(plot_dat$tau_name), n_distinct(plot_dat$omega_name))),
+
+        omega_name = factor(rep(unique(plot_dat$omega_name), each = n_distinct(plot_dat$tau_name))),
+
+        label = paste0("(", 1:label_length, ")"),
+
+        cor = factor(unique(plot_dat$rho[1]))
+      )
+
+      plot <- map(plot, ~ .x + ggplot2::geom_text(data = df_text, ggplot2::aes(x = max(plot_dat$J), y = .01, label = label),
+                                             size = number_size, color = "black"))
 
     }
 

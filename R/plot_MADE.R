@@ -182,7 +182,7 @@ plot_MADE <-
         cor = factor(unique(plot_dat$rho[1]))
       )
 
-      plot <- map(plot, ~ .x + ggplot2::geom_text(data = df_text, ggplot2::aes(x = max(plot_dat$J), y = .01, label = label),
+      plot <- purrr::map(plot, ~ .x + ggplot2::geom_text(data = df_text, ggplot2::aes(x = max(plot_dat$J), y = .01, label = label),
                                              size = number_size, color = "black"))
 
     }

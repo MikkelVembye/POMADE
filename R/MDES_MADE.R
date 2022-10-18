@@ -91,13 +91,14 @@ MDES_MADE <-
 
     furrr_seed <- if (is.null(seed)) TRUE else NULL
 
-    res <- furrr::future_pmap_dfr(
-      .l = params, .f = MDES_MADE_engine,
-      sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-      seed = seed, interval = interval, extendInt = "no",
-      .options = furrr::furrr_options(seed = furrr_seed)
+    suppressPackageStartupMessages(
+      res <- furrr::future_pmap_dfr(
+        .l = params, .f = MDES_MADE_engine,
+        sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
+        seed = seed, interval = interval, extendInt = "no",
+        .options = furrr::furrr_options(seed = furrr_seed)
+      )
     )
-
 
     res |>
       dplyr::arrange(dplyr::across(J:target_power))

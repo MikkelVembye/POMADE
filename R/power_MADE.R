@@ -90,24 +90,26 @@ power_MADE <-
 
     furrr_seed <- if (is.null(seed)) TRUE else NULL
 
-    dat <-
-      params %>%
-      mutate(
-        res = furrr::future_pmap(
-          .l = params,
-          .f = power_MADE_engine,
-          alpha = alpha,
-          model = model,
-          var_df = var_df,
-          sigma2_dist = sigma2_dist,
-          n_ES_dist = n_ES_dist,
-          iterations = iterations,
-          average_power = average_power,
-          seed = seed,
-          .options = furrr::furrr_options(seed = furrr_seed)
-        )
-      ) %>%
-      tidyr::unnest(res)
+    suppressPackageStartupMessages(
+      dat <-
+        params %>%
+        mutate(
+          res = furrr::future_pmap(
+            .l = params,
+            .f = power_MADE_engine,
+            alpha = alpha,
+            model = model,
+            var_df = var_df,
+            sigma2_dist = sigma2_dist,
+            n_ES_dist = n_ES_dist,
+            iterations = iterations,
+            average_power = average_power,
+            seed = seed,
+            .options = furrr::furrr_options(seed = furrr_seed)
+          )
+        ) %>%
+        tidyr::unnest(res)
+    )
 
     dat
 

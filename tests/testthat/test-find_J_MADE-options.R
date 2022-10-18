@@ -1,8 +1,9 @@
 
 pop_size <- 1000L
 sigma2_emp <- rgamma(pop_size, shape = 5, rate = 12)
-n_ES_emp <- 1 + stats::rpois(pop_size, 4.5 - 1)
+n_ES_emp <- 1 + rpois(pop_size, 4.5 - 1)
 
+power_tol <- 0.001
 
 test_that("find_J_MADE() works with single parameter values.", {
 
@@ -23,8 +24,8 @@ test_that("find_J_MADE() works with single parameter values.", {
   )
 
   expect_equal(nrow(J_min), 1L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   J_min <- check_J(
     mu = 0.3,
@@ -41,8 +42,8 @@ test_that("find_J_MADE() works with single parameter values.", {
   )
 
   expect_equal(nrow(J_min), 2L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   J_min <- check_J(
     mu = 0.2,
@@ -53,12 +54,12 @@ test_that("find_J_MADE() works with single parameter values.", {
     n_ES_dist = n_ES_emp,
     alpha = c(.01, 0.025, .1),
     iterations = 100L,
-    seed = 20221012
+    seed = 20221013
   )
 
   expect_equal(nrow(J_min), 3L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   J_min <- check_J(
     mu = 0.1,
@@ -66,18 +67,18 @@ test_that("find_J_MADE() works with single parameter values.", {
     omega2 = 0.1^2,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "MLMA", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = .1,
     target_power = 0.45,
     iterations = 50,
-    seed = 20221013
+    seed = 20221014
   )
 
   expect_equal(nrow(J_min), 7L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
 })
 
@@ -103,8 +104,8 @@ test_that("find_J_MADE() works with multiple parameter values.", {
   )
 
   expect_equal(nrow(J_min), 2L * 7L * 2L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   # constant MDES for balanced designs
   J_min %>%
@@ -123,7 +124,7 @@ test_that("find_J_MADE() works with multiple parameter values.", {
 
   J_min <- check_J(
     mu = 0.33,
-    tau2 = c(0.1, 0.2, 0.3)^2,
+    tau2 = c(0.1, 0.2, 0.4)^2,
     omega2 = 0.1^2,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
@@ -136,8 +137,8 @@ test_that("find_J_MADE() works with multiple parameter values.", {
   )
 
   expect_equal(nrow(J_min), 3L * 2L * 2L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   J_min <- check_J(
     mu = c(0.05, 0.08),
@@ -153,24 +154,25 @@ test_that("find_J_MADE() works with multiple parameter values.", {
   )
 
   expect_equal(nrow(J_min), 2L * 3L * 2L)
-  expect_lt(max(J_min$less - J_min$target_power), 0)
-  expect_gte(min(J_min$more - J_min$target_power), 0)
+  expect_lt(max(J_min$less - J_min$target_power), power_tol)
+  expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
   J_min <- check_J(
     mu = 0.4,
-    tau2 = c(0.1, 0.2, 0.3)^2,
+    tau2 = c(0.08, 0.16)^2,
     omega2 = c(0.1, 0.2)^2,
-    rho = c(0.4,0.7,0.9),
+    rho = c(0.4,0.8),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
-    alpha = c(.01, 0.025, .1),
-    iterations = 2,
+    alpha = c(.03, 0.7),
+    iterations = 1L,
+    seed = 20221017,
     warning = FALSE
   )
 
-  expect_equal(nrow(J_min), 3L * 2L * 3L * 4L * 3L)
+  expect_equal(nrow(J_min), 2L * 2L * 2L * 4L * 2L)
 
 })
 
@@ -186,7 +188,7 @@ test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
       omega2 = c(0.1, 0.2)^2,
       rho = 0.7,
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-      n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+      n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
       model = c("CHE", "MLMA", "CE"),
       var_df = "RVE",
       alpha = c(.01, 0.05),
@@ -216,7 +218,7 @@ test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
       omega2 = c(0.1, 0.2)^2,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-      n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+      n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
       model = "CHE",
       var_df = "Satt",
       alpha = c(.1, .3),

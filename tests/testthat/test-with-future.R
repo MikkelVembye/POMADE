@@ -1,7 +1,7 @@
 
 pop_size <- 1000L
 sigma2_emp <- rgamma(pop_size, shape = 4, rate = 12)
-n_ES_emp <- 1 + stats::rpois(pop_size, 3.5 - 1)
+n_ES_emp <- 1 + rpois(pop_size, 3.5 - 1)
 
 test_that("power_MADE() works with future parallelization.", {
 
@@ -69,7 +69,7 @@ test_that("power_MADE() works with future parallelization.", {
     omega2 = c(0.1, 0.2)^2,
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -88,7 +88,7 @@ test_that("power_MADE() works with future parallelization.", {
     omega2 = c(0.1, 0.2)^2,
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -168,10 +168,10 @@ test_that("MDES_MADE() works with future parallelization.", {
     omega2 = c(0.1, 0.2)^2,
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
-    alpha = c(.01, 0.025, .1),
+    alpha = c(.03, .10),
     iterations = 2,
     warning = FALSE,
     seed = 20221017,
@@ -188,7 +188,7 @@ test_that("MDES_MADE() works with future parallelization.", {
     omega2 = 0.1^2,
     rho = 0.5,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE","CE"),
     var_df = c("Satt", "RVE"),
     alpha = c(.03),
@@ -251,7 +251,7 @@ test_that("find_J_MADE() works with future parallelization.", {
     omega2 = 0.05^2,
     rho = 0.5,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE","CE"),
     var_df = c("Model", "RVE"),
     alpha = .03,

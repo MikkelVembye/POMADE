@@ -135,6 +135,7 @@ power_MADE_engine <-
   ){
 
   if (!is.null(seed)) set.seed(seed)
+
   # J_hi must be at least as large as J
   if (J_hi < J) J_hi <- J
 

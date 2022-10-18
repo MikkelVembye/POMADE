@@ -1,7 +1,7 @@
 
 pop_size <- 1000L
 sigma2_emp <- rgamma(pop_size, shape = 5, rate = 10)
-n_ES_emp <- 1 + stats::rpois(pop_size, 5.5 - 1)
+n_ES_emp <- 1 + rpois(pop_size, 5.5 - 1)
 
 test_that("power_MADE() works with single parameter values, averaged power.", {
 
@@ -61,7 +61,7 @@ test_that("power_MADE() works with single parameter values, averaged power.", {
     omega2 = 0.1^2,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "MLMA", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -132,7 +132,7 @@ test_that("power_MADE() works with single parameter values, raw power.", {
     omega2 = 0.1^2,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "MLMA", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -204,7 +204,7 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
     omega2 = c(0.1, 0.2)^2,
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -273,7 +273,7 @@ test_that("power_MADE() works with multiple parameter values, raw power.", {
     omega2 = c(0.1, 0.2)^2,
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
@@ -296,7 +296,7 @@ test_that("power_MADE() returns alpha when null is true.", {
       omega2 = c(0.1, 0.2)^2,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-      n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+      n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
       model = c("CHE", "MLMA","CE"),
       var_df = "RVE",
       alpha = seq(.01, 0.4, length.out = 10),
@@ -314,7 +314,7 @@ test_that("power_MADE() returns alpha when null is true.", {
       omega2 = c(0.1, 0.2)^2,
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-      n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+      n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
       model = "CHE",
       var_df = "Satt",
       alpha = seq(.01, 0.4, length.out = 10),

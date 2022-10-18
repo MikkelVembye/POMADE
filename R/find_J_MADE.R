@@ -189,7 +189,9 @@ find_J_MADE_engine <-
       interval[1]
     } else {
       J <- stats::uniroot(f, interval = interval, extendInt = extendInt, tol = tol)$root
-      if (f(floor(J)) > 0) floor(J) else ceiling(J)
+      J_vals <- floor(J) + (-1):2
+      f_vals <- sapply(J_vals, f)
+      min(J_vals[f_vals >= 0])
     }
 
     # To align the results with the power_MADE function

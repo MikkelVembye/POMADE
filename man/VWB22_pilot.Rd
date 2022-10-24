@@ -27,12 +27,12 @@ VWB22_pilot
 \description{
 Meta-analytical dataset regarding the effects of collaborative models
 of instruction of student achievement from Vembye, Weiss, and
-Bhat (forthcoming)
+Bhat (Accepted/In press)
 }
 \references{
-Vembye, Weiss, & Bhat (forthcoming). The Effects
+Vembye, Weiss, & Bhat (Appected/In press). The Effects
 Co-Teaching and Related Collaborative Models of Instruction on
-Student Achievement: A Systematic Review and Meta-Analysis. Access
-to background material at \url{https://bit.ly/3nhVX3H}
+Student Achievement: A Systematic Review and Meta-Analysis. Review of
+Educational Research. Access to background material at \url{https://bit.ly/3nhVX3H}
 }
 \keyword{datasets}

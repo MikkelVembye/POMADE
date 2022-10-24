@@ -7,8 +7,8 @@
 power_MADE(
   J,
   mu,
-  tau2,
-  omega2,
+  tau,
+  omega,
   rho,
   alpha = 0.05,
   d = 0,
@@ -27,9 +27,9 @@ power_MADE(
 
 \item{mu}{Effect size of practical concern}
 
-\item{tau2}{Between-study variance}
+\item{tau}{Between-study SD}
 
-\item{omega2}{Within-study variance}
+\item{omega}{Within-study SD}
 
 \item{rho}{Correlation coefficient between effect sizes from the same study}
 
@@ -68,8 +68,8 @@ Power Approximation for Meta-Analysis of Dependent Effect Sizes
 power <- power_MADE(
    J = c(40, 60),
    mu = 0.1,
-   tau2 = 0.2^2,
-   omega2 = 0.1^2,
+   tau = 0.2,
+   omega = 0.1,
    rho = 0.7,
    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),

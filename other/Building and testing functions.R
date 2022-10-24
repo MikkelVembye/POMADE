@@ -26,6 +26,11 @@ load_all()
 #
 #?POMADE::power_MADE()
 
+#############
+# plotting
+#############
+
+
 set.seed(10052510)
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
@@ -34,8 +39,8 @@ power_dat <-
   power_MADE(
     J = seq(40, 60, 5),
     mu = 0.1,
-    tau2 = c(0.05, 0.1, 0.2)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.05, 0.1, 0.2),
+    omega = c(0.1, 0.2),
     rho = c(0.2, 0.7),
     alpha = c(0.01, 0.05),
     sigma2_dist = sigma2_dist,
@@ -50,8 +55,8 @@ power_dat2 <-
   power_MADE(
     J = seq(40, 60, 5),
     mu = 0.1,
-    tau2 = c(0.05, 0.1, 0.2)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.05, 0.1, 0.2),
+    omega = c(0.1, 0.2),
     rho = c(0.2, 0.7),
     sigma2_dist = sigma2_dist,
     n_ES_dist = n_ES_dist,
@@ -61,16 +66,54 @@ power_dat2 <-
     seed = 10052510
   )
 
+plot_MADE.power(
+  power_dat,
+  warning = FALSE
+)
+
+power_dat3 <-
+  power_dat2 |>
+  rename(cor = rho) |>
+  mutate(cor = as.factor(cor))
+
+plot_MADE_engine(
+  power_dat3,
+  x = J,
+  y = power,
+  x_grid = omega,
+  y_grid = tau,
+  color = cor,
+  shape = cor,
+  linetype = cor,
+  color_lab = "Cor",
+  shape_lab = "Cor",
+  line_lab = "Cor",
+  h_lines = 0.8,
+  v_line = 50,
+  v_shade = c(45, 55),
+  x_lab = "Number of Studies (J)",
+  y_lab = "Power",
+  caption = "Test",
+  grid_labs = TRUE,
+  y_breaks = seq(0,1,0.2),
+  y_limits = c(0,1)
+)
+
 
 plot_MADE(
-  power_dat,
-  expected_studies = c(45, 55),
-  power_min = 0.7,
-  color = TRUE,
-  caption = TRUE,
-  #breaks = seq(40, 60, 2)
-  #numbers = FALSE
+
 )
+
+
+#plot_MADE(
+#  power_dat,
+#  expected_studies = c(45, 55),
+#  power_min = 0.7,
+#  color = TRUE,
+#  caption = TRUE,
+#  #breaks = seq(40, 60, 2)
+#  #numbers = FALSE
+#)
 
 
 J_obj <-
@@ -112,7 +155,7 @@ min_studies_MADE_engine(
 multisession(multisession, workers = future::availableCores()-1)
 
 #tic()
-MDES_dat <- MDES_MADE(
+MDES_dat <- mdes_MADE(
   J = seq(40, 60, 5),
   tau2 = c(0.1, 0.2)^2,
   omega2 = c(0.05, 0.1)^2,
@@ -130,15 +173,15 @@ MDES_dat <- MDES_MADE(
 #toc()
 
 
-plot_MADE(
-  MDES_dat,
-  expected_studies = c(45, 55),
-  MDES_min = 0.1,
-  color = TRUE,
-  caption = TRUE,
-  #breaks = seq(40, 60, 2)
-  #numbers = FALSE
-)
+#plot_MADE(
+#  MDES_dat,
+#  expected_studies = c(45, 55),
+#  MDES_min = 0.1,
+#  color = TRUE,
+#  caption = TRUE,
+#  #breaks = seq(40, 60, 2)
+#  #numbers = FALSE
+#)
 
 
 mdes_obj <-

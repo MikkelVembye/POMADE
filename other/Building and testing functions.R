@@ -2,8 +2,8 @@
 
 library(usethis)
 library(devtools)
-library(furrr)
-library(tictoc)
+#library(furrr)
+#library(tictoc)
 
 options(pillar.sigfig = 4) # ensure tibble include 4 digits
 options(tibble.width = Inf)
@@ -20,39 +20,83 @@ Sys.setenv(LANG = "en")
 
 load_all()
 
-install()
-
-library(POMADE)
-
-?POMADE::power_MADE()
+#install()
+#
+#library(POMADE)
+#
+#?POMADE::power_MADE()
 
 set.seed(10052510)
 sigma2_dist <- rgamma(100, shape = 5, rate = 10)
 n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
 
+power_dat <-
+  power_MADE(
+    J = seq(40, 60, 5),
+    mu = 0.1,
+    tau2 = c(0.05, 0.1, 0.2)^2,
+    omega2 = c(0.1, 0.2)^2,
+    rho = c(0.2, 0.7),
+    alpha = c(0.01, 0.05),
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    #model = c("CHE", "MLMA", "CE"),
+    var_df = c("Model", "Satt", "RVE"),
+    iterations = 5,
+    seed = 10052510
+  )
 
-find_J_MADE(
-  mu = 0.2,
-  tau2 = c(0.1, 0.2)^2,
-  omega2 = 0.25^2,
-  rho = 0.7,
-  target_power = .8,
+power_dat2 <-
+  power_MADE(
+    J = seq(40, 60, 5),
+    mu = 0.1,
+    tau2 = c(0.05, 0.1, 0.2)^2,
+    omega2 = c(0.1, 0.2)^2,
+    rho = c(0.2, 0.7),
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    #model = c("CHE", "MLMA", "CE"),
+    #var_df = c("Model", "Satt", "RVE"),
+    iterations = 5,
+    seed = 10052510
+  )
 
-  model = "CHE", # default
-  var_df = "RVE", # default
 
-  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-  seed = 10052510
+plot_MADE(
+  power_dat,
+  expected_studies = c(45, 55),
+  power_min = 0.7,
+  color = TRUE,
+  caption = TRUE,
+  #breaks = seq(40, 60, 2)
+  #numbers = FALSE
 )
+
+
+J_obj <-
+  min_studies_MADE(
+    mu = 0.2,
+    tau = c(0.1, 0.2),
+    omega = 0.25,
+    rho = 0.7,
+    target_power = .8,
+
+    model = "CHE", # default
+    var_df = "RVE", # default
+
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    seed = 10052510
+
+); J_obj
 
 #debug(find_J_MADE)
 
 
-find_J_MADE_engine(
+min_studies_MADE_engine(
   mu = 0.1,
-  tau2 = 0.1^2,
-  omega2 = 0.25^2,
+  tau = 0.1,
+  omega = 0.25,
   rho = 0.7,
   target_power = .8,
 
@@ -65,43 +109,57 @@ find_J_MADE_engine(
 )
 
 
-#multisession(multisession, workers = future::availableCores()-1)
+multisession(multisession, workers = future::availableCores()-1)
 
 #tic()
-MDES_MADE(
-  J = c(20, 40, 60),
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
-  rho = 0.7,
-  target_power = c(0.7, .8),
-  alpha = c(0.01, 0.05),
+MDES_dat <- MDES_MADE(
+  J = seq(40, 60, 5),
+  tau2 = c(0.1, 0.2)^2,
+  omega2 = c(0.05, 0.1)^2,
+  rho = c(0.2, 0.7),
+  target_power = c(.5, .8),
+  alpha = c(0.05),
   model = c("CHE", "MLMA", "CE"),
   var_df = c("Model", "Satt", "RVE"),
   sigma2_dist = sigma2_dist,
   n_ES_dist = n_ES_dist,
   seed = 10052510,
-  #iterations = 50,
+  iterations = 5,
   #warning = FALSE
 )
 #toc()
 
 
-MDES_MADE(
-  J = c(40, 60),
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
-  rho = 0.7,
-  model = c("CHE", "MLMA", "CE"),
-  var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-  seed = 10052510
+plot_MADE(
+  MDES_dat,
+  expected_studies = c(45, 55),
+  MDES_min = 0.1,
+  color = TRUE,
+  caption = TRUE,
+  #breaks = seq(40, 60, 2)
+  #numbers = FALSE
 )
 
-MDES_MADE_engine(
+
+mdes_obj <-
+  mdes_MADE(
+    J = c(40),
+    tau = 0.2,
+    omega = 0.1,
+    rho = 0.7,
+    model = c("CHE", "MLMA", "CE"),
+    var_df = c("Model", "Satt", "RVE"),
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    iterations = 5,
+    seed = 10052510
+
+); mdes_obj
+
+mdes_MADE_engine(
   J = 40,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   rho = 0.7,
   target_power = .8,
 
@@ -115,27 +173,29 @@ MDES_MADE_engine(
 
 
 
-power_MADE(
-  J = c(40),
-  mu = 0.1,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
-  rho = 0.7,
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-  #model = c("CHE", "MLMA", "CE"),
-  var_df = "Satt",
-  iterations = 5,
-  alpha = .05,
-  seed = 10052510,
-  average_power = TRUE,
-  warning = TRUE
-)
+power_obj <-
+  power_MADE(
+    J = c(40),
+    mu = 0.1,
+    tau = c(0.1, 0.2),
+    omega = 0.1,
+    rho = 0.7,
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    #model = c("CHE", "MLMA", "CE"),
+    #var_df = "Satt",
+    iterations = 100,
+    alpha = .05,
+    seed = 10052510,
+    average_power = TRUE,
+    warning = TRUE
+
+); power_obj
 
 power_MADE(
   J = c(40, 60),
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   mu = 0.1,
   rho = 0.7,
   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
@@ -149,8 +209,8 @@ power_MADE(
 
 power_MADE(
   J = c(40),
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   mu = 0.1,
   rho = 0.7,
   sigma2_dist = 4/100,
@@ -166,8 +226,8 @@ power_MADE(
 power_MADE_single(
   J = 40,
   mu = 0.1,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   rho = 0.7,
   sigma2j = rgamma(40, shape = 5, rate = 10),
   kj = 5.5,
@@ -183,8 +243,8 @@ n_ES_dist <- 1 + stats::rpois(100, 5.5 - 1)
 power_MADE_engine(
   J = 40,
   mu = 0.1,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   rho = 0.7,
   sigma2_dist = 4/100,
   n_ES_dist = 5.5,
@@ -195,8 +255,8 @@ power_MADE_engine(
 
 power_MADE_engine(
   J = 40,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   mu = 0.1,
   rho = 0.7,
   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
@@ -208,8 +268,8 @@ power_MADE_engine(
 
 power_MADE_engine(
   J = 40,
-  tau2 = 0.2^2,
-  omega2 = 0.1^2,
+  tau = 0.2,
+  omega = 0.1,
   mu = 0.1,
   rho = 0.7,
   sigma2_dist = sigma2_dist,

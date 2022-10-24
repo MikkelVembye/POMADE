@@ -19,10 +19,10 @@
 #'
 #' @examples
 #'
-#' mdes <- MDES_MADE(
+#' mdes <- mdes_MADE(
 #'   J = c(40, 60),
-#'   tau2 = 0.2^2,
-#'   omega2 = 0.1^2,
+#'   tau = 0.2,
+#'   omega = 0.1,
 #'   rho = 0.7,
 #'   model = c("CHE", "MLMA", "CE"),
 #'   var_df = c("Model", "Satt", "RVE"),
@@ -35,11 +35,11 @@
 #'
 #'
 
-MDES_MADE <-
+mdes_MADE <-
   function(
     J,
-    tau2,
-    omega2,
+    tau,
+    omega,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -76,8 +76,8 @@ MDES_MADE <-
     design_factors <-
       list(
         J = J,
-        tau2 = tau2,
-        omega2 = omega2,
+        tau = tau,
+        omega = omega,
         rho = rho,
         alpha = alpha,
         target_power = target_power,
@@ -93,23 +93,24 @@ MDES_MADE <-
 
     suppressPackageStartupMessages(
       res <- furrr::future_pmap_dfr(
-        .l = params, .f = MDES_MADE_engine,
+        .l = params, .f = mdes_MADE_engine,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
         seed = seed, interval = interval, extendInt = "no",
         .options = furrr::furrr_options(seed = furrr_seed)
-      )
+      ) |>
+        dplyr::arrange(dplyr::across(J:target_power))
     )
 
-    res |>
-      dplyr::arrange(dplyr::across(J:target_power))
+   tibble::new_tibble(res, class = "mdes")
+
 }
 
 
-MDES_MADE_engine <-
+mdes_MADE_engine <-
   function(
     J,
-    tau2,
-    omega2,
+    tau,
+    omega,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -170,7 +171,7 @@ MDES_MADE_engine <-
   f <- function(mu) {
 
   power_MADE_engine(
-    J = J, mu = mu, tau2 = tau2, omega2 = omega2,
+    J = J, mu = mu, tau = tau, omega = omega,
     rho = rho, alpha = alpha, d = d,
     model = model, var_df = var_df,
     sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
@@ -187,8 +188,8 @@ MDES_MADE_engine <-
 
   tibble(
    J = J,
-   tau2 = tau2,
-   omega2 = omega2,
+   tau = tau,
+   omega = omega,
    rho = rho,
    d = d,
    alpha = alpha,

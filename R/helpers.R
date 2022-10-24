@@ -65,7 +65,7 @@ find_tau_omega <- function(tau, omega, phi, rho, k_j, sigmasq_j) {
 }
 
 
-check_power <- function(J, tau2, omega2, rho,
+check_power <- function(J, tau, omega, rho,
                         model = "CHE",
                         var_df = "RVE",
                         alpha = .05,
@@ -75,10 +75,10 @@ check_power <- function(J, tau2, omega2, rho,
                         warning = TRUE,
                         seed = NULL) {
 
-  mdes <- MDES_MADE(
+  mdes <- mdes_MADE(
     J = J,
-    tau2 = tau2,
-    omega2 = omega2,
+    tau = tau,
+    omega = omega,
     rho = rho,
     sigma2_dist = sigma2_dist,
     n_ES_dist = n_ES_dist,
@@ -95,7 +95,7 @@ check_power <- function(J, tau2, omega2, rho,
       model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
       var_df = recode(var_df, "Model+Satt" = "Satt")
     ) %>%
-    select(J, mu = MDES, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
+    select(J, mu = MDES, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
 
   power <-
     mdes |>
@@ -113,7 +113,7 @@ check_power <- function(J, tau2, omega2, rho,
     bind_cols(power)
 }
 
-check_J <- function(mu, tau2, omega2, rho,
+check_J <- function(mu, tau, omega, rho,
                     model = "CHE",
                     var_df = "RVE",
                     alpha = .05,
@@ -123,10 +123,10 @@ check_J <- function(mu, tau2, omega2, rho,
                     warning = TRUE,
                     seed = NULL) {
 
-  J_min <- find_J_MADE(
+  J_min <- min_studies_MADE(
     mu = mu,
-    tau2 = tau2,
-    omega2 = omega2,
+    tau = tau,
+    omega = omega,
     rho = rho,
     sigma2_dist = sigma2_dist,
     n_ES_dist = n_ES_dist,
@@ -143,16 +143,16 @@ check_J <- function(mu, tau2, omega2, rho,
       model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
       var_df = recode(var_df, "Model+Satt" = "Satt")
     ) %>%
-    select(J_needed, mu, tau2, omega2, rho, d, alpha, iterations, model, var_df, target_power)
+    select(studies_needed, mu, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
 
   J_min_pm <-
     bind_rows(
-      mutate(J_min, J = J_needed - 1, x = "less"),
-      mutate(J_min, J = J_needed, x = "more")
+      mutate(J_min, J = studies_needed - 1, x = "less"),
+      mutate(J_min, J = studies_needed, x = "more")
     )
 
   J_min_pm |>
-    select(-target_power, -x, -J_needed) |>
+    select(-target_power, -x, -studies_needed) |>
     purrr::pmap_dfr(
       .f = power_MADE_engine,
       sigma2_dist = sigma2_dist,
@@ -192,6 +192,6 @@ check_with_future <- function(f, ..., workers = future::availableCores(), check_
 utils::globalVariables(
   c("samp_method", "method", "vectorof", "var_b", "es",
     "res", "tau", "omega", "power", "Power", "label", "MDES", "pilot_dat",
-    "sigma2_method", "mdes_data", "J_needed", "tau_name", "d", "mcse", "sd", ".",
+    "sigma2_method", "mdes_data", "studies_needed", "tau_name", "d", "mcse", "sd", ".",
     "J", "plan", "samp_method_sigma2", "sequential", "x")
 )

@@ -4,13 +4,13 @@ sigma2_emp <- rgamma(pop_size, shape = 4, rate = 12)
 n_ES_emp <- 1 + rpois(pop_size, 3.5 - 1)
 
 
-test_that("MDES_MADE() works with single parameter values.", {
+test_that("mdes_MADE() works with single parameter values.", {
 
   expect_warning(
     mdes <- check_power(
       J = 40,
-      tau2 = 0.2^2,
-      omega2 = 0.1^2,
+      tau = 0.2,
+      omega = 0.1,
       rho = 0.7,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -27,8 +27,8 @@ test_that("MDES_MADE() works with single parameter values.", {
 
   mdes <- check_power(
     J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -44,8 +44,8 @@ test_that("MDES_MADE() works with single parameter values.", {
 
   mdes <- check_power(
     J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -59,8 +59,8 @@ test_that("MDES_MADE() works with single parameter values.", {
 
   mdes <- check_power(
     J = 40,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -78,15 +78,15 @@ test_that("MDES_MADE() works with single parameter values.", {
 })
 
 
-test_that("MDES_MADE() works with multiple parameter values.", {
+test_that("mdes_MADE() works with multiple parameter values.", {
 
   skip_on_cran()
 
   expect_warning(
     mdes <- check_power(
       J = c(10,20,40),
-      tau2 = 0.2^2,
-      omega2 = 0.1^2,
+      tau = 0.2,
+      omega = 0.1,
       rho = 0.3,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -105,7 +105,7 @@ test_that("MDES_MADE() works with multiple parameter values.", {
   # constant MDES for balanced designs
   mdes %>%
     filter(!(model %in% c("MLMA-Model","MLMA-Model+Satt"))) %>%
-    group_by(J, tau2, omega2, rho, target_power) %>%
+    group_by(J, tau, omega, rho, target_power) %>%
     summarise(
       models = n(),
       MDES = diff(range(mu)),
@@ -119,8 +119,8 @@ test_that("MDES_MADE() works with multiple parameter values.", {
 
   mdes <- check_power(
     J = 40,
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = 0.1^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -136,8 +136,8 @@ test_that("MDES_MADE() works with multiple parameter values.", {
 
   mdes <- check_power(
     J = seq(10,30,10),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -152,8 +152,8 @@ test_that("MDES_MADE() works with multiple parameter values.", {
 
   mdes <- check_power(
     J = c(20,40),
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = c(0.1, 0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -168,15 +168,15 @@ test_that("MDES_MADE() works with multiple parameter values.", {
 })
 
 
-test_that("MDES_MADE() returns 0 when target_power = alpha.", {
+test_that("mdes_MADE() returns 0 when target_power = alpha.", {
 
   skip_on_cran()
 
   res_RVE <-
-    MDES_MADE(
+    mdes_MADE(
       J = 20,
-      tau2 = c(0.1, 0.2, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.2, 0.3),
+      omega = c(0.1, 0.2),
       rho = 0.7,
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -203,10 +203,10 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
     expect_gt(.01)
 
   res_Satt <-
-    MDES_MADE(
+    mdes_MADE(
       J = c(20,40),
-      tau2 = c(0.1, 0.2, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.2, 0.3),
+      omega = c(0.1, 0.2),
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -233,10 +233,10 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
     expect_gt(.01)
 
   res_balanced <-
-    MDES_MADE(
+    mdes_MADE(
       J = c(20,40),
-      tau2 = c(0.1, 0.2, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.2, 0.3),
+      omega = c(0.1, 0.2),
       rho = c(0.4,0.7,0.9),
       sigma2_dist = 4 / 48,
       n_ES_dist = 3,
@@ -264,7 +264,7 @@ test_that("MDES_MADE() returns 0 when target_power = alpha.", {
   # constant MDES for balanced designs
   res_balanced %>%
     filter(!(model %in% c("MLMA-Model","MLMA-Model+Satt"))) %>%
-    group_by(J, tau2, omega2, rho, alpha) %>%
+    group_by(J, tau, omega, rho, alpha) %>%
     summarise(
       models = n(),
       MDES = diff(range(MDES)),

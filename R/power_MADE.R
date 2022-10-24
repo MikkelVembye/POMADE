@@ -23,8 +23,8 @@
 #' power <- power_MADE(
 #'    J = c(40, 60),
 #'    mu = 0.1,
-#'    tau2 = 0.2^2,
-#'    omega2 = 0.1^2,
+#'    tau = 0.2,
+#'    omega = 0.1,
 #'    rho = 0.7,
 #'    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
 #'    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -43,7 +43,7 @@
 
 power_MADE <-
   function(
-    J, mu, tau2, omega2, rho,
+    J, mu, tau, omega, rho,
     alpha = 0.05,
     d = 0,
 
@@ -80,8 +80,8 @@ power_MADE <-
       list(
         J = J,
         mu = mu,
-        tau2 = tau2,
-        omega2 = omega2,
+        tau = tau,
+        omega = omega,
         rho = rho,
         d = d
       )
@@ -111,14 +111,14 @@ power_MADE <-
         tidyr::unnest(res)
     )
 
-    dat
+    tibble::new_tibble(dat, class = "power")
 
 }
 
 
 power_MADE_engine <-
   function(
-    J, mu, tau2, omega2, rho,
+    J, mu, tau, omega, rho,
     alpha = 0.05,
     d = 0,
 
@@ -210,7 +210,7 @@ power_MADE_engine <-
   res <-
     purrr::map2_dfr(
       .x = sigma2js, .y = kjs, .f = power_MADE_single,
-      J = J, mu = mu, tau2 = tau2, omega2 = omega2, rho = rho,
+      J = J, mu = mu, tau = tau, omega = omega, rho = rho,
       model = model, var_df, alpha = alpha, d = d, .id = "iteration"
     ) |>
     mutate(
@@ -243,7 +243,7 @@ power_MADE_engine <-
 
 power_MADE_single <-
   function(
-    J, mu, tau2, omega2, rho,
+    J, mu, tau, omega, rho,
     sigma2j,
     kj,
     model = c("CHE", "MLMA", "CE"),
@@ -270,7 +270,7 @@ power_MADE_single <-
     if ("CHE" %in% model) {
 
       # Equation 6 in Vembye, Pustejovsky, & Pigott (2022)
-      wj <- kj / (kj * tau2 + kj * rho * sigma2j + omega2 + (1 - rho) * sigma2j)
+      wj <- kj / (kj * tau^2 + kj * rho * sigma2j + omega^2 + (1 - rho) * sigma2j)
       W <- sum(wj)
 
       # Equation 8 in Vembye, Pustejovsky, & Pigott (2022)
@@ -283,7 +283,7 @@ power_MADE_single <-
       y <- sum(wj^2 / kj) / W
 
       s <- x^2 + W * x - 2 * sum(wj^3) / W
-      t <- y^2 + sum(wj^2 / kj^2) + sum((kj - 1) / (omega2 + (1 - rho) * sigma2j)^2) - 2 * sum(wj^3 / kj^2) / W
+      t <- y^2 + sum(wj^2 / kj^2) + sum((kj - 1) / (omega^2 + (1 - rho) * sigma2j)^2) - 2 * sum(wj^3 / kj^2) / W
       u <- x * y + W * y - 2 * sum(wj^3 / kj) / W
 
       # Equation 12 in Vembye, Pustejovsky, & Pigott (2022)
@@ -351,7 +351,7 @@ power_MADE_single <-
     if ("MLMA" %in% model) {
 
       # See Supplementary Material to Vembye, Pustejovsky, & Pigott (2022)
-      tau_omega_tilde <- find_tau_omega(tau = sqrt(tau2), omega = sqrt(omega2),
+      tau_omega_tilde <- find_tau_omega(tau = tau, omega = omega,
                                         phi = rho, rho = 0,
                                         k_j = kj, sigmasq_j = sigma2j)
       # _t = tilde
@@ -363,7 +363,7 @@ power_MADE_single <-
       W_t <- sum(wj_t)
 
       # Equation 22 in Vembye, Pustejovsky, & Pigott (2022)
-      S_t <- 1/W_t^2 * sum(wj_t^2 * (tau2 + rho * sigma2j + (omega2 + (1 - rho) * sigma2j) / kj) )
+      S_t <- 1/W_t^2 * sum(wj_t^2 * (tau^2 + rho * sigma2j + (omega^2 + (1 - rho) * sigma2j) / kj) )
 
       lambda_MLMA <- (mu - d) / sqrt(S_t)
 
@@ -443,14 +443,14 @@ power_MADE_single <-
     if ("CE" %in% model & "RVE" %in% var_df) {
 
       # Equation 17 in Vembye, Pustejovsky, & Pigott (2022)
-      tau2_e <- tau2 + omega2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
+      tau2_e <- tau^2 + omega^2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
 
       # _dd = dotdot
       wj_dd <- 1 / (sigma2j + tau2_e)
 
       W_dd <- sum(wj_dd)
 
-      S_dd <- 1/W_dd^2 * sum(wj_dd^2 * (tau2 + rho * sigma2j + (1 / kj) * (omega2 + (1 - rho) * sigma2j)) )
+      S_dd <- 1/W_dd^2 * sum(wj_dd^2 * (tau^2 + rho * sigma2j + (1 / kj) * (omega^2 + (1 - rho) * sigma2j)) )
 
       lambda_CE <- (mu - d) / sqrt(S_dd)
 

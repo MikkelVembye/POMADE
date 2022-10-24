@@ -1,7 +1,7 @@
 
 #' @param J Expected number of studies to be found
-#' @param tau2 Between-study variance
-#' @param omega2 Within-study variance
+#' @param tau Between-study SD
+#' @param omega Within-study SD
 #' @param rho Sample correlation
 #' @param var_df Variance and degrees of freedom estimation
 #' @param sigma2_method Defines how sampling variance estimates are obtained

@@ -11,8 +11,8 @@ test_that("power_MADE() works with future parallelization.", {
     f = power_MADE,
     J = c(10,20,40),
     mu = 0.1,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
     n_ES_dist = 5.5,
@@ -29,8 +29,8 @@ test_that("power_MADE() works with future parallelization.", {
     f = power_MADE,
     J = 40,
     mu = 0.1,
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = 0.1^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -48,8 +48,8 @@ test_that("power_MADE() works with future parallelization.", {
     f = power_MADE,
     J = seq(10,30,10),
     mu = seq(0.1,0.6,0.1),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -65,8 +65,8 @@ test_that("power_MADE() works with future parallelization.", {
     f = power_MADE,
     J = c(20,40),
     mu = seq(0.0,0.8,0.2),
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = c(0.1, 0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -84,8 +84,8 @@ test_that("power_MADE() works with future parallelization.", {
     f = power_MADE,
     J = c(20,40),
     mu = seq(0.0,0.8,0.2),
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = c(0.1, 0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -100,15 +100,15 @@ test_that("power_MADE() works with future parallelization.", {
 
 })
 
-test_that("MDES_MADE() works with future parallelization.", {
+test_that("mdes_MADE() works with future parallelization.", {
 
   skip_on_cran()
 
   mdes1 <- check_with_future(
-    f = MDES_MADE,
+    f = mdes_MADE,
     J = c(10,20,40),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
     n_ES_dist = 5.5,
@@ -125,10 +125,10 @@ test_that("MDES_MADE() works with future parallelization.", {
   expect_gt(mdes1$tm_seq, mdes1$tm_par)
 
   mdes2 <- check_with_future(
-    f = MDES_MADE,
+    f = mdes_MADE,
     J = 40,
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = 0.1^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -144,10 +144,10 @@ test_that("MDES_MADE() works with future parallelization.", {
   expect_gt(mdes2$tm_seq, mdes2$tm_par)
 
   mdes3 <- check_with_future(
-    f = MDES_MADE,
+    f = mdes_MADE,
     J = seq(10,30,10),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -162,10 +162,10 @@ test_that("MDES_MADE() works with future parallelization.", {
   expect_gt(mdes3$tm_seq, mdes3$tm_par)
 
   mdes4 <- check_with_future(
-    f = MDES_MADE,
+    f = mdes_MADE,
     J = c(20,40),
-    tau2 = c(0.1, 0.2, 0.3)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.1, 0.2, 0.3),
+    omega = c(0.1, 0.2),
     rho = c(0.4,0.7,0.9),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -182,10 +182,10 @@ test_that("MDES_MADE() works with future parallelization.", {
   expect_gt(mdes4$tm_seq, mdes4$tm_par)
 
   mdes5 <- check_with_future(
-    f = MDES_MADE,
+    f = mdes_MADE,
     J = c(20,40),
-    tau2 = c(0.1, 0.6)^2,
-    omega2 = 0.1^2,
+    tau = c(0.1, 0.6),
+    omega = 0.1,
     rho = 0.5,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -202,15 +202,15 @@ test_that("MDES_MADE() works with future parallelization.", {
 
 })
 
-test_that("find_J_MADE() works with future parallelization.", {
+test_that("min_studies_MADE() works with future parallelization.", {
 
   skip_on_cran()
 
   J1 <- check_with_future(
-    f = find_J_MADE,
+    f = min_studies_MADE,
     mu = c(0.1,0.2),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
     n_ES_dist = 5.5,
@@ -227,10 +227,10 @@ test_that("find_J_MADE() works with future parallelization.", {
   expect_gt(J1$tm_seq, J1$tm_par)
 
   J2 <- check_with_future(
-    f = find_J_MADE,
+    f = min_studies_MADE,
     mu = 0.36,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -245,10 +245,10 @@ test_that("find_J_MADE() works with future parallelization.", {
   expect_gt(J2$tm_seq, J2$tm_par)
 
   J3 <- check_with_future(
-    f = find_J_MADE,
+    f = min_studies_MADE,
     mu = c(0.2, 0.4),
-    tau2 = c(0.05, 0.09)^2,
-    omega2 = 0.05^2,
+    tau = c(0.05, 0.09),
+    omega = 0.05,
     rho = 0.5,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),

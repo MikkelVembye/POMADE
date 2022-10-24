@@ -11,7 +11,7 @@ options(dplyr.print_min = 310)
 options(scipen = 10)
 options(dplyr.summarise.inform = FALSE)
 
-Sys.setenv(LANG = "en")
+#Sys.setenv(LANG = "en")
 
 # Creates new coding script
 #use_r("power_MADE")
@@ -67,8 +67,11 @@ power_dat2 <-
   )
 
 plot_MADE.power(
-  power_dat,
-  warning = FALSE
+  data = power_dat2,
+  power_min = 0.8,
+  expected_studies = c(45, 55),
+  warning = FALSE,
+  caption = TRUE
 )
 
 power_dat3 <-

@@ -58,8 +58,8 @@ plot_MADE.power <-
   plot_dat <-
     data |>
     mutate(
-      tau_name = factor(paste("Study level SD =", tau)),
-      omega_name = factor(paste("ES level SD =", omega))
+      tau_name = factor(paste("Study Level SD =", tau)),
+      omega_name = factor(paste("ES Level SD =", omega))
     ) |>
     rename(cor = rho)
 
@@ -77,13 +77,14 @@ plot_MADE.power <-
    plot_list <-
      plot_dat |>
      group_by(mu, d, alpha, model) |>
-     mutate(caption = paste0("Note: Effect size of practical concern = ", mu, ", ", "contrast values = ", d,
+     mutate(cap = paste0("Note: Effect size of practical concern = ", mu, ", ", "contrast values = ", d,
                              ", and ", "alpha = ", unique(alpha), "."))
  } else {
 
    plot_list <-
      plot_dat |>
-     group_by(mu, d, alpha, model)
+     group_by(mu, d, alpha, model) |>
+     mutate(cap = NULL)
 
  }
 
@@ -93,11 +94,34 @@ plot_MADE.power <-
     pull(data)
 
 
-  # ADD MAP FUNCTION
+  plot <- purrr::map(plot_list, ~ plot_MADE_engine(
+    data = .,
+    x = J,
+    y = power,
+    x_grid = tau_name,
+    y_grid = omega_name,
+    color = cor,
+    shape = cor,
+    linetype = cor,
+    color_lab = "Cor",
+    shape_lab = "Cor",
+    line_lab = "Cor",
+    h_lines = power_min,
+    v_shade = expected_studies,
+    x_lab = x_lab,
+    y_lab = "Power",
+    caption = .$cap,
+    grid_labs = numbers,
+    y_breaks = y_breaks,
+    y_limits = y_limits,
+    legend_position = legend_position
+    )
+  )
 
-#  if (length(plot) == 1) plot <- plot[[1]]
-#
-#  plot
+
+  if (length(plot) == 1) plot <- plot[[1]]
+
+  plot
 
 }
 

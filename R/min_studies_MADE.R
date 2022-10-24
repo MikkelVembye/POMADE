@@ -18,10 +18,10 @@
 #' @export
 #'
 #' @examples
-#' J_needed <- find_J_MADE(
+#' studies_needed <- min_studies_MADE(
 #'  mu = 0.2,
-#'  tau2 = c(0.1, 0.2)^2,
-#'  omega2 = 0.25^2,
+#'  tau = c(0.1, 0.2),
+#'  omega = 0.25,
 #'  rho = 0.7,
 #'  target_power = .8,
 #'
@@ -33,15 +33,15 @@
 #'  seed = 10052510
 #' )
 #'
-#' J_needed
+#' studies_needed
 #'
 
 
-find_J_MADE <-
+min_studies_MADE <-
   function(
     mu,
-    tau2,
-    omega2,
+    tau,
+    omega,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -78,8 +78,8 @@ find_J_MADE <-
     design_factors <-
       list(
         mu = mu,
-        tau2 = tau2,
-        omega2 = omega2,
+        tau = tau,
+        omega = omega,
         rho = rho,
         alpha = alpha,
         target_power = target_power,
@@ -95,24 +95,24 @@ find_J_MADE <-
 
     suppressPackageStartupMessages(
       res <- furrr::future_pmap_dfr(
-        .l = params, .f = find_J_MADE_engine,
+        .l = params, .f = min_studies_MADE_engine,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
         seed = seed, interval = interval, extendInt = "yes",
         .options = furrr::furrr_options(seed = furrr_seed)
-      )
+      ) |>
+        dplyr::arrange(dplyr::across(mu:target_power))
     )
 
-    res |>
-      dplyr::arrange(dplyr::across(mu:target_power))
+    tibble::new_tibble(res, class = "min_studies")
 
 }
 
 
-find_J_MADE_engine <-
+min_studies_MADE_engine <-
   function(
     mu,
-    tau2,
-    omega2,
+    tau,
+    omega,
     rho,
     alpha = 0.05,
     target_power = 0.8,
@@ -174,7 +174,7 @@ find_J_MADE_engine <-
     f <- function(J) {
       J_seq <- unique(floor(J), ceiling(J))
       p <- power_MADE_engine(
-        J = J_seq, mu = mu, tau2 = tau2, omega2 = omega2,
+        J = J_seq, mu = mu, tau = tau, omega = omega,
         rho = rho, alpha = alpha, d = d,
         model = model, var_df = var_df,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
@@ -199,13 +199,13 @@ find_J_MADE_engine <-
 
     tibble(
       mu = mu,
-      tau2 = tau2,
-      omega2 = omega2,
+      tau = tau,
+      omega = omega,
       rho = rho,
       d = d,
       alpha = alpha,
       target_power = target_power,
-      J_needed = J_needed,
+      studies_needed = J_needed,
       iterations = iterations,
       model = paste(model, var_df, sep = "-"),
       samp_method_sigma2 = samp_method_sigma2,

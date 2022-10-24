@@ -5,13 +5,13 @@ n_ES_emp <- 1 + rpois(pop_size, 4.5 - 1)
 
 power_tol <- 0.001
 
-test_that("find_J_MADE() works with single parameter values.", {
+test_that("min_studies_MADE() works with single parameter values.", {
 
   expect_warning(
     J_min <- check_J(
       mu = 0.15,
-      tau2 = 0.2^2,
-      omega2 = 0.1^2,
+      tau = 0.2,
+      omega = 0.1,
       rho = 0.7,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -29,8 +29,8 @@ test_that("find_J_MADE() works with single parameter values.", {
 
   J_min <- check_J(
     mu = 0.3,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -47,8 +47,8 @@ test_that("find_J_MADE() works with single parameter values.", {
 
   J_min <- check_J(
     mu = 0.2,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -63,8 +63,8 @@ test_that("find_J_MADE() works with single parameter values.", {
 
   J_min <- check_J(
     mu = 0.1,
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -83,15 +83,15 @@ test_that("find_J_MADE() works with single parameter values.", {
 })
 
 
-test_that("find_J_MADE() works with multiple parameter values.", {
+test_that("min_studies_MADE() works with multiple parameter values.", {
 
   skip_on_cran()
 
   expect_warning(
     J_min <- check_J(
       mu = c(0.17,0.22),
-      tau2 = 0.2^2,
-      omega2 = 0.1^2,
+      tau = 0.2,
+      omega = 0.1,
       rho = 0.3,
       sigma2_dist = 4 / 100,
       n_ES_dist = 5.5,
@@ -107,25 +107,26 @@ test_that("find_J_MADE() works with multiple parameter values.", {
   expect_lt(max(J_min$less - J_min$target_power), power_tol)
   expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 
+  # MHV: Constant J instead of MDES?
   # constant MDES for balanced designs
   J_min %>%
     filter(!(model %in% c("MLMA-Model","MLMA-Model+Satt"))) %>%
-    group_by(mu, tau2, omega2, rho, target_power) %>%
+    group_by(mu, tau, omega, rho, target_power) %>%
     summarise(
       models = n(),
-      J_needed = diff(range(J_needed)),
+      studies_needed = diff(range(studies_needed)),
       .groups = "drop"
     ) %>%
     summarise(
-      J_needed = max(J_needed)
+      studies_needed = max(studies_needed)
     ) %>%
     pull() %>%
     expect_lt(1e-5)
 
   J_min <- check_J(
     mu = 0.33,
-    tau2 = c(0.1, 0.2, 0.4)^2,
-    omega2 = 0.1^2,
+    tau = c(0.1, 0.2, 0.4),
+    omega = 0.1,
     rho = c(0.2,0.7),
     sigma2_dist = 4 / 100,
     n_ES_dist = n_ES_emp,
@@ -142,8 +143,8 @@ test_that("find_J_MADE() works with multiple parameter values.", {
 
   J_min <- check_J(
     mu = c(0.05, 0.08),
-    tau2 = 0.2^2,
-    omega2 = 0.1^2,
+    tau = 0.2,
+    omega = 0.1,
     rho = 0.7,
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
@@ -159,8 +160,8 @@ test_that("find_J_MADE() works with multiple parameter values.", {
 
   J_min <- check_J(
     mu = 0.4,
-    tau2 = c(0.08, 0.16)^2,
-    omega2 = c(0.1, 0.2)^2,
+    tau = c(0.08, 0.16),
+    omega = c(0.1, 0.2),
     rho = c(0.4,0.8),
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -176,16 +177,16 @@ test_that("find_J_MADE() works with multiple parameter values.", {
 
 })
 
-
-test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
+# MHV: Should it be min_studies_MADE() instead of mdes_MADE()?
+test_that("mdes_MADE() returns minimum J when target_power = alpha.", {
 
   skip_on_cran()
 
   res_RVE <-
-    find_J_MADE(
+    min_studies_MADE(
       mu = 0.3,
-      tau2 = c(0.1, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.3),
+      omega = c(0.1, 0.2),
       rho = 0.7,
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -200,22 +201,22 @@ test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
   # J at minimum when alpha ~= power
   res_RVE %>%
     filter(target_power - alpha < .001) %>%
-    summarise(J_needed = max(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = max(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_equal(5L)
 
   # J greater than minimum when alpha < power
   res_RVE %>%
     filter(target_power - alpha > .001) %>%
-    summarise(J_needed = min(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = min(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_gte(5L)
 
   res_Satt <-
-    find_J_MADE(
+    min_studies_MADE(
       mu = 0.2,
-      tau2 = c(0.1, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.3),
+      omega = c(0.1, 0.2),
       rho = c(0.4,0.7,0.9),
       sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
       n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
@@ -231,22 +232,22 @@ test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
   # J at minimum when alpha ~= power
   res_Satt %>%
     filter(target_power - alpha < .001) %>%
-    summarise(J_needed = max(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = max(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_equal(7L)
 
   # J greater than minimum when alpha < power
   res_Satt %>%
     filter(target_power - alpha > .001) %>%
-    summarise(J_needed = min(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = min(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_gte(7L)
 
   res_balanced <-
-    find_J_MADE(
+    min_studies_MADE(
       mu = c(0.05, 0.13),
-      tau2 = c(0.1, 0.3)^2,
-      omega2 = c(0.1, 0.2)^2,
+      tau = c(0.1, 0.3),
+      omega = c(0.1, 0.2),
       rho = c(0.4,0.9),
       sigma2_dist = 4 / 48,
       n_ES_dist = 3,
@@ -261,29 +262,29 @@ test_that("MDES_MADE() returns minimum J when target_power = alpha.", {
   # J at minimum when alpha ~= power
   res_balanced %>%
     filter(target_power - alpha < .001) %>%
-    summarise(J_needed = max(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = max(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_equal(6L)
 
   # J greater than minimum when alpha < power
   res_balanced %>%
     filter(target_power - alpha > .001) %>%
-    summarise(J_needed = min(J_needed)) %>%
-    pull(J_needed) %>%
+    summarise(studies_needed = min(studies_needed)) %>%
+    pull(studies_needed) %>%
     expect_gte(6L)
 
-
+  # MHV: Constant J instead of MDES?
   # constant MDES for balanced designs
   res_balanced %>%
     filter(!(model %in% c("MLMA-Model","MLMA-Model+Satt"))) %>%
-    group_by(mu, tau2, omega2, rho, alpha) %>%
+    group_by(mu, tau, omega, rho, alpha) %>%
     summarise(
       models = n(),
-      J_needed = diff(range(J_needed)),
+      studies_needed = diff(range(studies_needed)),
       .groups = "drop"
     ) %>%
     summarise(
-      J_needed = max(J_needed)
+      studies_needed = max(studies_needed)
     ) %>%
     pull() %>%
     expect_lt(1e-5)

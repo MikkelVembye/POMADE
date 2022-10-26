@@ -1,7 +1,7 @@
 # Add arguments
 #' @export
 
-plot_MADE <- function(data, power_min, MDES_min, expected_studies, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, ...)
+plot_MADE <- function(data, power_min, MDES_min, expected_studies, v_lines, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, ...)
   UseMethod("plot_MADE")
 
 #' @export
@@ -12,6 +12,7 @@ plot_MADE.default <-
     power_min = NULL,
     MDES_min = NULL,
     expected_studies = NULL,
+    v_lines = NULL,
     legend_position = "bottom",
     color = FALSE,
     numbers = TRUE,

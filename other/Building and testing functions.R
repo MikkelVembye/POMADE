@@ -71,7 +71,8 @@ plot_MADE(
   power_min = 0.8,
   expected_studies = c(45, 55),
   warning = FALSE,
-  caption = TRUE
+  caption = TRUE,
+  labs_size = 5
 )
 
 power_dat3 <-

@@ -23,10 +23,10 @@ plot_MADE.default <-
     x_limits = NULL,
     y_breaks = NULL,
     y_limits = NULL,
-    warning = TRUE, ...){
+    warning = TRUE, ...) {
 
-    warning(paste("plot_MADE does not how to handle object of class", class(data),
-                  "can only be used on classes power, mdes, min_studies"))
+    warning(paste0("plot_MADE does not know how to handle object of class ", class(data),
+                  ". It can only be used on objects of class 'power', 'mdes', or 'min_studies'."))
 
   }
 

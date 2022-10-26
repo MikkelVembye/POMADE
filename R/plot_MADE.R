@@ -1,7 +1,8 @@
 # Add arguments
 #' @export
 
-plot_MADE <- function(data, power_min, MDES_min, expected_studies, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, ...) UseMethod("plot_MADE")
+plot_MADE <- function(data, power_min, MDES_min, expected_studies, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, ...)
+  UseMethod("plot_MADE")
 
 #' @export
 
@@ -23,107 +24,10 @@ plot_MADE.default <-
     y_limits = NULL,
     warning = TRUE, ...){
 
-  NULL
+    warning(paste("plot_MADE does not how to handle object of class", class(data),
+                  "can only be used on classes power, mdes, min_studies"))
 
-}
-
-
-#' @export
-
-plot_MADE.power <-
-  function(
-    data,
-    power_min = NULL,
-    expected_studies = NULL,
-    legend_position = "bottom",
-    color = NULL,
-    numbers = TRUE,
-    number_size = 2.5,
-    caption = TRUE,
-    x_lab = "Number of studies (J)",
-    x_breaks = NULL,
-    x_limits = NULL,
-    y_breaks = seq(0, 1, .2),
-    y_limits = c(0, 1),
-    warning = TRUE,
-    ...
-  ){
-
-  if (warning){
-    if(n_distinct(data$model) > 1){
-      warning("We recommend to create the plot for one model only", call. = FALSE)
-    }
   }
-
-  plot_dat <-
-    data |>
-    mutate(
-      tau_name = factor(paste("Study Level SD =", tau)),
-      omega_name = factor(paste("ES Level SD =", omega))
-    ) |>
-    rename(cor = rho)
-
-
- # if(expected_studies == 1) {
- #   v_lines <- expected_studies[1]
- #   v_shade <- NULL
- # } else if (expected_studies == 2) {
- #   v_lines <- NULL
- #   v_shade <- expected_studies
- # }
-
- if(caption){
-
-   plot_list <-
-     plot_dat |>
-     group_by(mu, d, alpha, model) |>
-     mutate(cap = paste0("Note: Effect size of practical concern = ", mu, ", ", "contrast values = ", d,
-                             ", and ", "alpha = ", unique(alpha), "."))
- } else {
-
-   plot_list <-
-     plot_dat |>
-     group_by(mu, d, alpha, model) |>
-     mutate(cap = NULL)
-
- }
-
-  plot_list <-
-    plot_list |>
-    tidyr::nest() |>
-    pull(data)
-
-
-  plot <- purrr::map(plot_list, ~ plot_MADE_engine(
-    data = .,
-    x = J,
-    y = power,
-    x_grid = tau_name,
-    y_grid = omega_name,
-    color = cor,
-    shape = cor,
-    linetype = cor,
-    color_lab = "Cor",
-    shape_lab = "Cor",
-    line_lab = "Cor",
-    h_lines = power_min,
-    v_shade = expected_studies,
-    x_lab = x_lab,
-    y_lab = "Power",
-    caption = .$cap,
-    grid_labs = numbers,
-    y_breaks = y_breaks,
-    y_limits = y_limits,
-    legend_position = legend_position
-    )
-  )
-
-
-  if (length(plot) == 1) plot <- plot[[1]]
-
-  plot
-
-}
 
 plot_MADE_engine <-
   function(
@@ -279,23 +183,23 @@ plot_MADE_engine <-
       text_labs <- NULL
     }
 
-  ggplot2::ggplot(data = data) +
-    ggplot2::facet_grid(rows = vars({{y_grid}}), cols = vars({{x_grid}})) +
-    color_plot +
-    gray_shade +
-    hlines +
-    vlines +
-    text_labs +
-    ggplot2::geom_point() +
-    ggplot2::geom_line() +
-    ggplot2::theme_bw() +
-    x_scale +
-    y_scale +
-    ggplot2::theme(
-      legend.position = legend_position,
-      plot.caption.position = "plot",
-      plot.caption = ggplot2::element_text(hjust = 0)
-    ) +
-    plot_labs
+    ggplot2::ggplot(data = data) +
+      ggplot2::facet_grid(rows = vars({{y_grid}}), cols = vars({{x_grid}})) +
+      color_plot +
+      gray_shade +
+      hlines +
+      vlines +
+      text_labs +
+      ggplot2::geom_point() +
+      ggplot2::geom_line() +
+      ggplot2::theme_bw() +
+      x_scale +
+      y_scale +
+      ggplot2::theme(
+        legend.position = legend_position,
+        plot.caption.position = "plot",
+        plot.caption = ggplot2::element_text(hjust = 0)
+      ) +
+      plot_labs
 
   }

@@ -37,9 +37,10 @@ min_studies_MADE(
 
 \item{d}{Contrast value}
 
-\item{model}{Indicates dependent effect size model}
+\item{model}{Indicates dependent effect size model, either "CHE", "CE" or "MLMA". Default = "CHE".}
 
-\item{var_df}{Indicates the technique used to obtained the sampling variance of mu and the degrees of freedom}
+\item{var_df}{Indicates the technique used to obtained the sampling variance of mu and the degrees of freedom either "Model", "Satt", or "RVE".
+Default = "RVE".}
 
 \item{sigma2_dist}{Distribution of sampling variance estimates from each study. Can take either one value, a function, or vector of plausible values}
 

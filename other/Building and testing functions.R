@@ -67,11 +67,12 @@ power_dat2 <-
   )
 
 plot_MADE(
-  data = power_dat2,
+  data = power_dat,
   power_min = 0.8,
   expected_studies = c(45, 55),
   warning = FALSE,
-  caption = TRUE
+  caption = TRUE,
+  color = TRUE
 )
 
 power_dat3 <-
@@ -160,8 +161,8 @@ multisession(multisession, workers = future::availableCores()-1)
 #tic()
 MDES_dat <- mdes_MADE(
   J = seq(40, 60, 5),
-  tau2 = c(0.1, 0.2)^2,
-  omega2 = c(0.05, 0.1)^2,
+  tau = c(0.1, 0.2),
+  omega = c(0.05, 0.1),
   rho = c(0.2, 0.7),
   target_power = c(.5, .8),
   alpha = c(0.05),
@@ -174,6 +175,10 @@ MDES_dat <- mdes_MADE(
   #warning = FALSE
 )
 #toc()
+
+plot_MADE.mdes(
+  data = MDES_dat
+)
 
 
 #plot_MADE(

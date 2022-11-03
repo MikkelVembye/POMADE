@@ -67,12 +67,11 @@ power_dat2 <-
   )
 
 plot_MADE(
-  data = power_dat,
+  data = power_dat2,
   power_min = 0.8,
   expected_studies = c(45, 55),
   warning = FALSE,
-  caption = TRUE,
-  labs_size = 5
+  caption = TRUE
 )
 
 power_dat3 <-

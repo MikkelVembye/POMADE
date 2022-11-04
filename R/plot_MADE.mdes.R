@@ -15,8 +15,8 @@ plot_MADE.mdes <-
     x_lab = "Number of studies (J)",
     x_breaks = NULL,
     x_limits = NULL,
-    y_breaks = seq(0, 1, .2), # Most be changed
-    y_limits = c(0, 1), # Most be changed
+    y_breaks = NULL,
+    y_limits = NULL,
     y_expand = NULL,
     warning = TRUE
   ){
@@ -25,6 +25,18 @@ plot_MADE.mdes <-
       if(n_distinct(data$model) > 1){
         warning("We recommend to create the plot for one model only", call. = FALSE)
       }
+    }
+
+    if (is.null(y_breaks) && min(data$MDES) >= 0.04){
+      y_breaks <- seq(round(min(data$MDES) - 0.015, 2), round(max(data$MDES) + 0.015, 2), .02)
+    } else if (is.null(y_breaks) && min(data$MDES) < 0.04) {
+      y_breaks <- seq(0, round(max(data$MDES) + 0.015, 2), .02)
+    }
+
+    if (is.null(y_limits) && min(data$MDES) >= 0.04){
+      y_limits <- c(round(min(data$MDES) - 0.015, 2) , round(max(data$MDES) + 0.015, 2) )
+    } else if (is.null(y_limits) && min(data$MDES) < 0.04) {
+      y_limits <- c(0, round(max(data$MDES) + 0.015, 2))
     }
 
     plot_dat <-

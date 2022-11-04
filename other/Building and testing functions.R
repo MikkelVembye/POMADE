@@ -104,9 +104,9 @@ plot_MADE_engine(
 )
 
 
-plot_MADE(
-
-)
+#plot_MADE(
+#
+#)
 
 
 #plot_MADE(
@@ -160,7 +160,7 @@ multisession(multisession, workers = future::availableCores()-1)
 
 #tic()
 MDES_dat <- mdes_MADE(
-  J = seq(40, 60, 5),
+  J = seq(60, 90, 10),
   tau = c(0.1, 0.2),
   omega = c(0.05, 0.1),
   rho = c(0.2, 0.7),
@@ -177,7 +177,8 @@ MDES_dat <- mdes_MADE(
 #toc()
 
 plot_MADE.mdes(
-  data = MDES_dat
+  data = MDES_dat,
+  warning = FALSE
 )
 
 

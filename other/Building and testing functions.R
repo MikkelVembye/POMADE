@@ -68,14 +68,14 @@ power_dat2 <-
     seed = 10052510
   )
 
-plot_MADE(
+plot_MADE.power(
   data = power_dat,
   power_min = 0.8,
   expected_studies = c(45, 55),
   warning = FALSE,
   caption = TRUE,
   color = TRUE,
-  model_comparison = TRUE
+  model_comparison = FALSE
 )
 
 power_dat3 <-

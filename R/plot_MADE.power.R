@@ -42,7 +42,7 @@ plot_MADE.power <-
       mutate(
 
         cap = paste0("Note: Effect size of practical concern = ", mu, ", ", "contrast value = ", d,
-                          ", and ", "alpha = ", unique(alpha), "."),
+                          ", and ", "alpha = ", alpha, "."),
 
         y_lab = paste0("Power", " (", model, ")")
 
@@ -139,7 +139,7 @@ plot_MADE.power <-
       mutate(
 
         cap = paste0("Note: Effect size of practical concern = ", mu, ", ", "contrast value = ", d,
-                     ", ", "alpha = ", unique(alpha), ", and ", "sample correlation = ", cor, "."),
+                     ", ", "alpha = ", alpha, ", and ", "sample correlation = ", cor, "."),
 
         y_lab = "Power"
 

@@ -2,6 +2,7 @@
 
 S3method(plot_MADE,default)
 S3method(plot_MADE,mdes)
+S3method(plot_MADE,min_studies)
 S3method(plot_MADE,power)
 export(cluster_bias_adjustment)
 export(effective_sample_sizes)

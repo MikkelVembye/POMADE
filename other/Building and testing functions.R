@@ -2,6 +2,8 @@
 
 library(usethis)
 library(devtools)
+library(dplyr)
+library(stringr)
 #library(furrr)
 #library(tictoc)
 
@@ -72,7 +74,7 @@ plot_MADE(
   expected_studies = c(45, 55),
   warning = FALSE,
   caption = TRUE,
-  color = TRUE
+  color = FALSE
 )
 
 power_dat3 <-
@@ -122,22 +124,31 @@ plot_MADE_engine(
 
 J_obj <-
   min_studies_MADE(
-    mu = 0.2,
+    mu = c(0.1, 0.2),
     tau = c(0.1, 0.2),
-    omega = 0.25,
-    rho = 0.7,
+    omega = seq(0,0.25, 0.05),
+    rho = c(0.2, 0.7),
     target_power = .8,
 
-    model = "CHE", # default
-    var_df = "RVE", # default
+    model = c("CHE", "MLMA"), # default
+    var_df = c("Model", "Satt", "RVE"), # default
 
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-    seed = 10052510
+    seed = 10052510,
+    iterations = 5
 
 ); J_obj
 
+
+CHE_J_1 <- J_obj |> filter(str_detect(model, "CHE"), mu == 0.1)
+
+CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
+
+
 #debug(find_J_MADE)
+
+plot_MADE.min_studies(data = CHE_J_1, color = FALSE, v_shade = c(0.1,0.2))
 
 
 min_studies_MADE_engine(

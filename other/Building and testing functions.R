@@ -47,7 +47,7 @@ power_dat <-
     alpha = c(0.01, 0.05),
     sigma2_dist = sigma2_dist,
     n_ES_dist = n_ES_dist,
-    #model = c("CHE", "MLMA", "CE"),
+    model = c("CHE", "MLMA", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     iterations = 5,
     seed = 10052510
@@ -74,7 +74,8 @@ plot_MADE(
   expected_studies = c(45, 55),
   warning = FALSE,
   caption = TRUE,
-  color = FALSE
+  color = TRUE,
+  model_comparison = TRUE
 )
 
 power_dat3 <-
@@ -148,7 +149,7 @@ CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
 
 #debug(find_J_MADE)
 
-plot_MADE.min_studies(data = CHE_J_1, color = FALSE, v_shade = c(0.1,0.2))
+plot_MADE.min_studies(data = CHE_J_1, color = TRUE, v_shade = c(0.1,0.2))
 
 
 min_studies_MADE_engine(

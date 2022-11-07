@@ -1,7 +1,7 @@
 # Add arguments
 #' @export
 
-plot_MADE <- function(data, power_min, MDES_min, expected_studies, v_lines, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, ...)
+plot_MADE <- function(data, power_min, es_min, expected_studies, v_shade, v_lines, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, model_comparison, ...)
   UseMethod("plot_MADE")
 
 #' @export
@@ -10,8 +10,9 @@ plot_MADE.default <-
   function(
     data,
     power_min = NULL,
-    MDES_min = NULL,
+    es_min = NULL,
     expected_studies = NULL,
+    v_shade = NULL,
     v_lines = NULL,
     legend_position = "bottom",
     color = FALSE,
@@ -23,7 +24,9 @@ plot_MADE.default <-
     x_limits = NULL,
     y_breaks = NULL,
     y_limits = NULL,
-    warning = TRUE, ...) {
+    warning = TRUE,
+    model_comparison,
+    ...) {
 
     warning(paste0("plot_MADE does not know how to handle object of class ", class(data),
                   ". It can only be used on objects of class 'power', 'mdes', or 'min_studies'."))
@@ -57,7 +60,8 @@ plot_MADE_engine <-
     legend_position = "bottom",
     grid_labs = TRUE,
     labs_ynudge = 0.05,
-    labs_size = 2.5
+    labs_size = 2.5,
+    shape_scale_manually = FALSE
   ) {
 
     # pre-process color, shape, and linetype
@@ -184,6 +188,17 @@ plot_MADE_engine <-
       text_labs <- NULL
     }
 
+    if (shape_scale_manually){
+
+      n_shapes <- data |> dplyr::distinct({{shape}}) |> pull({{shape}})
+      shape_scale_manual <- ggplot2::scale_shape_manual(values = 1:n_shapes)
+
+    } else {
+
+      shape_scale_manual <- NULL
+
+    }
+
     ggplot2::ggplot(data = data) +
       ggplot2::facet_grid(rows = vars({{y_grid}}), cols = vars({{x_grid}})) +
       color_plot +
@@ -196,6 +211,7 @@ plot_MADE_engine <-
       ggplot2::theme_bw() +
       x_scale +
       y_scale +
+      shape_scale_manual +
       ggplot2::theme(
         legend.position = legend_position,
         plot.caption.position = "plot",

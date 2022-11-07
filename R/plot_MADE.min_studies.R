@@ -206,7 +206,8 @@ plot_MADE.min_studies <-
             legend_position = legend_position,
             grid_labs = numbers,
             labs_ynudge = numbers_ynudge,
-            labs_size = number_size
+            labs_size = number_size,
+            shape_scale_manually = TRUE
           ))
 
       } else {
@@ -239,7 +240,8 @@ plot_MADE.min_studies <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          shape_scale_manually = TRUE
         ))
       }
 

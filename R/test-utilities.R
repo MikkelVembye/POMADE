@@ -22,18 +22,19 @@ check_power <- function(J, tau, omega, rho,
     target_power = target_power,
     iterations = iterations,
     warning = warning,
-    seed = seed
+    seed = seed,
+    show_lower = TRUE
   ) %>%
     mutate(
       var_df = stringr::str_sub(stringr::str_extract(model, "-.+$"),2,-1),
       model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
       var_df = recode(var_df, "Model+Satt" = "Satt")
     ) %>%
-    select(J, mu = MDES, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
+    select(J, lower, mu = MDES, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
 
   power <-
     mdes |>
-    select(-target_power) |>
+    select(-target_power, -lower) |>
     purrr::pmap_dfr(
       .f = power_MADE_engine,
       sigma2_dist = sigma2_dist,
@@ -70,14 +71,15 @@ check_J <- function(mu, tau, omega, rho,
     target_power = target_power,
     iterations = iterations,
     warning = warning,
-    seed = seed
+    seed = seed,
+    show_lower = TRUE
   ) %>%
     mutate(
       var_df = stringr::str_sub(stringr::str_extract(model, "-.+$"),2,-1),
       model = stringr::str_sub(stringr::str_extract(model, "^.+-"), 1, -2),
       var_df = recode(var_df, "Model+Satt" = "Satt")
     ) %>%
-    select(studies_needed, mu, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
+    select(studies_needed, lower, mu, tau, omega, rho, d, alpha, iterations, model, var_df, target_power)
 
   J_min_pm <-
     bind_rows(
@@ -86,7 +88,7 @@ check_J <- function(mu, tau, omega, rho,
     )
 
   J_min_pm |>
-    select(-target_power, -x, -studies_needed) |>
+    select(-target_power, -x, -studies_needed, -lower) |>
     purrr::pmap_dfr(
       .f = power_MADE_engine,
       sigma2_dist = sigma2_dist,

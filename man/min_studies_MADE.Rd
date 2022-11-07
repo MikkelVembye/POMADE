@@ -19,7 +19,8 @@ min_studies_MADE(
   iterations = 100,
   seed = NULL,
   warning = TRUE,
-  interval = c(5, 100)
+  upper = 100,
+  show_lower = FALSE
 )
 }
 \arguments{
@@ -52,7 +53,9 @@ Default = "RVE".}
 
 \item{warning}{Return warning when either sigma2_dist or n_ES_dist are based on balanced assumptions}
 
-\item{interval}{A vector containing the end-points of the interval to be searched for the root}
+\item{upper}{Numerical value containing the upper bound of the interval to be searched for the minimum number of studies.}
+
+\item{show_lower}{Logical value indicating whether to report lower bound of the interval searched for the mnimum number of studies. Default is \code{FALSE}.}
 }
 \value{
 Returns a \code{tibble} with information about the expectation of the effect size of practical concern,

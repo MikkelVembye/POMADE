@@ -3,8 +3,9 @@
 #'
 #' @param J Number of studies
 #' @template common-arg
-#' @param target_power Specifying the target power
-#' @param interval A vector containing the end-points of the interval to be searched for the root
+#' @param target_power Numerical value specifying the target power level.
+#' @param upper Numerical value containing the upper bound of the interval to be searched for the MDES.
+#' @param show_lower Logical value indicating whether to report lower bound of the interval searched for the MDES. Default is \code{FALSE}.
 #'
 #' @return Returns a \code{tibble} with information about the expectation of the number of
 #' studies, the between-study and within-study variance components,
@@ -54,7 +55,8 @@ mdes_MADE <-
     iterations = 100,
     seed = NULL,
     warning = TRUE,
-    interval = c(0,2)
+    upper = 2,
+    show_lower = FALSE
 
   ) {
 
@@ -95,11 +97,13 @@ mdes_MADE <-
       res <- furrr::future_pmap_dfr(
         .l = params, .f = mdes_MADE_engine,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-        seed = seed, interval = interval, extendInt = "no",
+        seed = seed, upper = upper, extendInt = "yes",
         .options = furrr::furrr_options(seed = furrr_seed)
       ) |>
         dplyr::arrange(dplyr::across(J:target_power))
     )
+
+    if (!show_lower) res <- dplyr::select(res, -lower)
 
     tibble::new_tibble(res, class = "mdes")
 
@@ -124,10 +128,14 @@ mdes_MADE_engine <-
 
     iterations = 5,
     seed = NULL,
-    interval = c(0,2),
-    extendInt = "no"
+    upper = 2,
+    extendInt = "yes"
   ) {
 
+
+    if (!is.null(seed) && (is.function(sigma2_dist) | is.function(n_ES_dist))) {
+      set.seed(seed)
+    }
 
     ####################################
     # Sampling variance estimates labels
@@ -136,16 +144,19 @@ mdes_MADE_engine <-
     # Assuming balanced sampling variance estimates across studies
     if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
       samp_method_sigma2 <- "balanced"
+      sigma2j <- sigma2_dist
     }
 
     # Stylized distribution of sampling variance estimates
     if (is.function(sigma2_dist)) {
       samp_method_sigma2 <- "stylized"
+      sigma2j <- sigma2_dist(1000)
     }
 
     # Empirical distribution of sampling variance estimates across studies
     if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
       samp_method_sigma2 <- "empirical"
+      sigma2j <- sigma2_dist
     }
 
     #########################################
@@ -155,18 +166,22 @@ mdes_MADE_engine <-
     if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
       # Assuming that all studies yield the same number of effect sizes
       samp_method_kj <- "balanced"
+      kj <- n_ES_dist
     } else if (is.function(n_ES_dist)) {
       # Stylized distribution of the number of effect sizes per study
       samp_method_kj <- "stylized"
+      kj <- n_ES_dist(1000)
     } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
       # Empirical distribution of the number of effect sizes per study
       samp_method_kj <- "empirical"
+      kj <- n_ES_dist
     } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
       # If both sigma2js and kjs are empirically obtained
       samp_method_sigma2 <- "empirical_combi"
       samp_method_kj <- "empirical_combi"
+      sigma2j <- sigma2_dist
+      kj <- n_ES_dist
     }
-
 
     f <- function(mu) {
 
@@ -181,6 +196,14 @@ mdes_MADE_engine <-
 
     }
 
+    # Determine lower bound of interval to search
+    wbar <- mean(kj / (kj * tau^2 + kj * rho * sigma2j + omega^2 + (1 - rho) * sigma2j))
+    lower <- d + (qnorm(1 - alpha / 2) - qnorm(1 + alpha / 2 - target_power)) / sqrt(wbar * J)
+    while (f(lower) > 0) lower <- lower / 2
+    if (lower > upper) upper <- 2 * lower
+    interval <- c(lower, upper)
+
+    # Find MDES
     MDES <- stats::uniroot(f, interval = interval, extendInt = extendInt)$root
 
     # To align the results with the power_MADE function
@@ -194,6 +217,7 @@ mdes_MADE_engine <-
       d = d,
       alpha = alpha,
       target_power = target_power,
+      lower = lower,
       MDES = MDES,
       iterations = iterations,
       model = paste(model, var_df, sep = "-"),

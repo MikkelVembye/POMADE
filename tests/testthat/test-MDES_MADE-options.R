@@ -161,7 +161,8 @@ test_that("mdes_MADE() works with multiple parameter values.", {
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
     iterations = 2,
-    warning = FALSE
+    warning = FALSE,
+    seed = 20221107
   )
 
   expect_equal(nrow(mdes), 2L * 3L * 2L * 3L * 4L * 3L)

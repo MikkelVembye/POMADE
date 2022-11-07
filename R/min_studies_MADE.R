@@ -4,7 +4,8 @@
 #' @param mu Effect size of practical concern
 #' @template common-arg
 #' @param target_power Specifying the target power
-#' @param interval A vector containing the end-points of the interval to be searched for the root
+#' @param upper Numerical value containing the upper bound of the interval to be searched for the minimum number of studies.
+#' @param show_lower Logical value indicating whether to report lower bound of the interval searched for the mnimum number of studies. Default is \code{FALSE}.
 #'
 #' @return Returns a \code{tibble} with information about the expectation of the effect size of practical concern,
 #' the between-study and within-study variance components,
@@ -56,7 +57,8 @@ min_studies_MADE <-
     iterations = 100,
     seed = NULL,
     warning = TRUE,
-    interval = c(5, 100)
+    upper = 100,
+    show_lower = FALSE
 
   ) {
 
@@ -97,11 +99,14 @@ min_studies_MADE <-
       res <- furrr::future_pmap_dfr(
         .l = params, .f = min_studies_MADE_engine,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
-        seed = seed, interval = interval, extendInt = "yes",
+        seed = seed, upper = upper, extendInt = "yes",
         .options = furrr::furrr_options(seed = furrr_seed)
       ) |>
         dplyr::arrange(dplyr::across(mu:target_power))
     )
+
+    if (!show_lower) res <- dplyr::select(res, -lower)
+
 
     tibble::new_tibble(res, class = "min_studies")
 
@@ -126,11 +131,14 @@ min_studies_MADE_engine <-
 
     iterations = 100,
     seed = NULL,
-    interval = c(5,100),
+    upper = 100,
     extendInt = "yes",
     tol = .Machine$double.eps^0.25
   ) {
 
+    if (!is.null(seed) && (is.function(sigma2_dist) | is.function(n_ES_dist))) {
+      set.seed(seed)
+    }
 
     ####################################
     # Sampling variance estimates labels
@@ -139,16 +147,19 @@ min_studies_MADE_engine <-
     # Assuming balanced sampling variance estimates across studies
     if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1) {
       samp_method_sigma2 <- "balanced"
+      sigma2j <- sigma2_dist
     }
 
     # Stylized distribution of sampling variance estimates
     if (is.function(sigma2_dist)) {
       samp_method_sigma2 <- "stylized"
+      sigma2j <- sigma2_dist(1000)
     }
 
     # Empirical distribution of sampling variance estimates across studies
     if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
       samp_method_sigma2 <- "empirical"
+      sigma2j <- sigma2_dist
     }
 
     #########################################
@@ -158,16 +169,21 @@ min_studies_MADE_engine <-
     if (is.numeric(n_ES_dist) && length(n_ES_dist) == 1) {
       # Assuming that all studies yield the same number of effect sizes
       samp_method_kj <- "balanced"
+      kj <- n_ES_dist
     } else if (is.function(n_ES_dist)) {
       # Stylized distribution of the number of effect sizes per study
       samp_method_kj <- "stylized"
+      kj <- n_ES_dist(1000)
     } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
       # Empirical distribution of the number of effect sizes per study
       samp_method_kj <- "empirical"
+      kj <- n_ES_dist
     } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
       # If both sigma2js and kjs are empirically obtained
       samp_method_sigma2 <- "empirical_combi"
       samp_method_kj <- "empirical_combi"
+      sigma2j <- sigma2_dist
+      kj <- n_ES_dist
     }
 
 
@@ -179,11 +195,18 @@ min_studies_MADE_engine <-
         model = model, var_df = var_df,
         sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist,
         iterations = iterations, average_power = TRUE,
-        J_hi = interval[2], seed = seed
+        J_hi = upper, seed = seed
       )
       power_range <- range(p$power)
       power_range[1] + (power_range[2] - power_range[1]) * (J - J_seq[1]) - target_power
     }
+
+    # Determine lower bound of interval to search
+    wbar <- mean(kj / (kj * tau^2 + kj * rho * sigma2j + omega^2 + (1 - rho) * sigma2j))
+    lower <- floor((qnorm(1 - alpha / 2) - qnorm(1 + alpha / 2 - target_power))^2 / (wbar * (mu - d)^2))
+    while (f(lower) > 0) lower <- lower / 2
+    if (lower > upper) upper <- 2 * lower
+    interval <- c(lower, upper)
 
     J_needed <- if (f(interval[1]) >= 0) {
       interval[1]
@@ -205,6 +228,7 @@ min_studies_MADE_engine <-
       d = d,
       alpha = alpha,
       target_power = target_power,
+      lower = lower,
       studies_needed = J_needed,
       iterations = iterations,
       model = paste(model, var_df, sep = "-"),

@@ -27,20 +27,20 @@ plot_MADE.mdes <-
       }
     }
 
-    if (is.null(y_breaks) && min(data$MDES) >= 0.04){
+    if (is.null(y_breaks) && min(data$MDES) >= 0.05){
       y_breaks <- seq(round(min(data$MDES) - 0.015, 2), round(max(data$MDES) + 0.015, 2), .02)
-    } else if (is.null(y_breaks) && min(data$MDES) < 0.04) {
+    } else if (is.null(y_breaks) && min(data$MDES) < 0.05) {
       y_breaks <- seq(0, round(max(data$MDES) + 0.015, 2), .02)
     }
 
-    if (is.null(y_limits) && min(data$MDES) >= 0.04){
-      y_limits <- c(round(min(data$MDES) - 0.015, 2) , round(max(data$MDES) + 0.015, 2) )
-    } else if (is.null(y_limits) && min(data$MDES) < 0.04) {
+    if (is.null(y_limits) && min(data$MDES) >= 0.05){
+      y_limits <- c(round(min(data$MDES) - 0.015, 2) , round(max(data$MDES) + 0.01, 2) )
+    } else if (is.null(y_limits) && min(data$MDES) < 0.05) {
       y_limits <- c(0, round(max(data$MDES) + 0.015, 2))
     }
 
     if (is.null(numbers_ynudge)){
-      numbers_ynudge <- round(max(data$MDES) + 0.015 - min(data$MDES) + 0.015, 2)
+      numbers_ynudge <- round(max(data$MDES) + 0.01 - min(data$MDES) + 0.015, 2)
     }
 
     plot_dat <-

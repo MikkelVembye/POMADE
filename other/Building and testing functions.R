@@ -162,9 +162,9 @@ multisession(multisession, workers = future::availableCores()-1)
 MDES_dat <-
   mdes_MADE(
     J = seq(60, 90, 10),
-    tau = c(0.05, 0.25),
-    omega = c(0.05, 0.1),
-    rho = c(0.2, 0.7),
+    tau = c(0, 0.25),
+    omega = c(0, 0.1),
+    rho = c(0, 0.7),
     target_power = c(.5, .8),
     alpha = c(0.01, 0.05),
     model = c("CHE"),
@@ -178,17 +178,14 @@ MDES_dat <-
 #toc()
 
 
-test_dat <-
-  plot_MADE.mdes(
+plot_MADE(
   data = MDES_dat,
-  warning = FALSE,
-  return_data = TRUE
-
+  warning = FALSE
 )
 
-test_dat2 <-
-  test_dat |>
-  unnest(cols = c(data))
+#test_dat2 <-
+#  test_dat |>
+#  unnest(cols = c(data))
 
 #plot_MADE(
 #  MDES_dat,

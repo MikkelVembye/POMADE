@@ -68,15 +68,34 @@ power_dat2 <-
     seed = 10052510
   )
 
-plot_MADE.power(
-  data = power_dat,
-  power_min = 0.8,
-  expected_studies = c(45, 55),
-  warning = FALSE,
-  caption = TRUE,
-  color = TRUE,
-  model_comparison = FALSE
+plot_dat <-
+  plot_MADE(
+    data = power_dat,
+    power_min = 0.8,
+    expected_studies = c(45, 55),
+    warning = FALSE,
+    caption = TRUE,
+    color = TRUE,
+    model_comparison = FALSE
 )
+
+plot_dat2 <-
+  plot_MADE(
+    data = power_dat2,
+    power_min = 0.8,
+    expected_studies = c(45, 55),
+    warning = FALSE,
+    caption = TRUE,
+    color = TRUE,
+    model_comparison = FALSE
+  )
+
+
+
+traffic_light(
+  plot_dat,
+  assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+  )
 
 power_dat3 <-
   power_dat2 |>

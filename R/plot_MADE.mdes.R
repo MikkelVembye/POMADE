@@ -53,8 +53,8 @@ plot_MADE.mdes <-
       group_nest(alpha, target_power, d, model) |>
       mutate(
 
-        cap = paste0("Note: Alpha = ", unique(alpha), ", ",
-                     "power = ", unique(target_power), ", and ",
+        cap = paste0("Note: Alpha = ", alpha, ", ",
+                     "power = ", target_power, ", and ",
                      "contrast value = ", d,
                       "."),
 

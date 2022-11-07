@@ -159,28 +159,36 @@ library(future)
 multisession(multisession, workers = future::availableCores()-1)
 
 #tic()
-MDES_dat <- mdes_MADE(
-  J = seq(60, 90, 10),
-  tau = c(0.05, 0.25),
-  omega = c(0.05, 0.1),
-  rho = c(0.2, 0.7),
-  target_power = c(.5, .8),
-  alpha = c(0.05),
-  model = c("CHE"),
-  var_df = c("Model", "Satt", "RVE"),
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-  seed = 10052510,
-  iterations = 5,
-  #warning = FALSE
+MDES_dat <-
+  mdes_MADE(
+    J = seq(60, 90, 10),
+    tau = c(0.05, 0.25),
+    omega = c(0.05, 0.1),
+    rho = c(0.2, 0.7),
+    target_power = c(.5, .8),
+    alpha = c(0.01, 0.05),
+    model = c("CHE"),
+    var_df = c("Model", "Satt", "RVE"),
+    sigma2_dist = sigma2_dist,
+    n_ES_dist = n_ES_dist,
+    seed = 10052510,
+    iterations = 5,
+    #warning = FALSE
 )
 #toc()
 
-plot_MADE.mdes(
+
+test_dat <-
+  plot_MADE.mdes(
   data = MDES_dat,
-  warning = FALSE
+  warning = FALSE,
+  return_data = TRUE
+
 )
 
+test_dat2 <-
+  test_dat |>
+  unnest(cols = c(data))
 
 #plot_MADE(
 #  MDES_dat,

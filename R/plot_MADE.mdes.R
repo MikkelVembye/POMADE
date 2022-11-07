@@ -10,7 +10,7 @@ plot_MADE.mdes <-
     color = TRUE,
     numbers = TRUE,
     number_size = 2.5,
-    numbers_ynudge = 0,
+    numbers_ynudge = NULL,
     caption = TRUE,
     x_lab = "Number of studies (J)",
     x_breaks = NULL,
@@ -37,6 +37,10 @@ plot_MADE.mdes <-
       y_limits <- c(round(min(data$MDES) - 0.015, 2) , round(max(data$MDES) + 0.015, 2) )
     } else if (is.null(y_limits) && min(data$MDES) < 0.04) {
       y_limits <- c(0, round(max(data$MDES) + 0.015, 2))
+    }
+
+    if (is.null(numbers_ynudge)){
+      numbers_ynudge <- round(max(data$MDES) + 0.015 - min(data$MDES) + 0.015, 2)
     }
 
     plot_dat <-

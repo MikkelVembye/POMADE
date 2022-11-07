@@ -155,18 +155,18 @@ min_studies_MADE_engine(
   seed = 10052510
 )
 
-
+library(future)
 multisession(multisession, workers = future::availableCores()-1)
 
 #tic()
 MDES_dat <- mdes_MADE(
   J = seq(60, 90, 10),
-  tau = c(0.1, 0.2),
+  tau = c(0.05, 0.25),
   omega = c(0.05, 0.1),
   rho = c(0.2, 0.7),
   target_power = c(.5, .8),
   alpha = c(0.05),
-  model = c("CHE", "MLMA", "CE"),
+  model = c("CHE"),
   var_df = c("Model", "Satt", "RVE"),
   sigma2_dist = sigma2_dist,
   n_ES_dist = n_ES_dist,

@@ -202,9 +202,11 @@ min_studies_MADE_engine <-
     }
 
     # Determine lower bound of interval to search
+    hard_limit <- 5L
     wbar <- mean(kj / (kj * tau^2 + kj * rho * sigma2j + omega^2 + (1 - rho) * sigma2j))
-    lower <- floor((qnorm(1 - alpha / 2) - qnorm(1 + alpha / 2 - target_power))^2 / (wbar * (mu - d)^2))
-    while (f(lower) > 0) lower <- lower / 2
+    lower <- (qnorm(1 - alpha / 2) - qnorm(1 + alpha / 2 - target_power))^2 / (wbar * (mu - d)^2)
+    lower <- max(floor(lower), hard_limit)
+    while (lower > hard_limit && f(lower) > 0) lower <- max(lower / 2, hard_limit)
     if (lower > upper) upper <- 2 * lower
     interval <- c(lower, upper)
 

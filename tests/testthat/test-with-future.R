@@ -250,17 +250,18 @@ test_that("min_studies_MADE() works with future parallelization.", {
     tau = c(0.05, 0.09),
     omega = 0.05,
     rho = 0.5,
-    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    sigma2_dist = \(x) rgamma(x, shape = 3, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
     model = c("CHE","CE"),
     var_df = c("Model", "RVE"),
     alpha = .03,
-    iterations = 3,
+    iterations = 12,
     warning = FALSE,
-    workers = 2L
+    workers = 2L,
+    seed = 20221108
   )
 
-  expect_false(identical(J3$res_seq, J3$res_par))
+  identical(J3$res_seq, J3$res_par)
   expect_gt(J3$tm_seq, J3$tm_par)
 
 })

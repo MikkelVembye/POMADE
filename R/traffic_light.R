@@ -18,7 +18,7 @@ traffic_light <-
 
 
 traffic_light_engine <-
-  function(plot, assumptions){
+  function(plot, assumptions) {
 
     assump <-
       dplyr::tibble(assumptions) %>%

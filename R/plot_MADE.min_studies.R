@@ -3,8 +3,6 @@
 plot_MADE.min_studies <-
   function(
     data,
-    v_shade = NULL,
-    h_lines = NULL,
     v_lines = NULL,
     legend_position = "bottom",
     color = TRUE,
@@ -18,7 +16,10 @@ plot_MADE.min_studies <-
     y_breaks = NULL,
     y_limits = NULL,
     y_expand = NULL,
-    warning = TRUE
+    warning = TRUE,
+    v_shade = NULL,
+    h_lines = NULL,
+    ...
   ){
 
     if (warning) {

@@ -1,32 +1,47 @@
 # Add arguments
 #' @export
 
-plot_MADE <- function(data, power_min, es_min, expected_studies, v_shade, v_lines, legend_position, color, numbers, number_size, caption, xlab, x_breaks, x_limits, y_breaks, y_limits, warning, model_comparison, ...)
-  UseMethod("plot_MADE")
+plot_MADE <-
+  function(
+    data,
+    v_lines,
+    legend_position,
+    color,
+    numbers,
+    number_size,
+    numbers_ynudge,
+    caption,
+    x_lab,
+    x_breaks,
+    x_limits,
+    y_breaks,
+    y_limits,
+    y_expand = NULL,
+    warning,
+    ...
+  ) UseMethod("plot_MADE")
 
 #' @export
 
 plot_MADE.default <-
   function(
     data,
-    power_min = NULL,
-    es_min = NULL,
-    expected_studies = NULL,
-    v_shade = NULL,
     v_lines = NULL,
     legend_position = "bottom",
     color = FALSE,
     numbers = TRUE,
     number_size = 2.5,
+    numbers_ynudge = NULL,
     caption = TRUE,
     x_lab = NULL,
     x_breaks = NULL,
     x_limits = NULL,
     y_breaks = NULL,
     y_limits = NULL,
+    y_expand = NULL,
     warning = TRUE,
-    model_comparison,
-    ...) {
+    ...
+  ) {
 
     warning(paste0("plot_MADE does not know how to handle object of class ", class(data),
                   ". It can only be used on objects of class 'power', 'mdes', or 'min_studies'."))

@@ -3,8 +3,6 @@
 plot_MADE.power <-
   function(
     data,
-    power_min = NULL,
-    expected_studies = NULL,
     v_lines = NULL,
     legend_position = "bottom",
     color = TRUE,
@@ -19,7 +17,10 @@ plot_MADE.power <-
     y_limits = c(0, 1),
     y_expand = NULL,
     warning = TRUE,
-    model_comparison = FALSE
+    power_min = NULL,
+    expected_studies = NULL,
+    model_comparison = FALSE,
+    ...
   ){
 
   if (warning) {

@@ -3,8 +3,6 @@
 plot_MADE.mdes <-
   function(
     data,
-    es_min = NULL,
-    expected_studies = NULL,
     v_lines = NULL,
     legend_position = "bottom",
     color = TRUE,
@@ -18,7 +16,10 @@ plot_MADE.mdes <-
     y_breaks = NULL,
     y_limits = NULL,
     y_expand = NULL,
-    warning = TRUE
+    warning = TRUE,
+    es_min = NULL,
+    expected_studies = NULL,
+    ...
   ){
 
     if (warning) {

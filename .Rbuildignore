@@ -5,4 +5,5 @@
 ^other$
 ^old_functions$
 ^man-roxygen$
-
+^.github$
+codecov.yml

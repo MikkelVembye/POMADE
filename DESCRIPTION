@@ -31,7 +31,6 @@ Imports:
     purrr,
     future,
     furrr,
-    rlang (>= 0.4.11),
     stats,
     stringr,
     utils,

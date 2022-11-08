@@ -64,6 +64,7 @@ find_tau_omega <- function(tau, omega, phi, rho, k_j, sigmasq_j) {
   data.frame(tau_tilde = res$par[1], omega_tilde = res$par[2])
 }
 
+#' @importFrom utils globalVariables
 
 # Manage dplyr behavior
 utils::globalVariables(
@@ -71,7 +72,7 @@ utils::globalVariables(
     "res", "tau", "omega", "power", "Power", "label", "MDES", "pilot_dat",
     "sigma2_method", "mdes_data", "studies_needed", "tau_name", "d", "mcse", "sd", ".",
     "J", "plan", "samp_method_sigma2", "sequential", "x", "rho", "alpha", "target_power",
-    "model", "cap", "y_lab", "mu", "cor", "qnorm"
+    "model", "cap", "y_lab", "mu", "cor", "qnorm", "lower"
     )
 )
 

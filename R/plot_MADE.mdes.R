@@ -19,6 +19,7 @@ plot_MADE.mdes <-
     warning = TRUE,
     es_min = NULL,
     expected_studies = NULL,
+    traffic_light_assumptions = NULL,
     ...
   ){
 
@@ -73,7 +74,7 @@ plot_MADE.mdes <-
 
     if (color){
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -101,12 +102,13 @@ plot_MADE.mdes <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
         ))
-
+      )
     } else {
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -134,9 +136,10 @@ plot_MADE.mdes <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
         ))
-
+      )
     }
 
 

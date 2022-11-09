@@ -1,7 +1,7 @@
 # Building and testing
 
-library(usethis)
-library(devtools)
+#library(usethis)
+#library(devtools)
 library(dplyr)
 library(stringr)
 #library(furrr)
@@ -95,8 +95,8 @@ plot_MADE(
   traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
 )
 
-plot_fig <-
-  plot_MADE(
+
+plot_MADE(
   data = power_dat2,
   power_min = 0.8,
   expected_studies = c(45, 55),
@@ -172,14 +172,20 @@ J_obj <-
 ); J_obj
 
 
-CHE_J_1 <- J_obj |> filter(str_detect(model, "CHE"), mu == 0.1)
+CHE_J_1 <- J_obj |> filter(str_detect(model, "CHE-RVE"), mu == 0.1)
 
 CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
 
 
 #debug(find_J_MADE)
 
-plot_MADE.min_studies(data = CHE_J_1, color = TRUE, v_shade = c(0.1,0.2))
+plot_MADE.min_studies(
+  data = CHE_J,
+  color = FALSE,
+  caption = FALSE,
+  #v_shade = c(0.1,0.2),
+  traffic_light_assumptions = c("unlikely", "expected", "expected")
+  )
 
 
 min_studies_MADE_engine(
@@ -220,9 +226,12 @@ MDES_dat <-
 #toc()
 
 
+mdes_dat1 <- MDES_dat |> dplyr::filter(model == "CHE-RVE", target_power == 0.8, alpha == 0.05)
+
 plot_MADE(
   data = MDES_dat,
-  warning = FALSE
+  warning = FALSE,
+  traffic_light_assumptions = c("likely", "expected", "unlikely", "expected")
 )
 
 #test_dat2 <-

@@ -60,7 +60,7 @@ plot_MADE.power <-
 
     if (color){
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -91,10 +91,10 @@ plot_MADE.power <-
           labs_size = number_size,
           assumptions = traffic_light_assumptions
         ))
-
+      )
     } else {
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -124,9 +124,8 @@ plot_MADE.power <-
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
           assumptions = traffic_light_assumptions
-
         ))
-
+      )
     }
   }
 
@@ -163,7 +162,7 @@ plot_MADE.power <-
 
     if (color){
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -194,10 +193,10 @@ plot_MADE.power <-
           labs_size = number_size,
           assumptions = traffic_light_assumptions
         ))
-
+      )
     } else {
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -228,7 +227,7 @@ plot_MADE.power <-
           labs_size = number_size,
           assumptions = traffic_light_assumptions
         ))
-
+      )
     }
 
   }

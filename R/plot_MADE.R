@@ -76,7 +76,7 @@ plot_MADE_engine <-
     grid_labs = TRUE,
     labs_ynudge = 0.05,
     labs_size = 2.5,
-    shape_scale_manually = FALSE,
+    #shape_scale_manually = FALSE,
     assumptions = NULL
   ) {
 
@@ -204,16 +204,16 @@ plot_MADE_engine <-
       text_labs <- NULL
     }
 
-    if (shape_scale_manually){
-
-      n_shapes <- data |> dplyr::distinct({{shape}}) |> pull({{shape}})
-      shape_scale_manual <- ggplot2::scale_shape_manual(values = 1:n_shapes)
-
-    } else {
-
-      shape_scale_manual <- NULL
-
-    }
+#    if (shape_scale_manually){
+#
+#      n_shapes <- data |> dplyr::distinct({{shape}}) |> pull({{shape}})
+#      shape_scale_manual <- ggplot2::scale_shape_manual(values = 1:n_shapes)
+#
+#    } else {
+#
+#      shape_scale_manual <- NULL
+#
+#    }
 
 
     plot <-
@@ -229,7 +229,7 @@ plot_MADE_engine <-
       ggplot2::theme_bw() +
       x_scale +
       y_scale +
-      shape_scale_manual +
+      # shape_scale_manual +
       ggplot2::theme(
         legend.position = legend_position,
         plot.caption.position = "plot",

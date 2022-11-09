@@ -19,6 +19,7 @@ plot_MADE.min_studies <-
     warning = TRUE,
     v_shade = NULL,
     h_lines = NULL,
+    traffic_light_assumptions = NULL,
     ...
   ){
 
@@ -67,9 +68,14 @@ plot_MADE.min_studies <-
         rowwise() |>
         select(data, cap, y_lab)
 
+      if (!caption) {
+        plot_dat$cap <- NULL
+      }
+
+
       if (color){
 
-        plot <- dplyr::group_map(
+        plot <- suppressWarnings(dplyr::group_map(
           plot_dat,
           ~ plot_MADE_engine(
             data = .x$data[[1]],
@@ -97,13 +103,14 @@ plot_MADE.min_studies <-
             legend_position = legend_position,
             grid_labs = numbers,
             labs_ynudge = numbers_ynudge,
-            labs_size = number_size
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
           ))
-
+        )
 
       } else {
 
-        plot <- dplyr::group_map(
+        plot <- suppressWarnings(dplyr::group_map(
           plot_dat,
           ~ plot_MADE_engine(
             data = .x$data[[1]],
@@ -131,9 +138,10 @@ plot_MADE.min_studies <-
             legend_position = legend_position,
             grid_labs = numbers,
             labs_ynudge = numbers_ynudge,
-            labs_size = number_size
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
           ))
-
+        )
       }
 
     }
@@ -177,9 +185,14 @@ plot_MADE.min_studies <-
         rowwise() |>
         select(data, cap, y_lab)
 
+      if (!caption) {
+        plot_dat$cap <- NULL
+      }
+
+
       if (color){
 
-        plot <- dplyr::group_map(
+        plot <- suppressWarnings(dplyr::group_map(
           plot_dat,
           ~ plot_MADE_engine(
             data = .x$data[[1]],
@@ -208,12 +221,13 @@ plot_MADE.min_studies <-
             grid_labs = numbers,
             labs_ynudge = numbers_ynudge,
             labs_size = number_size,
-            shape_scale_manually = TRUE
+            #shape_scale_manually = TRUE,
+            assumptions = traffic_light_assumptions
           ))
-
+        )
       } else {
 
-      plot <- dplyr::group_map(
+      plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
         ~ plot_MADE_engine(
           data = .x$data[[1]],
@@ -242,8 +256,10 @@ plot_MADE.min_studies <-
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
-          shape_scale_manually = TRUE
+          #shape_scale_manually = TRUE,
+          assumptions = traffic_light_assumptions
         ))
+       )
       }
 
     }

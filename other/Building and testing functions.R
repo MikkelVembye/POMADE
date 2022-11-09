@@ -101,7 +101,7 @@ plot_MADE(
   power_min = 0.8,
   expected_studies = c(45, 55),
   warning = FALSE,
-  caption = TRUE,
+  caption = FALSE,
   color = TRUE,
   model_comparison = FALSE,
   traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")

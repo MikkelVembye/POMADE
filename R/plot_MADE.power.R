@@ -19,6 +19,7 @@ plot_MADE.power <-
     warning = TRUE,
     power_min = NULL,
     expected_studies = NULL,
+    traffic_light_assumptions = NULL,
     model_comparison = FALSE,
     ...
   ){
@@ -87,7 +88,8 @@ plot_MADE.power <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
         ))
 
     } else {
@@ -120,7 +122,8 @@ plot_MADE.power <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
 
         ))
 
@@ -128,6 +131,10 @@ plot_MADE.power <-
   }
 
   if (model_comparison){
+
+    if(n_distinct(data$model) == 1){
+      stop("Power approximations for more than one model are needed")
+    }
 
     plot_dat <-
       data |>
@@ -184,7 +191,8 @@ plot_MADE.power <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
         ))
 
     } else {
@@ -217,7 +225,8 @@ plot_MADE.power <-
           legend_position = legend_position,
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
-          labs_size = number_size
+          labs_size = number_size,
+          assumptions = traffic_light_assumptions
         ))
 
     }

@@ -76,7 +76,8 @@ plot_MADE_engine <-
     grid_labs = TRUE,
     labs_ynudge = 0.05,
     labs_size = 2.5,
-    shape_scale_manually = FALSE
+    shape_scale_manually = FALSE,
+    assumptions = NULL
   ) {
 
     # pre-process color, shape, and linetype
@@ -214,7 +215,9 @@ plot_MADE_engine <-
 
     }
 
-    ggplot2::ggplot(data = data) +
+
+    plot <-
+      ggplot2::ggplot(data = data) +
       ggplot2::facet_grid(rows = vars({{y_grid}}), cols = vars({{x_grid}})) +
       color_plot +
       gray_shade +
@@ -233,5 +236,45 @@ plot_MADE_engine <-
         plot.caption = ggplot2::element_text(hjust = 0)
       ) +
       plot_labs
+
+
+    if (is.null(assumptions)) {
+      return(plot)
+    } else {
+      plot <- traffic_light_engine(plot = plot, assumptions = assumptions)
+      return(plot)
+    }
+
+
+}
+
+traffic_light_engine <-
+  function(plot, assumptions) {
+
+    assump <-
+      dplyr::tibble(assumptions) %>%
+      dplyr::mutate(
+        color = dplyr::recode(
+          assumptions,
+          "unlikely" = "lightcoral",
+          "likely" = "lightgoldenrodyellow",
+          "expected" = "mediumaquamarine"
+        )
+      )
+
+    g <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
+    strip_both <- which(grepl('strip-', g$layout$name))
+    fills <- assump$color
+
+    k <- 1
+    for (i in strip_both) {
+      j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$childrenOrder))
+      g$grobs[[i]]$grobs[[1]]$children[[j]]$gp$fill <- fills[k]
+      k <- k+1
+    }
+
+    traffic_light_plot <- g
+    grid::grid.draw(traffic_light_plot)
+
 
   }

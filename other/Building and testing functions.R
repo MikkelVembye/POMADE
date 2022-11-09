@@ -68,34 +68,45 @@ power_dat2 <-
     seed = 10052510
   )
 
-plot_dat <-
-  plot_MADE(
-    data = power_dat,
-    power_min = 0.8,
-    expected_studies = c(45, 55),
-    warning = FALSE,
-    caption = TRUE,
-    color = TRUE,
-    model_comparison = FALSE
+plot_MADE_engine(
+  data = power_dat2,
+  x = J,
+  y = power,
+  x_grid = omega,
+  y_grid = tau,
+  color = rho,
+  shape = rho,
+  linetype = rho,
+  color_lab = "Cor",
+  shape_lab = "Cor",
+  line_lab = "Cor",
+  #assumptions = c("unlikely", "likely", "expected", "likely", "expected")
 )
 
-plot_dat2 <-
+
+plot_MADE(
+  data = power_dat,
+  power_min = 0.8,
+  expected_studies = c(45, 55),
+  warning = FALSE,
+  caption = TRUE,
+  color = TRUE,
+  model_comparison = FALSE,
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+)
+
+plot_fig <-
   plot_MADE(
-    data = power_dat2,
-    power_min = 0.8,
-    expected_studies = c(45, 55),
-    warning = FALSE,
-    caption = TRUE,
-    color = TRUE,
-    model_comparison = FALSE
-  )
+  data = power_dat2,
+  power_min = 0.8,
+  expected_studies = c(45, 55),
+  warning = FALSE,
+  caption = TRUE,
+  color = TRUE,
+  model_comparison = FALSE,
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+)
 
-
-
-traffic_light(
-  plot_dat,
-  assumptions = c("unlikely", "likely", "expected", "likely", "expected")
-  )
 
 power_dat3 <-
   power_dat2 |>

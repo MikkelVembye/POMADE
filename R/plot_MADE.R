@@ -76,7 +76,7 @@ plot_MADE_engine <-
     grid_labs = TRUE,
     labs_ynudge = 0.05,
     labs_size = 2.5,
-    #shape_scale_manually = FALSE,
+    shape_scale = NULL,
     assumptions = NULL
   ) {
 
@@ -204,17 +204,18 @@ plot_MADE_engine <-
       text_labs <- NULL
     }
 
-#    if (shape_scale_manually){
-#
-#      n_shapes <- data |> dplyr::distinct({{shape}}) |> pull({{shape}})
-#      shape_scale_manual <- ggplot2::scale_shape_manual(values = 1:n_shapes)
-#
-#    } else {
-#
-#      shape_scale_manual <- NULL
-#
-#    }
 
+    # handle user input for shape scales
+    if (is.null(shape_scale)) {
+     shape_scale_manual <- NULL
+    } else if (shape_scale == "model") {
+     model_shapes <- c(`CHE-RVE` = "square", `CHE-Model+Satt` = "diamond", `CHE-Model` = "square open",
+                       `MLMA-RVE` = "triangle", `MLMA-Model+Satt` = "triangle open", `MLMA-Model` = "triangle down open",
+                       `CE-RVE` = "circle")
+     shape_scale_manual <- ggplot2::scale_shape_manual(values = model_shapes)
+    } else {
+     shape_scale_manual <- ggplot2::scale_shape_manual(values = shape_scale)
+    }
 
     plot <-
       ggplot2::ggplot(data = data) +
@@ -229,7 +230,7 @@ plot_MADE_engine <-
       ggplot2::theme_bw() +
       x_scale +
       y_scale +
-      # shape_scale_manual +
+      shape_scale_manual +
       ggplot2::theme(
         legend.position = legend_position,
         plot.caption.position = "plot",

@@ -31,7 +31,7 @@ plot_MADE.power <-
   }
 
 
-  if (!model_comparison){
+  if (!model_comparison) {
 
     plot_dat <-
       data |>
@@ -58,7 +58,7 @@ plot_MADE.power <-
     }
 
 
-    if (color){
+    if (color) {
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -129,9 +129,9 @@ plot_MADE.power <-
     }
   }
 
-  if (model_comparison){
+  if (model_comparison) {
 
-    if(n_distinct(data$model) == 1){
+    if (n_distinct(data$model) == 1) {
       stop("Power approximations for more than one model are needed")
     }
 
@@ -160,7 +160,7 @@ plot_MADE.power <-
     }
 
 
-    if (color){
+    if (color) {
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -186,6 +186,7 @@ plot_MADE.power <-
           color_lab = "Model",
           shape_lab = "Model",
           line_lab = "Model",
+          shape_scale = "model",
           caption = .x$cap,
           legend_position = legend_position,
           grid_labs = numbers,
@@ -220,6 +221,7 @@ plot_MADE.power <-
           color_lab = NULL,
           shape_lab = "Model",
           line_lab = "Model",
+          shape_scale = "model",
           caption = .x$cap,
           legend_position = legend_position,
           grid_labs = numbers,

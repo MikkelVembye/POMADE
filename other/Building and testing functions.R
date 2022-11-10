@@ -20,7 +20,7 @@ options(dplyr.summarise.inform = FALSE)
 #use_r("MDES_MADE")
 #use_r("find_J_MADE")
 
-load_all()
+#load_all()
 
 #install()
 #
@@ -82,6 +82,23 @@ plot_MADE_engine(
   line_lab = "Cor",
   #assumptions = c("unlikely", "likely", "expected", "likely", "expected")
 )
+
+power_dat %>%
+  filter(rho == 0.7, alpha == 0.05) %>%
+  plot_MADE_engine(
+    x = J,
+    y = power,
+    x_grid = omega,
+    y_grid = tau,
+    color = model,
+    shape = model,
+    linetype = model,
+    color_lab = "Model",
+    shape_lab = "Model",
+    line_lab = "Model",
+    shape_scale = "model"
+    #assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+  )
 
 
 plot_MADE(

@@ -5,24 +5,13 @@
 #'
 #'
 #' @param J Number of studies.
-#' @param mu Effect size of practical concern.
-#' @param tau Between-study SD.
-#' @param omega Within-study SD.
-#' @param rho Correlation coefficient between effect sizes from the same study.
-#' @param level Desired coverage level for confidence intervals.
-#' @param model Indicates dependent effect size model, either "CHE", "CE" or "MLMA". Default = "CHE".
-#' @param var_df Indicates the technique used to obtained the sampling variance of mu and the degrees of freedom either "Model", "Satt", or "RVE".
-#' Default = "RVE".
-#' @param sigma2_dist Distribution of sampling variance estimates from each study. Can take either one value, a function, or vector of plausible values.
-#' @param n_ES_dist Distribution of the number of effect sizes per study. Can take either one value, a function, or vector of plausible values.
-#' @param iterations Number of iteration per condition (default = 100).
-#' @param seed Set seed to ensure reproducibility of the iterated power approximations.
-#' @param warning Return warning when either sigma2_dist or n_ES_dist are based on balanced assumptions.
+#' @template common-arg-precision
+#' @template common-arg-precision2
 #' @param average_precision Average \code{"lower_bound"}, \code{"upper_bound"}, and \code{"width"} across the number of iteration for each condition.
 #'
 #' @return Returns a \code{tibble} with information about the expectation of the number of
 #' studies, the effect size of practical concern, the between-study and within-study variance components,
-#' the sample correlation, Desired coverage level for confidence intervals,
+#' the sample correlation, the desired coverage level for confidence intervals,
 #' the sampling variance of overall average effect size of practical concern, the degrees of freedom,
 #' the lower bound of the confidence interval, the upper bound of the confidence interval, and the width of confidence interval,
 #' the MCSE of the width, the number of iterations, the model to handle dependent effect sizes,
@@ -58,7 +47,11 @@
 
 precision_MADE <-
   function(
-    J, mu, tau, omega, rho,
+    J,
+    mu,
+    tau,
+    omega,
+    rho,
     level = .95,
 
     model = "CHE",

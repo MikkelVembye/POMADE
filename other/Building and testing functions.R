@@ -479,12 +479,34 @@ min_studies_width_MADE_engine(
   omega = 0.1,
   rho = 0.7,
   level = 0.95,
-  target_width = 0.4,
+  target_width = 0.1,
   model = "CHE",
   var_df = "RVE",
   sigma2_dist = sigma2_dist,
   n_ES_dist = n_ES_dist,
   seed = 10052510
+)
+
+
+
+min_studies_width_MADE(
+  mu = 0.15,
+  tau = c(0.1, 0.2),
+  omega = 0.1,
+  rho = c(0.2, 0.7),
+  level = c(0.9, 0.95),
+  target_width = 0.3,
+
+  model = "CHE",
+  var_df = "RVE",
+
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+
+  iterations = 5, # default = 100
+  seed = 10052510,
+  warning = TRUE,
+  upper = 100
 )
 
 

@@ -34,7 +34,7 @@ min_studies_MADE(
 
 \item{alpha}{Level of statistical significance}
 
-\item{target_power}{Specifying the target power}
+\item{target_power}{Specify the target power}
 
 \item{d}{Contrast value}
 

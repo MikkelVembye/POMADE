@@ -1,3 +1,124 @@
+#' @title Finding the Number of Studies Needed to Obtain a Certain Width of the Confidence Intervals
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#'
+#' @template common-arg-precision
+#' @param target_width Specify the target width of the estimated confidence interval
+#' @template common-arg-precision2
+#' @param upper Upper value of the uniroot interval
+#'
+#' @return Returns a \code{tibble} with information about the effect size of practical concern,
+#' the between-study and within-study variance components,  the sample correlation, the target_width,
+#' the expectation of the number of studies needed to obtained the target width of the confidence interval,
+#' the number of iterations, the model to handle dependent effect sizes,
+#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
+#'
+#' @importFrom magrittr %>%
+#' @importFrom stats df
+#' @import dplyr
+#'
+#' @export
+#'
+#' @examples
+#' studies_needed_width <-
+#'  min_studies_width_MADE(
+#'   mu = 0.1,
+#'   tau = c(0.1, 0.2),
+#'   omega = 0.1,
+#'   rho = c(0.2, 0.7),
+#'   level = c(0.9, 0.95),
+#'   target_width = 0.4,
+#'
+#'   model = "CHE",
+#'   var_df = "RVE",
+#'
+#'   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#'   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#'
+#'   iterations = 5, # default = 100
+#'   seed = 10052510,
+#'   warning = TRUE,
+#'   upper = 100
+#' )
+#'
+#' studies_needed_width
+#'
+#'
+#'
+#'
+
+
+min_studies_width_MADE <-
+  function(
+    mu,
+    tau,
+    omega,
+    rho,
+    level = 0.95,
+    target_width = 0.2,
+
+    model = "CHE",
+    var_df = "RVE",
+
+    sigma2_dist = NULL,
+    n_ES_dist = NULL,
+
+    iterations = 100,
+    seed = NULL,
+    warning = TRUE,
+    upper = 100
+
+
+  ){
+
+    if (warning) {
+      if (is.numeric(sigma2_dist) && length(sigma2_dist) == 1 || is.numeric(n_ES_dist) && length(n_ES_dist) == 1){
+        warning(
+          paste0("Notice: It is generally recommended not to draw on balanced assumptions ",
+                 "regarding the study precision (sigma2js) or the number of effect sizes per study (kjs). ",
+                 "See Figures 2A and 2B in Vembye, Pustejovsky, and Pigott (2022)."),
+          call. = FALSE
+        )
+      }
+    }
+
+    model <- match.arg(model, c("CHE","MLMA","CE"), several.ok = TRUE)
+    var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok = TRUE)
+    if ("CE" %in% model & !("RVE" %in% var_df)) stop("CE model is only available for var_df = 'RVE'.")
+
+    design_factors <-
+      list(
+        mu = mu,
+        tau = tau,
+        omega = omega,
+        rho = rho,
+        level = level,
+        target_width = target_width,
+        model = model,
+        var_df = var_df
+      )
+
+    params <- purrr::cross_df(design_factors) |>
+      filter(model != "CE" | var_df == "RVE")
+
+    furrr_seed <- if (is.null(seed)) TRUE else NULL
+
+    suppressPackageStartupMessages(
+      res <- furrr::future_pmap_dfr(
+        .l = params, .f = min_studies_width_MADE_engine,
+        sigma2_dist = sigma2_dist, n_ES_dist = n_ES_dist, iterations = iterations,
+        seed = seed, upper = upper, extendInt = "yes",
+        .options = furrr::furrr_options(seed = furrr_seed)
+      ) |>
+        dplyr::arrange(dplyr::across(mu:target_width))
+    )
+
+    tibble::new_tibble(res, class = "min_studies_width")
+
+
+  }
 
 
 min_studies_width_MADE_engine <-

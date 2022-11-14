@@ -3,7 +3,7 @@
 #'
 #' @param mu Effect size of practical concern
 #' @template common-arg
-#' @param target_power Specifying the target power
+#' @param target_power Specify the target power
 #' @param upper Numerical value containing the upper bound of the interval to be searched for the minimum number of studies.
 #' @param show_lower Logical value indicating whether to report lower bound of the interval searched for the mnimum number of studies. Default is \code{FALSE}.
 #'

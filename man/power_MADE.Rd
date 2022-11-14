@@ -52,7 +52,7 @@ Default = "RVE".}
 
 \item{warning}{Return warning when either sigma2_dist or n_ES_dist are based on balanced assumptions}
 
-\item{average_power}{Average power across a number of iteration for each condition}
+\item{average_power}{Average power across the number of iteration for each condition}
 }
 \value{
 Returns a \code{tibble} with information about the expectation of the number of

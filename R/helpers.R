@@ -29,6 +29,20 @@ power_t <- function(df, lambda, alpha, df_test = df, g = 1) {
   pwr
 }
 
+ci_lower <- function(level, df, mu, se, g = 1){
+  p <- 1 - (1-level)/2
+  crit <- g * qt(p, df = df)
+  ci_lb <- mu - crit * se
+  ci_lb
+
+}
+
+ci_upper <- function(level, df, mu, se, g = 1){
+  p <- 1 - (1-level)/2
+  crit <- g * qt(p, df = df)
+  ci_up <- mu + crit * se
+  ci_up
+}
 
 # Helper function described in supplementary material of Vembye, Pustejovsky, & Pigott (2022)
 
@@ -72,7 +86,8 @@ utils::globalVariables(
     "res", "tau", "omega", "power", "Power", "label", "MDES", "pilot_dat",
     "sigma2_method", "mdes_data", "studies_needed", "tau_name", "d", "mcse", "sd", ".",
     "J", "plan", "samp_method_sigma2", "sequential", "x", "rho", "alpha", "target_power",
-    "model", "cap", "y_lab", "mu", "cor", "qnorm", "lower"
+    "model", "cap", "y_lab", "mu", "cor", "qnorm", "lower", "var", "lower_bound", "upper_bound",
+    "width", "se_b", "width_mcse"
     )
 )
 

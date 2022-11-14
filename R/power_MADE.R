@@ -4,7 +4,7 @@
 #' @param J Number of studies
 #' @param mu Effect size of practical concern
 #' @template common-arg
-#' @param average_power Average power across a number of iteration for each condition
+#' @param average_power Average power across the number of iteration for each condition
 #'
 #' @return Returns a \code{tibble} with information about the expectation of the number of
 #' studies, the effect size of practical concern, the between-study and within-study variance components,

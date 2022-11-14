@@ -342,7 +342,7 @@ power_MADE(
   n_ES_dist = 5.5,
   #model = c("CHE", "MLMA", "CE"),
   #var_df = c("Model", "Satt", "RVE"),
-  alpha = 0.05,
+  alpha = c(0.01,0.05),
   seed = 10052510,
   average_power = TRUE
 )
@@ -358,7 +358,7 @@ power_MADE_single(
   kj = 5.5,
   #model = "CE",
   #var_df = "RVE",
-  alpha = 0.05,
+  alpha = c(0.01, 0.05),
   d = 0
 )
 
@@ -402,6 +402,80 @@ power_MADE_engine(
   model = c("CHE", "MLMA", "CE"),
   var_df = c("Model", "Satt", "RVE")
 )
+
+####################
+# Precison analysis
+####################
+
+precision_MADE_single(
+  J = 40,
+  mu = 0.1,
+  tau = 0.2,
+  omega = 0.1,
+  rho = 0.7,
+  sigma2j = sigma2_dist,
+  kj = n_ES_dist,
+  #model = "CHE",
+  #var_df = c("RVE"),
+  level = c(0.9, 0.95)
+)
+
+precision_MADE_engine(
+  J = 40,
+  tau = 0.2,
+  omega = 0.1,
+  mu = 0.1,
+  rho = 0.7,
+  sigma2_dist = sigma2_dist,
+  n_ES_dist = n_ES_dist,
+  level = c(0.95),
+  #model = c("CHE", "MLMA", "CE"),
+  #var_df = c("Model", "Satt", "RVE"),
+  average_precision = TRUE,
+  iterations = 100
+)
+
+precison_dat <-
+  precision_MADE(
+  J = c(40),
+  tau = 0.2,
+  omega = 0.1,
+  mu = 0.1,
+  rho = 0.7,
+  sigma2_dist = sigma2_dist,
+  n_ES_dist = n_ES_dist,
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
+  level = c(0.90, 0.95),
+  seed = 10052510,
+  average_precision = TRUE
+); precison_dat
+
+ci_lower(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
+ci_upper(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
+
+power_t(df = 40 - 1, lambda = 2.2, alpha = c(0.01, 0.05))
+
+precision <-
+  precision_MADE(
+    J = c(40, 60),
+    mu = 0.1,
+    tau = 0.2,
+    omega = 0.1,
+    rho = 0.7,
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+    model = c("CHE", "MLMA", "CE"),
+    var_df = c("Model", "Satt", "RVE"),
+    level = .95,
+    seed = 10052510
+  )
+
+precision
+
+
+
+
 
 
 

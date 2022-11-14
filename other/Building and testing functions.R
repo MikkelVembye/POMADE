@@ -473,7 +473,19 @@ precision <-
 
 precision
 
-
+min_studies_width_MADE_engine(
+  mu = 0.1,
+  tau = 0.1,
+  omega = 0.1,
+  rho = 0.7,
+  level = 0.95,
+  target_width = 0.4,
+  model = "CHE",
+  var_df = "RVE",
+  sigma2_dist = sigma2_dist,
+  n_ES_dist = n_ES_dist,
+  seed = 10052510
+)
 
 
 

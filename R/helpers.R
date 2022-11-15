@@ -87,7 +87,7 @@ utils::globalVariables(
     "sigma2_method", "mdes_data", "studies_needed", "tau_name", "d", "mcse", "sd", ".",
     "J", "plan", "samp_method_sigma2", "sequential", "x", "rho", "alpha", "target_power",
     "model", "cap", "y_lab", "mu", "cor", "qnorm", "lower", "var", "lower_bound", "upper_bound",
-    "width", "se_b", "width_mcse", "target_width"
+    "width", "se_b", "width_mcse", "target_width", "x", "threshold_val"
     )
 )
 

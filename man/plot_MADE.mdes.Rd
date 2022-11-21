@@ -93,7 +93,7 @@ done by \code{plot_MADE.mdes}.
 }
 \examples{
 
-MDES_dat <-
+mdes_dat <-
   mdes_MADE(
     J = seq(60, 90, 10),
     tau = c(0, 0.25),
@@ -107,7 +107,7 @@ MDES_dat <-
     iterations = 5
   )
 
-plot_mdes <- plot_MADE(data = MDES_dat, expected_studies = c(70, 80))
+plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80))
 plot_mdes
 
 }

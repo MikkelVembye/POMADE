@@ -35,31 +35,33 @@ plot_MADE(
 
 \item{numbers}{Optional logical to specify numbering of plots (default is \code{TRUE}).}
 
-\item{number_size}{Optional integer to specify the size of the plot numbers (default is 2.5)}
+\item{number_size}{Optional integer to specify the size of the plot numbers (default is 2.5).}
 
 \item{numbers_ynudge}{Optional integer to nudge number on the y-axis (default is \code{NULL}).}
 
 \item{caption}{Optional logical to specify inclusion on caption with detailed information regarding
-the given analysis}
+the given analysis (default is \code{TRUE}).}
 
 \item{x_lab}{Title for the x-axis (default is \code{NULL}). If \code{NULL}, the x_lab is specified automatically
 within the given S3 method.}
 
-\item{x_breaks}{Optional sequence to specify breaks on the x-axis (default is \code{NULL})}
+\item{x_breaks}{Optional sequence to specify breaks on the x-axis (default is \code{NULL}).}
 
-\item{x_limits}{Optional vector to specify the limits of the x-axis (default is \code{NULL})}
+\item{x_limits}{Optional vector to specify the limits of the x-axis (default is \code{NULL}).}
 
-\item{y_breaks}{Optional sequence to specify breaks on the y-axis (default is \code{NULL})}
+\item{y_breaks}{Optional sequence to specify breaks on the y-axis (default is \code{NULL}).}
 
-\item{y_limits}{Optional vector to specify the limits of the y-axis (default is \code{NULL})}
+\item{y_limits}{Optional vector to specify the limits of the y-axis (default is \code{NULL}).}
 
-\item{y_expand}{Optional vector to expand the limits of the y-axis}
+\item{y_expand}{Optional vector to expand the limits of the y-axis.}
 
-\item{warning}{Optional logical to specify if warnings should be ignored (default is \code{TRUE})}
+\item{warning}{Optional logical to specify if warnings should be returned  (default is \code{TRUE}).}
 
-\item{traffic_light_assumptions}{Optional logical to specify coloring of strips of the facet grids to emphasis
-assumptions about the likelihood the given analytical scenario.
+\item{traffic_light_assumptions}{Optional logical to specify coloring of strips of the facet grids to emphasize
+assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
 See Vembye, Pustejovsky, & Pigott (In preparation) for further details.}
+
+\item{...}{Additional arguments available for some classes of objects.}
 }
 \value{
 A \code{ggplot} object
@@ -118,5 +120,5 @@ Conducting power analysis for meta-analysis of dependent effect sizes: Common gu
 and an Introduction to the POMADE R package.
 }
 \seealso{
-\code{\link{plot_MADE.power}}
+\code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}
 }

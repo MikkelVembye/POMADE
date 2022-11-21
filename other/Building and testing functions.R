@@ -232,27 +232,20 @@ MDES_dat <-
     J = seq(60, 90, 10),
     tau = c(0, 0.25),
     omega = c(0, 0.1),
-    rho = c(0, 0.7),
-    target_power = c(.5, .8),
-    alpha = c(0.01, 0.05),
-    model = c("CHE"),
-    var_df = c("Model", "Satt", "RVE"),
-    sigma2_dist = sigma2_dist,
-    n_ES_dist = n_ES_dist,
+    rho = c(0.2, 0.7),
+    target_power = .8,
+    alpha = 0.05,
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
     seed = 10052510,
-    iterations = 5,
-    #warning = FALSE
+    iterations = 5
 )
 #toc()
 
 
 mdes_dat1 <- MDES_dat |> dplyr::filter(model == "CHE-RVE", target_power == 0.8, alpha == 0.05)
 
-plot_MADE(
-  data = MDES_dat,
-  warning = FALSE,
-  traffic_light_assumptions = c("likely", "expected", "unlikely", "expected")
-)
+plot_MADE(data = MDES_dat, expected_studies = c(70, 80))
 
 #test_dat2 <-
 #  test_dat |>

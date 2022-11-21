@@ -43,7 +43,7 @@
 #'
 #' @return A \code{ggplot} object
 #'
-#' @seealso \code{\link{plot_MADE.power}}
+#' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}
 #'
 #' @examples
 #'

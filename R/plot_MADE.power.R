@@ -29,7 +29,7 @@
 #' When specified this interval will be shaded across facet_grip plots (default is \code{NULL}).
 #' @param model_comparison Optional logical to indicate if power estimates should be plotted across different models
 #' to handle dependent effect sizes (default is \code{FALSE}) instead of across values of sampling correlations.
-#' @param ... Additional arguments available for some classes of objects.
+#' @param ... Additional arguments.
 #'
 #'
 #' @description Function to make facet_grid plots for an object of class \code{"power"}.

@@ -17,9 +17,9 @@ plot_MADE.mdes <-
     y_limits = NULL,
     y_expand = NULL,
     warning = TRUE,
+    traffic_light_assumptions = NULL,
     es_min = NULL,
     expected_studies = NULL,
-    traffic_light_assumptions = NULL,
     ...
   ){
 

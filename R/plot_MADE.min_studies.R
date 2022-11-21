@@ -17,9 +17,9 @@ plot_MADE.min_studies <-
     y_limits = NULL,
     y_expand = NULL,
     warning = TRUE,
+    traffic_light_assumptions = NULL,
     v_shade = NULL,
     h_lines = NULL,
-    traffic_light_assumptions = NULL,
     ...
   ){
 

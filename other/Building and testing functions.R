@@ -60,8 +60,8 @@ power_dat2 <-
     tau = c(0.05, 0.1, 0.2),
     omega = c(0.1, 0.2),
     rho = c(0.2, 0.7),
-    sigma2_dist = sigma2_dist,
-    n_ES_dist = n_ES_dist,
+    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
     #model = c("CHE", "MLMA", "CE"),
     #var_df = c("Model", "Satt", "RVE"),
     iterations = 5,
@@ -101,16 +101,19 @@ power_dat %>%
   )
 
 
-plot_MADE(
-  data = power_dat,
-  power_min = 0.8,
+power_example <-
+  plot_MADE(
+  data = power_dat2,
+  power_min = 0.5,
   expected_studies = c(45, 55),
   warning = FALSE,
   caption = TRUE,
   color = TRUE,
   model_comparison = FALSE,
-  traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+  #traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
 )
+
+power_example
 
 
 plot_MADE(
@@ -406,150 +409,150 @@ power_MADE_engine(
 ####################
 # Precison analysis
 ####################
-
-precision_MADE_single(
-  J = 40,
-  mu = 0.1,
-  tau = 0.2,
-  omega = 0.1,
-  rho = 0.7,
-  sigma2j = sigma2_dist,
-  kj = n_ES_dist,
-  #model = "CHE",
-  #var_df = c("RVE"),
-  level = c(0.9, 0.95)
-)
-
-precision_MADE_engine(
-  J = 40,
-  tau = 0.2,
-  omega = 0.1,
-  mu = 0.1,
-  rho = 0.7,
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-  level = c(0.95),
-  #model = c("CHE", "MLMA", "CE"),
-  #var_df = c("Model", "Satt", "RVE"),
-  average_precision = TRUE,
-  iterations = 100
-)
-
-precison_dat <-
-  precision_MADE(
-  J = c(40),
-  tau = 0.2,
-  omega = 0.1,
-  mu = 0.1,
-  rho = 0.7,
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-  model = c("CHE", "MLMA", "CE"),
-  var_df = c("Model", "Satt", "RVE"),
-  level = c(0.90, 0.95),
-  seed = 10052510,
-  average_precision = TRUE
-); precison_dat
-
-ci_lower(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
-ci_upper(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
-
-power_t(df = 40 - 1, lambda = 2.2, alpha = c(0.01, 0.05))
-
-precision <-
-  precision_MADE(
-    J = c(40, 60),
-    mu = 0.1,
-    tau = 0.2,
-    omega = 0.1,
-    rho = 0.7,
-    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-    model = c("CHE", "MLMA", "CE"),
-    var_df = c("Model", "Satt", "RVE"),
-    level = .95,
-    seed = 10052510
-  )
-
-precision
-
-min_studies_width_MADE_engine(
-  mu = 0.1,
-  tau = 0.1,
-  omega = 0.1,
-  rho = 0.7,
-  level = 0.95,
-  target_width = 0.1,
-  model = "CHE",
-  var_df = "RVE",
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-  seed = 10052510
-)
-
-
-
-min_studies_width_MADE(
-  mu = 0.15,
-  tau = c(0.1, 0.2),
-  omega = 0.1,
-  rho = c(0.2, 0.7),
-  level = c(0.9, 0.95),
-  target_width = 0.3,
-
-  model = "CHE",
-  var_df = "RVE",
-
-  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-
-  iterations = 5, # default = 100
-  seed = 10052510,
-  warning = TRUE,
-  upper = 100
-)
-
-width_above_x_MADE_engine(
-  mu = 0.2,
-  tau = 0.1,
-  omega = 0.1,
-  rho = 0.7,
-  level = 0.95,
-  x = 0.05,
-
-  model = "CHE",
-  var_df = "RVE",
-
-  sigma2_dist = sigma2_dist,
-  n_ES_dist = n_ES_dist,
-
-)
-
-
-width_exceed_null <-
-  width_above_x_MADE(
-
-    mu = 0.1,
-    tau = c(0.1, 0.2),
-    omega = 0.1,
-    rho = c(0.2, 0.7),
-    level = 0.95,
-    x = 0,
-
-    model = "CHE",
-    var_df = "RVE",
-
-    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-
-    iterations = 5, # defualt = 100
-    seed = 10052510,
-    warning = TRUE,
-    upper = 100
-
-  )
-
-width_exceed_null
+#
+#precision_MADE_single(
+#  J = 40,
+#  mu = 0.1,
+#  tau = 0.2,
+#  omega = 0.1,
+#  rho = 0.7,
+#  sigma2j = sigma2_dist,
+#  kj = n_ES_dist,
+#  #model = "CHE",
+#  #var_df = c("RVE"),
+#  level = c(0.9, 0.95)
+#)
+#
+#precision_MADE_engine(
+#  J = 40,
+#  tau = 0.2,
+#  omega = 0.1,
+#  mu = 0.1,
+#  rho = 0.7,
+#  sigma2_dist = sigma2_dist,
+#  n_ES_dist = n_ES_dist,
+#  level = c(0.95),
+#  #model = c("CHE", "MLMA", "CE"),
+#  #var_df = c("Model", "Satt", "RVE"),
+#  average_precision = TRUE,
+#  iterations = 100
+#)
+#
+#precison_dat <-
+#  precision_MADE(
+#  J = c(40),
+#  tau = 0.2,
+#  omega = 0.1,
+#  mu = 0.1,
+#  rho = 0.7,
+#  sigma2_dist = sigma2_dist,
+#  n_ES_dist = n_ES_dist,
+#  model = c("CHE", "MLMA", "CE"),
+#  var_df = c("Model", "Satt", "RVE"),
+#  level = c(0.90, 0.95),
+#  seed = 10052510,
+#  average_precision = TRUE
+#); precison_dat
+#
+#ci_lower(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
+#ci_upper(level = c(0.9, 0.95), df = 40 - 1, mu = 0.1, se = 0.03)
+#
+#power_t(df = 40 - 1, lambda = 2.2, alpha = c(0.01, 0.05))
+#
+#precision <-
+#  precision_MADE(
+#    J = c(40, 60),
+#    mu = 0.1,
+#    tau = 0.2,
+#    omega = 0.1,
+#    rho = 0.7,
+#    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#    model = c("CHE", "MLMA", "CE"),
+#    var_df = c("Model", "Satt", "RVE"),
+#    level = .95,
+#    seed = 10052510
+#  )
+#
+#precision
+#
+#min_studies_width_MADE_engine(
+#  mu = 0.1,
+#  tau = 0.1,
+#  omega = 0.1,
+#  rho = 0.7,
+#  level = 0.95,
+#  target_width = 0.1,
+#  model = "CHE",
+#  var_df = "RVE",
+#  sigma2_dist = sigma2_dist,
+#  n_ES_dist = n_ES_dist,
+#  seed = 10052510
+#)
+#
+#
+#
+#min_studies_width_MADE(
+#  mu = 0.15,
+#  tau = c(0.1, 0.2),
+#  omega = 0.1,
+#  rho = c(0.2, 0.7),
+#  level = c(0.9, 0.95),
+#  target_width = 0.3,
+#
+#  model = "CHE",
+#  var_df = "RVE",
+#
+#  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#
+#  iterations = 5, # default = 100
+#  seed = 10052510,
+#  warning = TRUE,
+#  upper = 100
+#)
+#
+#width_above_x_MADE_engine(
+#  mu = 0.2,
+#  tau = 0.1,
+#  omega = 0.1,
+#  rho = 0.7,
+#  level = 0.95,
+#  x = 0.05,
+#
+#  model = "CHE",
+#  var_df = "RVE",
+#
+#  sigma2_dist = sigma2_dist,
+#  n_ES_dist = n_ES_dist,
+#
+#)
+#
+#
+#width_exceed_null <-
+#  width_above_x_MADE(
+#
+#    mu = 0.1,
+#    tau = c(0.1, 0.2),
+#    omega = 0.1,
+#    rho = c(0.2, 0.7),
+#    level = 0.95,
+#    x = 0,
+#
+#    model = "CHE",
+#    var_df = "RVE",
+#
+#    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+#    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#
+#    iterations = 5, # defualt = 100
+#    seed = 10052510,
+#    warning = TRUE,
+#    upper = 100
+#
+#  )
+#
+#width_exceed_null
 
 
 

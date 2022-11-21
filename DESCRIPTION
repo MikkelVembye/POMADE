@@ -35,8 +35,7 @@ Imports:
     stringr,
     utils,
     tidyr,
-    tibble,
-    lifecycle
+    tibble
 Suggests: 
     roxygen2,
     testthat (>= 3.0.0)

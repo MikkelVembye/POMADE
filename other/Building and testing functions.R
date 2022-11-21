@@ -177,12 +177,12 @@ J_obj <-
   min_studies_MADE(
     mu = c(0.1, 0.2),
     tau = c(0.1, 0.2),
-    omega = seq(0,0.25, 0.05),
+    omega = c(0, 0.1, 0.2, 0.3),
     rho = c(0.2, 0.7),
     target_power = .8,
 
-    model = c("CHE", "MLMA"), # default
-    var_df = c("Model", "Satt", "RVE"), # default
+    #model = c("CHE", "MLMA"), # default
+    #var_df = c("Model", "Satt", "RVE"), # default
 
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
@@ -199,13 +199,7 @@ CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
 
 #debug(find_J_MADE)
 
-plot_MADE.min_studies(
-  data = CHE_J,
-  color = FALSE,
-  caption = FALSE,
-  #v_shade = c(0.1,0.2),
-  traffic_light_assumptions = c("unlikely", "expected", "expected")
-  )
+plot_MADE(data = J_obj)
 
 
 min_studies_MADE_engine(

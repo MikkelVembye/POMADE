@@ -27,38 +27,38 @@ plot_MADE(
 \arguments{
 \item{data}{Data/object for which the plot should be made.}
 
-\item{v_lines}{Optional integer or vector to specify vertical line(s) in facet_grid plot(s) (the default is \code{NULL}).}
+\item{v_lines}{Optional integer or vector to specify vertical line(s) in facet_grid plot(s).}
 
-\item{legend_position}{Optional character string to specify position of legend (default is "bottom").}
+\item{legend_position}{Optional character string to specify position of legend.}
 
-\item{color}{Optional logical to specify coloring of plot (default is \code{FALSE}).}
+\item{color}{Optional logical to specify coloring of plot.}
 
-\item{numbers}{Optional logical to specify numbering of plots (default is \code{TRUE}).}
+\item{numbers}{Optional logical to specify numbering of plots.}
 
-\item{number_size}{Optional integer to specify the size of the plot numbers (default is 2.5).}
+\item{number_size}{Optional integer to specify the size of the plot numbers.}
 
-\item{numbers_ynudge}{Optional integer to nudge number on the y-axis (default is \code{NULL}).}
+\item{numbers_ynudge}{Optional integer to nudge number on the y-axis.}
 
 \item{caption}{Optional logical to specify inclusion on caption with detailed information regarding
-the given analysis (default is \code{TRUE}).}
+the given analysis.}
 
-\item{x_lab}{Title for the x-axis (default is \code{NULL}). If \code{NULL}, the x_lab is specified automatically
+\item{x_lab}{Title for the x-axis. If \code{NULL}, the x_lab is specified automatically
 within the given S3 method.}
 
-\item{x_breaks}{Optional sequence to specify breaks on the x-axis (default is \code{NULL}).}
+\item{x_breaks}{Optional sequence to specify breaks on the x-axis.}
 
-\item{x_limits}{Optional vector to specify the limits of the x-axis (default is \code{NULL}).}
+\item{x_limits}{Optional vector to specify the limits of the x-axis.}
 
-\item{y_breaks}{Optional sequence to specify breaks on the y-axis (default is \code{NULL}).}
+\item{y_breaks}{Optional sequence to specify breaks on the y-axis.}
 
-\item{y_limits}{Optional vector to specify the limits of the y-axis (default is \code{NULL}).}
+\item{y_limits}{Optional vector to specify the limits of the y-axis.}
 
 \item{y_expand}{Optional vector to expand the limits of the y-axis.}
 
-\item{warning}{Optional logical to specify if warnings should be returned  (default is \code{TRUE}).}
+\item{warning}{Optional logical to specify if warnings should be returned when multiple models appear in the data.}
 
 \item{traffic_light_assumptions}{Optional logical to specify coloring of strips of the facet grids to emphasize
-assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
+assumptions about the likelihood the given analytical scenario.
 See Vembye, Pustejovsky, & Pigott (In preparation) for further details.}
 
 \item{...}{Additional arguments available for some classes of objects.}
@@ -76,7 +76,7 @@ This is a generic function to make facet_grid plots, with specific methods defin
 
 In general, it can be rather difficult to guess/approximate the true model parameters
 and sample characteristics a priori. Making only a single power approximation can easily be misleading
-even if the true model and data structure slightly diverge
+even if the true model and data structure only slightly diverge
 from the yielded data and model assumptions.
 To maximize the informativeness of the power approximations,
 Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty of the power approximations
@@ -120,5 +120,5 @@ Conducting power analysis for meta-analysis of dependent effect sizes: Common gu
 and an Introduction to the POMADE R package.
 }
 \seealso{
-\code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}
+\code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}, \code{\link{plot_MADE.mdes}}
 }

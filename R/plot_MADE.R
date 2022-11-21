@@ -1,26 +1,27 @@
+
 #' Generic plot function for 'MADE' objects
 #'
 #' \code{plot_MADE} returns a facet_grip plot for a set of power analyses.
 #'
 #' @param data Data/object for which the plot should be made.
-#' @param v_lines Optional integer or vector to specify vertical line(s) in facet_grid plot(s) (the default is \code{NULL}).
-#' @param legend_position Optional character string to specify position of legend (default is "bottom").
-#' @param color Optional logical to specify coloring of plot (default is \code{FALSE}).
-#' @param numbers Optional logical to specify numbering of plots (default is \code{TRUE}).
-#' @param number_size Optional integer to specify the size of the plot numbers (default is 2.5).
-#' @param numbers_ynudge Optional integer to nudge number on the y-axis (default is \code{NULL}).
+#' @param v_lines Optional integer or vector to specify vertical line(s) in facet_grid plot(s).
+#' @param legend_position Optional character string to specify position of legend.
+#' @param color Optional logical to specify coloring of plot.
+#' @param numbers Optional logical to specify numbering of plots.
+#' @param number_size Optional integer to specify the size of the plot numbers.
+#' @param numbers_ynudge Optional integer to nudge number on the y-axis.
 #' @param caption Optional logical to specify inclusion on caption with detailed information regarding
-#' the given analysis (default is \code{TRUE}).
-#' @param x_lab Title for the x-axis (default is \code{NULL}). If \code{NULL}, the x_lab is specified automatically
+#' the given analysis.
+#' @param x_lab Title for the x-axis. If \code{NULL}, the x_lab is specified automatically
 #' within the given S3 method.
-#' @param x_breaks Optional sequence to specify breaks on the x-axis (default is \code{NULL}).
-#' @param x_limits Optional vector to specify the limits of the x-axis (default is \code{NULL}).
-#' @param y_breaks Optional sequence to specify breaks on the y-axis (default is \code{NULL}).
-#' @param y_limits Optional vector to specify the limits of the y-axis (default is \code{NULL}).
+#' @param x_breaks Optional sequence to specify breaks on the x-axis.
+#' @param x_limits Optional vector to specify the limits of the x-axis.
+#' @param y_breaks Optional sequence to specify breaks on the y-axis.
+#' @param y_limits Optional vector to specify the limits of the y-axis.
 #' @param y_expand Optional vector to expand the limits of the y-axis.
-#' @param warning Optional logical to specify if warnings should be returned  (default is \code{TRUE}).
+#' @param warning Optional logical to specify if warnings should be returned when multiple models appear in the data.
 #' @param traffic_light_assumptions Optional logical to specify coloring of strips of the facet grids to emphasize
-#' assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
+#' assumptions about the likelihood the given analytical scenario.
 #' See Vembye, Pustejovsky, & Pigott (In preparation) for further details.
 #' @param ... Additional arguments available for some classes of objects.
 #'
@@ -30,7 +31,7 @@
 #'
 #' @details In general, it can be rather difficult to guess/approximate the true model parameters
 #' and sample characteristics a priori. Making only a single power approximation can easily be misleading
-#' even if the true model and data structure slightly diverge
+#' even if the true model and data structure only slightly diverge
 #' from the yielded data and model assumptions.
 #' To maximize the informativeness of the power approximations,
 #' Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty of the power approximations
@@ -43,7 +44,7 @@
 #'
 #' @return A \code{ggplot} object
 #'
-#' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}
+#' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}, \code{\link{plot_MADE.mdes}}
 #'
 #' @examples
 #'

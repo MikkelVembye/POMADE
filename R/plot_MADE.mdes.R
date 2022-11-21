@@ -19,7 +19,8 @@
 #' @param y_breaks Optional sequence to specify breaks on the y-axis (default is \code{NULL}).
 #' @param y_limits Optional vector to specify the limits of the y-axis (default is \code{NULL}).
 #' @param y_expand Optional vector to expand the limits of the y-axis (default is \code{NULL}).
-#' @param warning Optional logical to specify if warnings should be returned (default is \code{TRUE}).
+#' @param warning Optional logical to specify if warnings should be returned when multiple models appear in the data
+#' (default is \code{TRUE}).
 #' @param traffic_light_assumptions Optional logical to specify coloring of strips of the facet grids to emphasize
 #' assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
 #' See Vembye, Pustejovsky, & Pigott (In preparation) for further details.
@@ -34,7 +35,7 @@
 #'
 #' @details In general, it can be rather difficult to guess/approximate the true model parameters
 #' and sample characteristics a priori. Making only a single approximation of the minimum detectable effect size
-#' can easily be misleading even if the true model and data structure slightly diverge
+#' can easily be misleading even if the true model and data structure on slightly diverge
 #' from the yielded data and model assumptions.
 #' To maximize the informativeness of the minimum detectable effect size approximations,
 #' Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty of the approximations

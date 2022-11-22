@@ -25,14 +25,14 @@ A tibble with 76 rows/studies and 9 variables
 VWB22_pilot
 }
 \description{
-Meta-analytical dataset regarding the effects of collaborative models
-of instruction of student achievement from Vembye, Weiss, and
-Bhat (Accepted/In press)
+Data from a meta-analysis on the effects of collaborative models
+of instruction on student achievement from Vembye, Weiss, and
+Bhat (In Press).
 }
 \references{
-Vembye, Weiss, & Bhat (Appected/In press). The Effects
+Vembye, Weiss, & Bhat (In Press). The Effects
 Co-Teaching and Related Collaborative Models of Instruction on
 Student Achievement: A Systematic Review and Meta-Analysis. \emph{Review of
-Educational Research}. Access to background material at \url{https://bit.ly/3nhVX3H}
+Educational Research}, forthcoming. Access to background material at \url{https://bit.ly/3nhVX3H}
 }
 \keyword{datasets}

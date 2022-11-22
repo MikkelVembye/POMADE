@@ -13,7 +13,7 @@
   number_size = 2.5,
   numbers_ynudge = 0,
   caption = TRUE,
-  x_lab = "Number of studies (J)",
+  x_lab = NULL,
   x_breaks = NULL,
   x_limits = NULL,
   y_breaks = seq(0, 1, 0.2),
@@ -30,74 +30,87 @@
 \arguments{
 \item{data}{Data/object for which the plot should be made.}
 
-\item{v_lines}{Optional integer or vector to specify vertical line(s) in facet_grid plot(s) (the default is \code{NULL}).}
+\item{v_lines}{Integer or vector to specify vertical line(s) in within each
+plot. Default is \code{NULL}.}
 
-\item{legend_position}{Optional character string to specify position of legend (default is "bottom").}
+\item{legend_position}{Character string to specify position of legend. Default is \code{"bottom"}.}
 
-\item{color}{Optional logical to specify coloring of plot (default is \code{TRUE}).}
+\item{color}{Logical indicating whether to use color in the plot(s). Default is \code{TRUE}.}
 
-\item{numbers}{Optional logical to specify numbering of plots (default is \code{TRUE}).}
+\item{numbers}{Logical indicating whether to number the plots. Default is \code{TRUE}.}
 
-\item{number_size}{Optional integer to specify the size of the plot numbers (default is 2.5).}
+\item{number_size}{Integer value specifying the size of the (optional) plot
+numbers. Default is \code{2.5}.}
 
-\item{numbers_ynudge}{Optional integer to nudge number on the y-axis (default is 0).}
+\item{numbers_ynudge}{Integer value for vertical nudge of the (optional) plot
+numbers.}
 
-\item{caption}{Optional logical to specify inclusion on caption with detailed information regarding
-the given analysis (default is \code{TRUE}).}
+\item{caption}{Logical indicating whether to include a caption with detailed
+information regarding the analysis. Default is \code{TRUE}.}
 
-\item{x_lab}{Title for the x-axis (default is \code{x_lab = "Number of studies (J)"}).}
+\item{x_lab}{Title for the x-axis. If \code{NULL} (the default), the x_lab is
+specified automatically.}
 
-\item{x_breaks}{Optional sequence to specify breaks on the x-axis (default is \code{NULL}).}
+\item{x_breaks}{Optional vector to specify breaks on the x-axis. Default is \code{NULL}.}
 
-\item{x_limits}{Optional vector to specify the limits of the x-axis (default is \code{NULL}).}
+\item{x_limits}{Optional vector of length 2 to specify the limits of the
+x-axis. Default is \code{NULL}, which allows limits to be determined automatically from the data.}
 
-\item{y_breaks}{Optional sequence to specify breaks on the y-axis (default is \code{y_breaks = seq(0, 1, 0.2)}).}
+\item{y_breaks}{Optional vector to specify breaks on the y-axis.}
 
-\item{y_limits}{Optional vector to specify the limits of the y-axis (default is \code{y_limits = c(0, 1)}).}
+\item{y_limits}{Optional vector of length 2 to specify the limits of the
+y-axis.}
 
-\item{y_expand}{Optional vector to expand the limits of the y-axis (default is \code{NULL}).}
+\item{y_expand}{Optional vector to expand the limits of the y-axis. Default is \code{NULL}.}
 
-\item{warning}{Optional logical to specify if warnings should be returned when multiple models appear in the data
-(default is \code{TRUE}).}
+\item{warning}{Logical indicating whether warnings should be returned when
+multiple models appear in the data. Default is \code{TRUE}.}
 
-\item{traffic_light_assumptions}{Optional logical to specify coloring of strips of the facet grids to emphasize
-assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
-See Vembye, Pustejovsky, & Pigott (In preparation) for further details.}
+\item{traffic_light_assumptions}{Optional logical to specify coloring of
+strips of the facet grids to emphasize assumptions about the likelihood the
+given analytical scenario. See Vembye, Pustejovsky, & Pigott (In
+preparation) for further details.}
 
-\item{power_min}{Optional integer or vector to either specify a horizontal line or intervals, indicating the minimum
-power wanted to be obtained (default is \code{NULL}).}
+\item{power_min}{Either an integer specify a horizontal line or a length-2
+vector to specify an interval, indicating a benchmark level of power
+(default is \code{NULL}).}
 
-\item{expected_studies}{Optional vector to specify the interval of studies expected to be found in the literature.
-When specified this interval will be shaded across facet_grip plots (default is \code{NULL}).}
+\item{expected_studies}{Optional vector of length 2 specifying a range for
+the number of studies one expects to include in the meta-analysis. If
+specified, this interval will be shaded across facet_grip plots (default is
+\code{NULL}).}
 
-\item{model_comparison}{Optional logical to indicate if power estimates should be plotted across different models
-to handle dependent effect sizes (default is \code{FALSE}) instead of across values of sampling correlations.}
+\item{model_comparison}{Logical indicating whether power estimates should be
+plotted across different working models for dependent effect size estimates
+(default is \code{FALSE}) instead of across values for the sampling
+correlation.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-A \code{ggplot} facet_grip plot showing power across the expected number of
-studies faceted by the between-study and within-study SDs, with different colors, lines, and
-shapes corresponding to different values of the assumed sample correlation. If
-\code{model_comparison = TRUE}, it returns a \code{ggplot} facet_grip plot showing power
-across the expected number of studies faceted by the between-study and within-study SDs,
-with different colors, lines, and shapes corresponding to different models to handle dependent effect sizes
+A \code{ggplot} plot showing power across the expected number of
+studies, faceted by the between-study and within-study SDs, with different
+colors, lines, and shapes corresponding to different values of the assumed
+sample correlation. If \code{model_comparison = TRUE}, it returns a
+\code{ggplot} plot showing power across the expected number of studies,
+faceted by the between-study and within-study SDs, with different colors,
+lines, and shapes corresponding to different working models for dependent
+effect size estimates
 }
 \description{
-Function to make facet_grid plots for an object of class \code{"power"}.
+Creates a faceted plot or plots for power analyses conducted
+with \code{power_MADE}.
 }
 \details{
-\code{plot_MADE.power} returns a facet_grip plot for power analyses conducted with
-\code{power_MADE}.
-
-In general, it can be rather difficult to guess/approximate the true model parameters
-and sample characteristics a priori. Making only a single power approximation can easily be misleading
-even if the true model and data structure only slightly diverge
-from the yielded data and model assumptions.
-To maximize the informativeness of the power approximations,
-Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty of the power approximations
-by reporting or plotting power estimates across a range of possible scenarios, which can be
-done by \code{plot_MADE.power}.
+In general, it can be rather difficult to guess/approximate the true
+model parameters and sample characteristics a priori. Calculating power
+under only a single set of assumptions can easily be misleading even if the
+true model and data structure only slightly diverge from the yielded data
+and model assumptions. To maximize the informativeness of the power
+approximations, Vembye, Pustejovsky, & Pigott (In preparation) suggest
+accommodating the uncertainty of the power approximations by reporting or
+plotting power estimates across a range of possible scenarios, which can be
+done using \code{plot_MADE.power}.
 }
 \examples{
 
@@ -131,9 +144,10 @@ power_example
 
 }
 \references{
-Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In preparation).
-Conducting power analysis for meta-analysis of dependent effect sizes: Common guidelines
-and an Introduction to the POMADE R package.
+Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In
+preparation). Conducting power analysis for meta-analysis of dependent
+effect sizes: Common guidelines and an Introduction to the POMADE R
+package.
 }
 \seealso{
 \code{\link{plot_MADE}}

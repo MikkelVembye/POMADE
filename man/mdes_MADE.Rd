@@ -2,7 +2,8 @@
 % Please edit documentation in R/MDES_MADE.R
 \name{mdes_MADE}
 \alias{mdes_MADE}
-\title{Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent Effect Sizes}
+\title{Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent
+Effect Sizes}
 \usage{
 mdes_MADE(
   J,
@@ -24,48 +25,74 @@ mdes_MADE(
 )
 }
 \arguments{
-\item{J}{Number of studies}
+\item{J}{Number of studies. Can be one value or a vector of multiple values.}
 
-\item{tau}{Between-study SD}
+\item{tau}{Between-study SD. Can be one value or a vector of multiple values.}
 
-\item{omega}{Within-study SD}
+\item{omega}{Within-study SD. Can be one value or a vector of multiple
+values.}
 
-\item{rho}{Correlation coefficient between effect sizes from the same study}
+\item{rho}{Correlation coefficient between effect size estimates from the
+same study. Can be one value or a vector of multiple values.}
 
-\item{alpha}{Level of statistical significance}
+\item{alpha}{Level of statistical significance. Can be one value or a vector
+of multiple values.}
 
-\item{target_power}{Numerical value specifying the target power level.}
+\item{target_power}{Numerical value specifying the target power level. Can be
+one value or a vector of multiple values.}
 
-\item{d}{Contrast value}
+\item{d}{Contrast value. Can be one value or a vector of multiple values.}
 
-\item{model}{Indicates dependent effect size model, either "CHE", "CE" or "MLMA". Default = "CHE".}
+\item{model}{Assumed working model for dependent effect sizes, either
+\code{"CHE"} for the correlated-and-hierarchical effects model, \code{"CE"}
+for the correlated effects model, or \code{"MLMA"} for the multi-level
+meta-analysis model. Default is \code{"CHE"}. Can be one value or a vector
+of multiple values.}
 
-\item{var_df}{Indicates the technique used to obtained the sampling variance of mu and the degrees of freedom either "Model", "Satt", or "RVE".
-Default = "RVE".}
+\item{var_df}{Indicates the technique used to obtained the sampling variance
+of the average effect size estimate and the degrees of freedom, either
+\code{"Model"} for model-based variance estimator with degrees of freedom
+of \code{J - 1}, \code{"Satt"} for model-based variance estimator with
+Satterthwaite degrees of freedom, or \code{"RVE"} for robust variance
+estimator with Satterthwaite degrees of freedom. Default is \code{"RVE"}.
+Can be one value or a vector of multiple values.}
 
-\item{sigma2_dist}{Distribution of sampling variance estimates from each study. Can take either one value, a function, or vector of plausible values}
+\item{sigma2_dist}{Distribution of sampling variance estimates from each
+study. Can be either a single value, a vector of plausible values, or a
+function that generates random values.}
 
-\item{n_ES_dist}{Distribution of the number of effect sizes per study. Can take either one value, a function, or vector of plausible values}
+\item{n_ES_dist}{Distribution of the number of effect sizes per study. Can be
+either a single value, a vector of plausible values, or a function that
+generates random values.}
 
-\item{iterations}{Number of iteration per condition (default = 100)}
+\item{iterations}{Number of iterations per condition (default is 100)}
 
-\item{seed}{Set seed to ensure reproducibility of the iterated power approximations}
+\item{seed}{Numerical value for a seed to ensure reproducibility of the
+iterated power approximations.}
 
-\item{warning}{Return warning when either sigma2_dist or n_ES_dist are based on balanced assumptions}
+\item{warning}{Logical indicating whether to return a warning when either
+sigma2_dist or n_ES_dist is based on balanced assumptions.}
 
-\item{upper}{Numerical value containing the upper bound of the interval to be searched for the MDES.}
+\item{upper}{Numerical value containing the upper bound of the interval to be
+searched for the MDES.}
 
-\item{show_lower}{Logical value indicating whether to report lower bound of the interval searched for the MDES. Default is \code{FALSE}.}
+\item{show_lower}{Logical value indicating whether to report lower bound of
+the interval searched for the MDES. Default is \code{FALSE}.}
 }
 \value{
-Returns a \code{tibble} with information about the expectation of the number of
-studies, the between-study and within-study variance components,
-the sample correlation, the contrast effect, the level of statistical significance, the target power value(s),
-the minimum detectable effect size, the number of iterations, the model to handle dependent effect sizes,
-and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
+Returns a \code{tibble} with information about the expectation of the
+number of studies, the between-study and within-study variance components,
+the sample correlation, the contrast effect, the level of statistical
+significance, the target power value(s), the minimum detectable effect
+size, the number of iterations, the model to handle dependent effect sizes,
+and the methods used to obtain sampling variance estimates as well as the
+number effect sizes per study.
 }
 \description{
-Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent Effect Sizes
+Compute the minimum detectable effect size in a meta-analysis of
+dependent effect size estimates, given a specified number of studies, power
+level, estimation method, and further assumptions about the distribution of
+studies.
 }
 \examples{
 

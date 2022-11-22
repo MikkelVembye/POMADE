@@ -1,60 +1,41 @@
 
-#' Plot function for a 'min_studies' object
+#' @title Plot function for a 'min_studies' object
 #'
-#' \code{plot_MADE.min_studies} returns a facet_grip plot with analyses of the minimum studies needed to obtained a given
-#' effect size with a certain amount of power (usually 80%) and a pre-specified level-alpha conducted with
-#' \code{min_studies_MADE}.
+#' @template plot_MADE-arg
+#' @param v_shade Optional vector of length 2 specifying the range of the x-axis
+#'   interval to be shaded in each plot.
+#' @param h_lines Optional integer or vector specifying horizontal lines on each
+#'   plot.
 #'
-#' @param data Data/object for which the plot should be made.
-#' @param v_lines Optional integer or vector to specify vertical line(s) in facet_grid plot(s) (the default is \code{NULL}).
-#' @param legend_position Optional character string to specify position of legend (default is "bottom").
-#' @param color Optional logical to specify coloring of plot (default is \code{TRUE}).
-#' @param numbers Optional logical to specify numbering of plots (default is \code{TRUE}).
-#' @param number_size Optional integer to specify the size of the plot numbers (default is 2.5).
-#' @param numbers_ynudge Optional integer to nudge number on the y-axis (default is \code{NULL}).
-#' @param caption Optional logical to specify inclusion on caption with detailed information regarding
-#' the given analysis (default is \code{TRUE}).
-#' @param x_lab Title for the x-axis (default is \code{NULL}). If \code{length(data$mu) == 1}, the x-axis label will
-#' be "Effect Size Level SD". If \code{length(data$mu) > 1}, the x-axis label will "Effect Size of Practical Concern".
-#' @param x_breaks Optional sequence to specify breaks on the x-axis (default is \code{NULL}).
-#' @param x_limits Optional vector to specify the limits of the x-axis (default is \code{NULL}).
-#' @param y_breaks Optional sequence to specify breaks on the y-axis (default is \code{NULL}).
-#' @param y_limits Optional vector to specify the limits of the y-axis (default is \code{NULL}).
-#' @param y_expand Optional vector to expand the limits of the y-axis (default is \code{NULL}).
-#' @param warning Optional logical to specify if warnings should be returned when multiple models appear in the data
-#' (default is \code{TRUE}).
-#' @param traffic_light_assumptions Optional logical to specify coloring of strips of the facet grids to emphasize
-#' assumptions about the likelihood the given analytical scenario (default is \code{NULL}).
-#' See Vembye, Pustejovsky, & Pigott (In preparation) for further details.
-#' @param v_shade Optional vector to specify range of the x-axis interval to be shaded on facet_grip plots.
-#' @param h_lines Optional integer or vector to specify horizontal lines on plots.
-#' @param ... Additional arguments.
+#' @description Creates a faceted plot with analyses of the minimum number of
+#'   studies needed to obtained a given effect size with specified levels of
+#'   power, as calculated using \code{min_studies_MADE}.
 #'
+#' @details In general, it can be rather difficult to guess/approximate the true
+#'   model parameters and sample characteristics a priori. Calculating the
+#'   minimum number of studies needed under just a single set of assumptions can
+#'   easily be misleading even if the true model and data structure only
+#'   slightly diverge from the yielded data and model assumptions. To maximize
+#'   the informativeness of the analysis, Vembye, Pustejovsky, &
+#'   Pigott (In preparation) suggest accommodating the uncertainty of the power
+#'   approximations by reporting or plotting power estimates across a range of
+#'   possible scenarios, which can be done using \code{plot_MADE.power}.
 #'
-#' @description Function to make facet_grid plots for an object of class \code{"min_studies"}.
+#' @references Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In
+#'   preparation). Conducting power analysis for meta-analysis of dependent
+#'   effect sizes: Common guidelines and an Introduction to the POMADE R
+#'   package.
 #'
-#' @details In general, it can be rather difficult to guess/approximate the true model parameters
-#' and sample characteristics a priori. Making only a single approximation of the minimum studies needed to obtained a given
-#' effect size with a certain amount of power (usually 80%) and a pre-specified level-alpha can easily be misleading
-#' even if the true model and data structure only slightly diverge
-#' from the yielded data and model assumptions.
-#' To maximize the informativeness of the minimum studies needed to obtained a given
-#' effect size approximations, Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty
-#' of the approximations by reporting or plotting estimates across a range of possible scenarios,
-#' which can be done by \code{plot_MADE.min_studies}.
-#'
-#' @references Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In preparation).
-#' Conducting power analysis for meta-analysis of dependent effect sizes: Common guidelines
-#' and an Introduction to the POMADE R package.
-#'
-#' @return A \code{ggplot} facet_grip plot showing the minimum studies needed to obtained a given
-#' effect size with a certain amount of power and level-alpha across estimates of the within-study SD
-#' faceted by the between-study SDs, with different colors, lines, and
-#' shapes corresponding to different values of the assumed sample correlation. If \code{length(data$mu) > 1},
-#' it returns a \code{ggplot} facet_grip plot showing the minimum studies needed to obtained a given
-#' effect size with a certain amount of power and level-alpha across effect sizes of practical concern
-#' faceted by the between-study and within-study SDs, with different colors, lines, and
-#' shapes corresponding to different values of the assumed sample correlation.
+#' @return A \code{ggplot} plot showing the minimum number of studies needed to
+#'   obtain a given effect size with a certain amount of power and level-alpha, faceted
+#'   across levels of the within-study SD and the between-study SD,
+#'   with different colors, lines, and shapes corresponding to different values
+#'   of the assumed sample correlation. If \code{length(unique(data$mu)) > 1}, it
+#'   returns a \code{ggplot} plot showing the minimum studies needed
+#'   to obtained a given effect size with a certain amount of power and
+#'   level-alpha across effect sizes of practical concern, faceted by the
+#'   between-study and within-study SDs, with different colors, lines, and
+#'   shapes corresponding to different values of the assumed sample correlation.
 #'
 #' @seealso \code{\link{plot_MADE}}
 #' @examples

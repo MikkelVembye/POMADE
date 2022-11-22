@@ -1,20 +1,28 @@
 
-#' @title Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent Effect Sizes
+#' @title Minimum Detectable Effect Size (MDES) for Meta-Analysis With Dependent
+#'   Effect Sizes
 #'
-#' @param J Number of studies
+#' @description Compute the minimum detectable effect size in a meta-analysis of
+#'   dependent effect size estimates, given a specified number of studies, power
+#'   level, estimation method, and further assumptions about the distribution of
+#'   studies.
+#'
+#' @param J Number of studies. Can be one value or a vector of multiple values.
 #' @template common-arg
-#' @param target_power Numerical value specifying the target power level.
-#' @param upper Numerical value containing the upper bound of the interval to be searched for the MDES.
-#' @param show_lower Logical value indicating whether to report lower bound of the interval searched for the MDES. Default is \code{FALSE}.
+#' @param target_power Numerical value specifying the target power level. Can be
+#'   one value or a vector of multiple values.
+#' @param upper Numerical value containing the upper bound of the interval to be
+#'   searched for the MDES.
+#' @param show_lower Logical value indicating whether to report lower bound of
+#'   the interval searched for the MDES. Default is \code{FALSE}.
 #'
-#' @return Returns a \code{tibble} with information about the expectation of the number of
-#' studies, the between-study and within-study variance components,
-#' the sample correlation, the contrast effect, the level of statistical significance, the target power value(s),
-#' the minimum detectable effect size, the number of iterations, the model to handle dependent effect sizes,
-#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
-#'
-#' @importFrom stats df
-#' @import dplyr
+#' @return Returns a \code{tibble} with information about the expectation of the
+#'   number of studies, the between-study and within-study variance components,
+#'   the sample correlation, the contrast effect, the level of statistical
+#'   significance, the target power value(s), the minimum detectable effect
+#'   size, the number of iterations, the model to handle dependent effect sizes,
+#'   and the methods used to obtain sampling variance estimates as well as the
+#'   number effect sizes per study.
 #'
 #' @export
 #'

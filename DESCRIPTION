@@ -1,6 +1,6 @@
 Package: POMADE
 Title: POwer for Meta-Analysis of Dependent Effects
-Version: 0.0.0.9999
+Version: 0.1.0
 Authors@R: c( 
     person(given = "Mikkel H.", 
            family = "Vembye", 
@@ -15,7 +15,7 @@ Authors@R: c(
            )
 Maintainer: Mikkel Vembye <mikkel.vembye@gmail.com>
 BugReports: https://github.com/MikkelVembye/POMADE/issues
-Description: Provides functions to compute and plot power for meta-analysis of dependent effect sizes.
+Description: Provides functions to compute and plot power levels, minimum detectable effect sizes, and minimum required sample sizes for the test of the overall average effect size in meta-analysis of dependent effect sizes.
 Depends:
     R (>= 3.5.0)
 License: MIT + file LICENSE

@@ -1,50 +1,23 @@
 
-#' Generic plot function for 'MADE' objects
+#' @title Generic plot function for 'MADE' objects
 #'
-#' \code{plot_MADE} returns a facet_grip plot for a set of power analyses.
+#' @template plot_MADE-arg
 #'
-#' @param data Data/object for which the plot should be made.
-#' @param v_lines Optional integer or vector to specify vertical line(s) in facet_grid plot(s).
-#' @param legend_position Optional character string to specify position of legend.
-#' @param color Optional logical to specify coloring of plot.
-#' @param numbers Optional logical to specify numbering of plots.
-#' @param number_size Optional integer to specify the size of the plot numbers.
-#' @param numbers_ynudge Optional integer to nudge number on the y-axis.
-#' @param caption Optional logical to specify inclusion on caption with detailed information regarding
-#' the given analysis.
-#' @param x_lab Title for the x-axis. If \code{NULL}, the x_lab is specified automatically
-#' within the given S3 method.
-#' @param x_breaks Optional sequence to specify breaks on the x-axis.
-#' @param x_limits Optional vector to specify the limits of the x-axis.
-#' @param y_breaks Optional sequence to specify breaks on the y-axis.
-#' @param y_limits Optional vector to specify the limits of the y-axis.
-#' @param y_expand Optional vector to expand the limits of the y-axis.
-#' @param warning Optional logical to specify if warnings should be returned when multiple models appear in the data.
-#' @param traffic_light_assumptions Optional logical to specify coloring of strips of the facet grids to emphasize
-#' assumptions about the likelihood the given analytical scenario.
-#' See Vembye, Pustejovsky, & Pigott (In preparation) for further details.
-#' @param ... Additional arguments available for some classes of objects.
+#' @description Create a faceted plot displaying the results of a set of power
+#'   analyses. This is a generic function to make facet_grid plots, with
+#'   specific methods defined for \code{\link{power_MADE}},
+#'   \code{\link{mdes_MADE}}, and \code{\link{min_studies_MADE}} objects.
 #'
-#' @description This is a generic function to make facet_grid plots, with specific methods defined for
-#' \code{\link{power_MADE}}, \code{\link{mdes_MADE}}, and
-#' \code{\link{min_studies_MADE}} objects.
 #'
-#' @details In general, it can be rather difficult to guess/approximate the true model parameters
-#' and sample characteristics a priori. Making only a single power approximation can easily be misleading
-#' even if the true model and data structure only slightly diverge
-#' from the yielded data and model assumptions.
-#' To maximize the informativeness of the power approximations,
-#' Vembye, Pustejovsky, & Pigott (In preparation) suggest accommodating the uncertainty of the power approximations
-#' by reporting or plotting power estimates across a range of possible scenarios, which can be
-#' done by \code{plot_MADE}.
-#'
-#' @references Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In preparation).
-#' Conducting power analysis for meta-analysis of dependent effect sizes: Common guidelines
-#' and an Introduction to the POMADE R package.
+#' @references Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In
+#'   preparation). Conducting power analysis for meta-analysis of dependent
+#'   effect sizes: Common guidelines and an Introduction to the POMADE R
+#'   package.
 #'
 #' @return A \code{ggplot} object
 #'
-#' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}}, \code{\link{plot_MADE.mdes}}
+#' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}},
+#'   \code{\link{plot_MADE.mdes}}
 #'
 #' @examples
 #'

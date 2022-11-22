@@ -1,17 +1,25 @@
 
 #' @title Power Approximation for Meta-Analysis of Dependent Effect Sizes
 #'
-#' @param J Number of studies
-#' @param mu Effect size of practical concern
-#' @template common-arg
-#' @param average_power Average power across the number of iteration for each condition
+#' @description Compute power of the test of the overall average effect size in
+#'   a meta-analysis of dependent effect size estimates, given a specified
+#'   number of studies, effect size of practical concern, estimation method, and
+#'   further assumptions about the distribution of studies.
 #'
-#' @return Returns a \code{tibble} with information about the expectation of the number of
-#' studies, the effect size of practical concern, the between-study and within-study variance components,
-#' the sample correlation, the contrast effect, the level of statistical significance,
-#' the sampling variance of overall average effect size of practical concern, the degrees of freedom,
-#' the power, the mcse, the number of iterations, the model to handle dependent effect sizes,
-#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
+#' @param J Number of studies. Can be one value or a vector of multiple values.
+#' @param mu Effect size of practical concern. Can be one value or a vector of multiple values.
+#' @template common-arg
+#' @param average_power Logical indicating whether to calculate average power
+#'   across the iterations for each condition.
+#'
+#' @return Returns a \code{tibble} with information about the expectation of the
+#'   number of studies, the effect size of practical concern, the between-study
+#'   and within-study variance components, the sample correlation, the contrast
+#'   effect, the level of statistical significance, the sampling variance of
+#'   overall average effect size of practical concern, the degrees of freedom,
+#'   the power, the mcse, the number of iterations, the model to handle
+#'   dependent effect sizes, and the methods used to obtain sampling variance
+#'   estimates as well as the number effect sizes per study.
 #'
 #' @importFrom magrittr %>%
 #' @importFrom stats df

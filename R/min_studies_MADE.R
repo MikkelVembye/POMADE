@@ -1,20 +1,30 @@
 
-#' @title Finding the Number of Studies Needed to Obtain a Certain Amount of Power
+#' @title Finding the Number of Studies Needed to Obtain a Certain Amount of
+#'   Power
 #'
-#' @param mu Effect size of practical concern
+#' @description Compute the minimum number of studies needed to obtain a
+#'   specified power level in a meta-analysis of dependent effect size
+#'   estimates, given an effect size of practical concern, estimation method,
+#'   and further assumptions about the distribution of studies.
+#'
+#' @param mu Effect size of practical concern. Can be one value or a vector of
+#'   multiple values.
 #' @template common-arg
-#' @param target_power Specify the target power
-#' @param upper Numerical value containing the upper bound of the interval to be searched for the minimum number of studies.
-#' @param show_lower Logical value indicating whether to report lower bound of the interval searched for the mnimum number of studies. Default is \code{FALSE}.
+#' @param target_power Numerical value specifying the target power level. Can be
+#'   one value or a vector of multiple values.
+#' @param upper Numerical value containing the upper bound of the interval to be
+#'   searched for the minimum number of studies.
+#' @param show_lower Logical value indicating whether to report lower bound of
+#'   the interval searched for the mnimum number of studies. Default is
+#'   \code{FALSE}.
 #'
-#' @return Returns a \code{tibble} with information about the expectation of the effect size of practical concern,
-#' the between-study and within-study variance components,
-#' the sample correlation, the contrast effect, the level of statistical significance, the target power value(s),
-#' the number of studies needed, the number of iterations, the model to handle dependent effect sizes,
-#' and the methods used to obtain sampling variance estimates as well as the number effect sizes per study.
-#'
-#' @importFrom stats df
-#' @import dplyr
+#' @return Returns a \code{tibble} with information about the expectation of the
+#'   effect size of practical concern, the between-study and within-study
+#'   variance components, the sample correlation, the contrast effect, the level
+#'   of statistical significance, the target power value(s), the number of
+#'   studies needed, the number of iterations, the model to handle dependent
+#'   effect sizes, and the methods used to obtain sampling variance estimates as
+#'   well as the number effect sizes per study.
 #'
 #' @export
 #'

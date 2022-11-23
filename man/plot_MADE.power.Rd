@@ -85,7 +85,7 @@ plotted across different working models for dependent effect size estimates
 (default is \code{FALSE}) instead of across values for the sampling
 correlation.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments available for some classes of objects.}
 }
 \value{
 A \code{ggplot} plot showing power across the expected number of

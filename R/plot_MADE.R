@@ -17,7 +17,7 @@
 #' @return A \code{ggplot} object
 #'
 #' @seealso \code{\link{plot_MADE.power}}, \code{\link{plot_MADE.mdes}},
-#'   \code{\link{plot_MADE.mdes}}
+#'   \code{\link{plot_MADE.min_studies}}
 #'
 #' @examples
 #'

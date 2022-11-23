@@ -13,7 +13,6 @@
 #'   plotted across different working models for dependent effect size estimates
 #'   (default is \code{FALSE}) instead of across values for the sampling
 #'   correlation.
-#' @param ... Additional arguments.
 #'
 #'
 #' @description Creates a faceted plot or plots for power analyses conducted

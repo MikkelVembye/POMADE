@@ -1,5 +1,5 @@
 
-#' @title Cluster bias correction
+#' @title Cluster Bias Correction
 #'
 #' @description Function to conduct cluster bias correction of sampling variance estimates
 #' obtained from cluster-randomized studies in which the reported variance does not account for clustering.

@@ -1,10 +1,24 @@
 
-#' @title Power Approximation for Meta-Analysis of Dependent Effect Sizes
+#' @title Power Approximation for Overall Average Effects in  Meta-Analysis With Dependent Effect Sizes
 #'
 #' @description Compute power of the test of the overall average effect size in
 #'   a meta-analysis of dependent effect size estimates, given a specified
 #'   number of studies, effect size of practical concern, estimation method, and
 #'   further assumptions about the distribution of studies.
+#'
+#' @details Find all background material behind the power approximations in
+#'   Vembye, Pustejovsky, & Pigott (2022), including arguments for why it is suggested
+#'   neither to conduct power analysis based on balanced assumptions about
+#'   the number of effects per study and the study variance nor to use the original
+#'   power approximation assuming independence among effect sizes (Hedges & Pigott, 2001).
+#'
+#' @references Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022).
+#'   Power approximations for overall average effects in meta-analysis with dependent effect sizes.
+#'   \emph{Journal of Educational and Behavioral Statistics}, 1–33. \doi{10.3102/10769986221127379}
+#'
+#' Hedges, L. V., & Pigott, T. D. (2001). The power of statistical tests in meta-analysis.
+#' \emph{Psychological Methods}, 6(3), 203–217. \doi{10.1037/1082-989X.6.3.203}
+#'
 #'
 #' @param J Number of studies. Can be one value or a vector of multiple values.
 #' @param mu Effect size of practical concern. Can be one value or a vector of multiple values.

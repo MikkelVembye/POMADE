@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_MADE.R
 \name{power_MADE}
 \alias{power_MADE}
-\title{Power Approximation for Meta-Analysis of Dependent Effect Sizes}
+\title{Power Approximation for Overall Average Effects in  Meta-Analysis With Dependent Effect Sizes}
 \usage{
 power_MADE(
   J,
@@ -36,9 +36,9 @@ values.}
 same study. Can be one value or a vector of multiple values.}
 
 \item{alpha}{Level of statistical significance. Can be one value or a vector
-of multiple values.}
+of multiple values. Default is 0.05.}
 
-\item{d}{Contrast value. Can be one value or a vector of multiple values.}
+\item{d}{Contrast value. Can be one value or a vector of multiple values. Default is 0.}
 
 \item{model}{Assumed working model for dependent effect sizes, either
 \code{"CHE"} for the correlated-and-hierarchical effects model, \code{"CE"}
@@ -46,7 +46,7 @@ for the correlated effects model, or \code{"MLMA"} for the multi-level
 meta-analysis model. Default is \code{"CHE"}. Can be one value or a vector
 of multiple values.}
 
-\item{var_df}{Indicates the technique used to obtained the sampling variance
+\item{var_df}{Indicates the technique used to obtain the sampling variance
 of the average effect size estimate and the degrees of freedom, either
 \code{"Model"} for model-based variance estimator with degrees of freedom
 of \code{J - 1}, \code{"Satt"} for model-based variance estimator with
@@ -62,7 +62,7 @@ function that generates random values.}
 either a single value, a vector of plausible values, or a function that
 generates random values.}
 
-\item{iterations}{Number of iterations per condition (default is 100)}
+\item{iterations}{Number of iterations per condition (default is 100).}
 
 \item{seed}{Numerical value for a seed to ensure reproducibility of the
 iterated power approximations.}
@@ -89,6 +89,13 @@ a meta-analysis of dependent effect size estimates, given a specified
 number of studies, effect size of practical concern, estimation method, and
 further assumptions about the distribution of studies.
 }
+\details{
+Find all background material behind the power approximations in
+Vembye, Pustejovsky, & Pigott (2022), including arguments for why it is suggested
+neither to conduct power analysis based on balanced assumptions about
+the number of effects per study and the study variance nor to use the original
+power approximation assuming independence among effect sizes (Hedges & Pigott, 2001).
+}
 \examples{
 power <- power_MADE(
    J = c(40, 60),
@@ -109,4 +116,12 @@ power
 
 
 
+}
+\references{
+Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022).
+Power approximations for overall average effects in meta-analysis with dependent effect sizes.
+\emph{Journal of Educational and Behavioral Statistics}, 1–33. \doi{10.3102/10769986221127379}
+
+Hedges, L. V., & Pigott, T. D. (2001). The power of statistical tests in meta-analysis.
+\emph{Psychological Methods}, 6(3), 203–217. \doi{10.1037/1082-989X.6.3.203}
 }

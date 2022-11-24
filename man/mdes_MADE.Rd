@@ -36,12 +36,12 @@ values.}
 same study. Can be one value or a vector of multiple values.}
 
 \item{alpha}{Level of statistical significance. Can be one value or a vector
-of multiple values.}
+of multiple values. Default is 0.05.}
 
 \item{target_power}{Numerical value specifying the target power level. Can be
 one value or a vector of multiple values.}
 
-\item{d}{Contrast value. Can be one value or a vector of multiple values.}
+\item{d}{Contrast value. Can be one value or a vector of multiple values. Default is 0.}
 
 \item{model}{Assumed working model for dependent effect sizes, either
 \code{"CHE"} for the correlated-and-hierarchical effects model, \code{"CE"}
@@ -49,7 +49,7 @@ for the correlated effects model, or \code{"MLMA"} for the multi-level
 meta-analysis model. Default is \code{"CHE"}. Can be one value or a vector
 of multiple values.}
 
-\item{var_df}{Indicates the technique used to obtained the sampling variance
+\item{var_df}{Indicates the technique used to obtain the sampling variance
 of the average effect size estimate and the degrees of freedom, either
 \code{"Model"} for model-based variance estimator with degrees of freedom
 of \code{J - 1}, \code{"Satt"} for model-based variance estimator with
@@ -65,7 +65,7 @@ function that generates random values.}
 either a single value, a vector of plausible values, or a function that
 generates random values.}
 
-\item{iterations}{Number of iterations per condition (default is 100)}
+\item{iterations}{Number of iterations per condition (default is 100).}
 
 \item{seed}{Numerical value for a seed to ensure reproducibility of the
 iterated power approximations.}

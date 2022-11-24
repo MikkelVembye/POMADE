@@ -2,7 +2,7 @@
 % Please edit documentation in R/tau2_approximation.R
 \name{tau2_approximation}
 \alias{tau2_approximation}
-\title{Between-study variance approximation function}
+\title{Between-Study Variance Approximation Function}
 \usage{
 tau2_approximation(sample_size = 100, es, df_minus2 = TRUE)
 }

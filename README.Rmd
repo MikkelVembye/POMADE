@@ -90,7 +90,7 @@ power_CHE_RVE_plot
 
 ### Minimum detectable effect size (MDES)
 
-It is, moreover, possible to obtained the minimum detectable effect size (MDES) with a preset levels of significance and power. This can obtained from `mdes_MADE()`. 
+It is, moreover, possible to obtain the minimum detectable effect size (MDES) with a preset levels of significance and power. This can obtained from `mdes_MADE()`. 
 
 ```{r}
 

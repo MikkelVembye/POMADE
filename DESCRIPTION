@@ -17,7 +17,7 @@ Maintainer: Mikkel Vembye <mikkel.vembye@gmail.com>
 BugReports: https://github.com/MikkelVembye/POMADE/issues
 Description: Provides functions to compute and plot power levels, minimum detectable effect sizes, and minimum required sample sizes for the test of the overall average effect size in meta-analysis of dependent effect sizes.
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

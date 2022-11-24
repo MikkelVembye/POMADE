@@ -2,7 +2,7 @@
 % Please edit documentation in R/effective_sample_sizes.R
 \name{effective_sample_sizes}
 \alias{effective_sample_sizes}
-\title{Approximate effective sample sizes}
+\title{Approximate Effective Sample Sizes}
 \usage{
 effective_sample_sizes(
   sample_sizes_raw = NULL,
@@ -27,7 +27,7 @@ effective_sample_sizes(
 A vector of effective sample sizes, adjusted for cluster-dependence.
 }
 \description{
-Approximate effective sample sizes
+Approximate Effective Sample Sizes
 }
 \details{
 \code{N_j/DE}

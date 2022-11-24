@@ -3,7 +3,7 @@
 \docType{data}
 \name{VWB22_pilot}
 \alias{VWB22_pilot}
-\title{Co-teaching dataset}
+\title{Co-teaching Dataset}
 \format{
 A tibble with 76 rows/studies and 9 variables
 \describe{
@@ -11,15 +11,15 @@ A tibble with 76 rows/studies and 9 variables
 \item{studyid}{Unique study ID}
 \item{esid}{Unique effect size ID}
 \item{kj}{Number of effect sizes per study}
-\item{N_meanj}{Average sample size of studies}
-\item{Nt_meanj}{Average size of treatment group}
-\item{Nc_meanj}{Average size of control group}
+\item{N_meanj}{Average sample size of study}
+\item{Nt_meanj}{Average sample size of treatment group within study}
+\item{Nc_meanj}{Average sample size of control group within study}
 \item{ESS_meanj}{Roughly approximated effective sample sizes}
-\item{vg_ms_mean}{Cluster bias corrected sampling variances}
+\item{vg_ms_mean}{Average cluster bias corrected sampling variance estimates}
 }
 }
 \source{
-\href{https://bit.ly/3nhVX3H}{Vembye's OSF page}
+\href{https://osf.io/fby7w/}{Vembye's OSF page}
 }
 \usage{
 VWB22_pilot
@@ -27,12 +27,12 @@ VWB22_pilot
 \description{
 Data from a meta-analysis on the effects of collaborative models
 of instruction on student achievement from Vembye, Weiss, and
-Bhat (In Press).
+Bhat (In press/forthcoming).
 }
 \references{
-Vembye, Weiss, & Bhat (In Press). The Effects
+Vembye, M. H., Weiss, F., & Bhat, B. H. (In press/forthcoming). The Effects
 Co-Teaching and Related Collaborative Models of Instruction on
 Student Achievement: A Systematic Review and Meta-Analysis. \emph{Review of
-Educational Research}, forthcoming. Access to background material at \url{https://bit.ly/3nhVX3H}
+Educational Research}. Access to background material at \url{https://osf.io/fby7w/}.
 }
 \keyword{datasets}

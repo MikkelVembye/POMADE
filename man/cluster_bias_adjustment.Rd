@@ -2,7 +2,7 @@
 % Please edit documentation in R/cluster_bias_adjustment.R
 \name{cluster_bias_adjustment}
 \alias{cluster_bias_adjustment}
-\title{Cluster bias correction}
+\title{Cluster Bias Correction}
 \usage{
 cluster_bias_adjustment(sigma2js, cluster_size = 22, icc = 0.2)
 }

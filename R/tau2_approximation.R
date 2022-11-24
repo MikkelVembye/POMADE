@@ -1,7 +1,6 @@
 
 
-
-#' @title Between-study variance approximation function
+#' @title Between-Study Variance Approximation Function
 #'
 #' @description Rough approximation of the between-study variance based on
 #' assumption about the typical sample size of studies included in the

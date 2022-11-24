@@ -1,5 +1,5 @@
 
-#' Approximate effective sample sizes
+#' @title Approximate Effective Sample Sizes
 #'
 #' @param sample_sizes_raw Vector of the raw total study sample size(s).
 #' @param Nt_raw Vector of raw treatment group sample size(s).

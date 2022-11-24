@@ -119,7 +119,7 @@ mdes_dat <-
     iterations = 5
   )
 
-plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80))
+plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80), numbers_ynudge = 0.139)
 plot_mdes
 
 }

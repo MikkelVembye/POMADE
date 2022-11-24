@@ -49,7 +49,7 @@
 #'     iterations = 5
 #'   )
 #'
-#' plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80))
+#' plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80), numbers_ynudge = 0.139)
 #' plot_mdes
 #'
 #' @export
@@ -83,7 +83,7 @@ plot_MADE.mdes <-
       }
     }
 
-    if (is.null(x_lab)) x_lab <- "Number of studies (J)"
+    if (is.null(x_lab)) x_lab <- "Number of Studies (J)"
 
     if (is.null(y_breaks) && min(data$MDES) >= 0.05){
       y_breaks <- seq(round(min(data$MDES) - 0.015, 2), round(max(data$MDES) + 0.015, 2), .02)
@@ -98,7 +98,7 @@ plot_MADE.mdes <-
     }
 
     if (is.null(numbers_ynudge)){
-      numbers_ynudge <- round(max(data$MDES) - min(data$MDES) + 0.015, 2)
+      numbers_ynudge <- round(max(data$MDES) + 0.015 - min(data$MDES) + 0.015, 2)
     }
 
     plot_dat <-

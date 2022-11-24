@@ -172,6 +172,18 @@ plot_MADE_engine(
 #  #numbers = FALSE
 #)
 
+POMADE::min_studies_MADE(
+  mu = 0.1,
+  tau = 0.2,
+  omega = 0.1,
+  rho = 0.7,
+  target_power = 0.8,
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  seed = 10052510,
+  iterations = 5
+)
+
 
 J_obj <-
   min_studies_MADE(
@@ -197,7 +209,6 @@ CHE_J_1 <- J_obj |> filter(str_detect(model, "CHE-RVE"), mu == 0.1)
 CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
 
 
-#debug(find_J_MADE)
 
 plot_MADE(data = J_obj)
 

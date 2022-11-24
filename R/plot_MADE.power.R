@@ -106,7 +106,7 @@ plot_MADE.power <-
     }
   }
 
-  if (is.null(x_lab)) x_lab <- "Number of studies (J)"
+  if (is.null(x_lab)) x_lab <- "Number of Studies (J)"
 
   if (!model_comparison) {
 

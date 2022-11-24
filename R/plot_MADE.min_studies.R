@@ -280,7 +280,6 @@ plot_MADE.min_studies <-
             grid_labs = numbers,
             labs_ynudge = numbers_ynudge,
             labs_size = number_size,
-            #shape_scale_manually = TRUE,
             assumptions = traffic_light_assumptions
           ))
         )
@@ -315,7 +314,6 @@ plot_MADE.min_studies <-
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
-          #shape_scale_manually = TRUE,
           assumptions = traffic_light_assumptions
         ))
        )

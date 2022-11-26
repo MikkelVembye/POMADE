@@ -3,6 +3,9 @@ pop_size <- 1000L
 sigma2_emp <- rgamma(pop_size, shape = 4, rate = 12)
 n_ES_emp <- 1 + rpois(pop_size, 3.5 - 1)
 
+check_times <- FALSE
+workers <- 4
+
 test_that("power_MADE() works with future parallelization.", {
 
   skip_on_cran()
@@ -20,6 +23,7 @@ test_that("power_MADE() works with future parallelization.", {
     var_df = "Satt",
     alpha = 0.05,
     average_power = TRUE,
+    workers = workers,
     warning = FALSE
   )
 
@@ -39,6 +43,7 @@ test_that("power_MADE() works with future parallelization.", {
     average_power = TRUE,
     iterations = 5,
     warning = FALSE,
+    workers = workers,
     seed = 20221011
   )
 
@@ -56,6 +61,7 @@ test_that("power_MADE() works with future parallelization.", {
     alpha = c(.01, 0.025, .1),
     average_power = TRUE,
     iterations = 4,
+    workers = workers,
     seed = 20221012
   )
 
@@ -75,6 +81,7 @@ test_that("power_MADE() works with future parallelization.", {
     alpha = c(.01, 0.025, .1),
     average_power = TRUE,
     iterations = 2,
+    workers = workers,
     seed = 20221013
   )
 
@@ -93,6 +100,7 @@ test_that("power_MADE() works with future parallelization.", {
     var_df = c("Model", "Satt", "RVE"),
     alpha = c(.01, 0.025, .1),
     average_power = TRUE,
+    workers = workers,
     iterations = 2
   )
 
@@ -118,11 +126,11 @@ test_that("mdes_MADE() works with future parallelization.", {
     target_power = c(0.4,0.72),
     seed = 20221014,
     warning = FALSE,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(mdes1$res_seq, mdes1$res_par)
-  expect_gt(mdes1$tm_seq, mdes1$tm_par)
+  if (check_times) expect_gt(mdes1$tm_seq, mdes1$tm_par)
 
   mdes2 <- check_with_future(
     f = mdes_MADE,
@@ -137,11 +145,11 @@ test_that("mdes_MADE() works with future parallelization.", {
     iterations = 5,
     warning = FALSE,
     seed = 20221015,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(mdes2$res_seq, mdes2$res_par)
-  expect_gt(mdes2$tm_seq, mdes2$tm_par)
+  if (check_times) expect_gt(mdes2$tm_seq, mdes2$tm_par)
 
   mdes3 <- check_with_future(
     f = mdes_MADE,
@@ -155,11 +163,11 @@ test_that("mdes_MADE() works with future parallelization.", {
     target_power = c(0.4,0.72),
     iterations = 150,
     seed = 20221016,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(mdes3$res_seq, mdes3$res_par)
-  expect_gt(mdes3$tm_seq, mdes3$tm_par)
+  if (check_times) expect_gt(mdes3$tm_seq, mdes3$tm_par)
 
   mdes4 <- check_with_future(
     f = mdes_MADE,
@@ -175,11 +183,11 @@ test_that("mdes_MADE() works with future parallelization.", {
     iterations = 2,
     warning = FALSE,
     seed = 20221017,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(mdes4$res_seq, mdes4$res_par)
-  expect_gt(mdes4$tm_seq, mdes4$tm_par)
+  if (check_times) expect_gt(mdes4$tm_seq, mdes4$tm_par)
 
   mdes5 <- check_with_future(
     f = mdes_MADE,
@@ -194,11 +202,11 @@ test_that("mdes_MADE() works with future parallelization.", {
     alpha = c(.03),
     iterations = 4,
     warning = FALSE,
-    workers = 2L
+    workers = workers
   )
 
   expect_false(identical(mdes5$res_seq, mdes5$res_par))
-  expect_gt(mdes5$tm_seq, mdes5$tm_par)
+  if (check_times) expect_gt(mdes5$tm_seq, mdes5$tm_par)
 
 })
 
@@ -209,7 +217,7 @@ test_that("min_studies_MADE() works with future parallelization.", {
   J1 <- check_with_future(
     f = min_studies_MADE,
     mu = c(0.1,0.2),
-    tau = 0.2,
+    tau = c(0.1,0.2),
     omega = 0.1,
     rho = 0.3,
     sigma2_dist = 4 / 100,
@@ -218,13 +226,14 @@ test_that("min_studies_MADE() works with future parallelization.", {
     var_df = c("Satt", "RVE"),
     alpha = 0.05,
     target_power = 0.6,
+    iterations = 50,
     seed = 20221014,
     warning = FALSE,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(J1$res_seq, J1$res_par)
-  expect_gt(J1$tm_seq, J1$tm_par)
+  if (check_times) expect_gt(J1$tm_seq, J1$tm_par)
 
   J2 <- check_with_future(
     f = min_studies_MADE,
@@ -236,13 +245,13 @@ test_that("min_studies_MADE() works with future parallelization.", {
     n_ES_dist = n_ES_emp,
     alpha = c(.01, .1),
     target_power = c(0.4,0.72),
-    iterations = 10,
+    iterations = 50,
     seed = 20221016,
-    workers = 2L
+    workers = workers
   )
 
   expect_identical(J2$res_seq, J2$res_par)
-  expect_gt(J2$tm_seq, J2$tm_par)
+  if (check_times) expect_gt(J2$tm_seq, J2$tm_par)
 
   J3 <- check_with_future(
     f = min_studies_MADE,
@@ -255,13 +264,13 @@ test_that("min_studies_MADE() works with future parallelization.", {
     model = c("CHE","CE"),
     var_df = c("Model", "RVE"),
     alpha = .03,
-    iterations = 12,
+    iterations = 50,
     warning = FALSE,
-    workers = 2L,
+    workers = workers,
     seed = 20221108
   )
 
   identical(J3$res_seq, J3$res_par)
-  expect_gt(J3$tm_seq, J3$tm_par)
+  if (check_times) expect_gt(J3$tm_seq, J3$tm_par)
 
 })

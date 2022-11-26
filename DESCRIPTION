@@ -1,13 +1,13 @@
 Package: POMADE
 Title: POwer for Meta-Analysis of Dependent Effects
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c( 
-    person(given = "Mikkel", 
+    person(given = "Mikkel H.", 
            family = "Vembye", 
            email = "mikkel.vembye@gmail.com", 
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9071-0724")),
-    person(given = "James", 
+    person(given = "James E.", 
            family = "Pustejovsky", 
            email = "jepusto@gmail.com", 
            role = c("aut"), 
@@ -15,25 +15,27 @@ Authors@R: c(
            )
 Maintainer: Mikkel Vembye <mikkel.vembye@gmail.com>
 BugReports: https://github.com/MikkelVembye/POMADE/issues
-Description: Provides functions to compute and plot power for meta-analysis of dependent effect sizes.
+Description: Provides functions to compute and plot power levels, minimum detectable effect sizes, and minimum required sample sizes for the test of the overall average effect size in meta-analysis of dependent effect sizes.
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Imports: 
     ggplot2,
     dplyr,
     grid,
     magrittr,
     purrr,
-    rlang (>= 0.4.11),
+    future,
+    furrr,
     stats,
     stringr,
     utils,
-    tidyr
+    tidyr,
+    tibble
 Suggests: 
     roxygen2,
     testthat (>= 3.0.0)

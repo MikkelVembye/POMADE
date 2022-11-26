@@ -2,6 +2,8 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
-^errors$
+^other$
+^old_functions$
 ^man-roxygen$
-James-notes
+^.github$
+codecov.yml

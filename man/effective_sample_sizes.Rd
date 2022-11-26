@@ -2,7 +2,7 @@
 % Please edit documentation in R/effective_sample_sizes.R
 \name{effective_sample_sizes}
 \alias{effective_sample_sizes}
-\title{Approximate effective sample sizes}
+\title{Approximate Effective Sample Sizes}
 \usage{
 effective_sample_sizes(
   sample_sizes_raw = NULL,
@@ -13,28 +13,32 @@ effective_sample_sizes(
 )
 }
 \arguments{
-\item{sample_sizes_raw}{Takes a vector of the raw total study sample size(s)}
+\item{sample_sizes_raw}{Vector of the raw total study sample size(s).}
 
-\item{Nt_raw}{Takes a vector of raw treatment group sample size(s)}
+\item{Nt_raw}{Vector of raw treatment group sample size(s).}
 
-\item{Nc_raw}{Takes a vector of raw control group sample size(s)}
+\item{Nc_raw}{Vector of raw control group sample size(s).}
 
-\item{cluster_size}{Average cluster size (Default = 22. Common class size in education)}
+\item{cluster_size}{Average cluster size (Default = 22, a common class size in education research studies).}
 
-\item{icc}{Assumed intraclass correlation (Default = 0.22. Average ICC value in Hedges & Hedberg (2007) unconditional models)}
+\item{icc}{Assumed intra-class correlation (Default = 0.22, the average ICC value in Hedges & Hedberg (2007) unconditional models)}
 }
 \value{
-Returns a vector of effective sample sizes
+A vector of effective sample sizes, adjusted for cluster-dependence.
 }
 \description{
-Approximate effective sample sizes
+Approximate Effective Sample Sizes
 }
 \details{
 \code{N_j/DE}
 }
 \examples{
 sample_sizes <- sample(50:1000, 50, replace = TRUE)
-effective_sample_sizes(sample_sizes_raw = sample_sizes)
+effective_sample_sizes(
+  sample_sizes_raw = sample_sizes,
+  cluster_size = 20,
+  icc = 0.15
+)
 
 
 }

@@ -88,21 +88,25 @@ plot_MADE.min_studies <-
       }
     }
 
+    if (is.null(y_limits)) {
+      y_limits <- data |> dplyr::pull(studies_needed) |> range()
+    }
 
-    if (n_distinct(data$mu) == 1){
+    if (is.null(y_breaks)) {
+      y_breaks <- seq(min(data$studies_needed), max(data$studies_needed) + 10, 10)
+    }
+
+    if (!caption) {
+      plot_dat$cap <- NULL
+    }
+
+    if (n_distinct(data$mu) == 1) {
 
       if (is.null(x_lab)){
         x_lab <- "Effect Size Level SD"
       }
 
-      if (is.null(y_limits)) {
-        y_limits <- data |> dplyr::pull(studies_needed) |> range()
-      }
-      if (is.null(y_breaks)) {
-        y_breaks <- seq(min(data$studies_needed), max(data$studies_needed) + 10, 10)
-      }
-
-      if (is.null(numbers_ynudge)){
+      if (is.null(numbers_ynudge)) {
         numbers_ynudge <- 0
       }
 
@@ -127,12 +131,8 @@ plot_MADE.min_studies <-
         rowwise() |>
         select(data, cap, y_lab)
 
-      if (!caption) {
-        plot_dat$cap <- NULL
-      }
 
-
-      if (color){
+      if (color) {
 
         plot <- suppressWarnings(dplyr::group_map(
           plot_dat,
@@ -206,20 +206,13 @@ plot_MADE.min_studies <-
     }
 
 
-    if (n_distinct(data$mu) > 1){
+    if (n_distinct(data$mu) > 1) {
 
-      if(is.null(x_lab)){
+      if (is.null(x_lab)) {
         x_lab <- "Effect Size of Practical Concern"
       }
 
-      if (is.null(y_limits)) {
-        y_limits <- data |> dplyr::pull(studies_needed) |> range()
-      }
-      if (is.null(y_breaks)) {
-        y_breaks <- seq(min(data$studies_needed), max(data$studies_needed) + 20, 20)
-      }
-
-      if (is.null(numbers_ynudge)){
+      if (is.null(numbers_ynudge)) {
         numbers_ynudge <- max(data$studies_needed) - min(data$studies_needed)
       }
 
@@ -244,12 +237,7 @@ plot_MADE.min_studies <-
         rowwise() |>
         select(data, cap, y_lab)
 
-      if (!caption) {
-        plot_dat$cap <- NULL
-      }
-
-
-      if (color){
+      if (color) {
 
         plot <- suppressWarnings(dplyr::group_map(
           plot_dat,

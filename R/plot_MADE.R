@@ -95,7 +95,7 @@ plot_MADE.default <-
     ...
   ) {
 
-    warning(paste0("plot_MADE does not know how to handle object of class ", class(data),
+    stop(paste0("plot_MADE does not know how to handle object of class ", class(data),
                   ". It can only be used on objects of class 'power', 'mdes', or 'min_studies'."))
 
   }
@@ -326,8 +326,13 @@ traffic_light_engine <-
       k <- k+1
     }
 
-    traffic_light_plot <- g
-    grid::grid.draw(traffic_light_plot)
-
+    class(g) <- c("trafficlightplot", class(g))
+    return(g)
 
   }
+
+#' @export
+
+print.trafficlightplot <- function(x, ...) {
+  grid::grid.draw(x)
+}

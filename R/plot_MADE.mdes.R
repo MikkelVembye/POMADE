@@ -128,7 +128,7 @@ plot_MADE.mdes <-
     }
 
 
-    if (color){
+    if (color) {
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -197,7 +197,6 @@ plot_MADE.mdes <-
         ))
       )
     }
-
 
     if (length(plot) == 1) plot <- plot[[1]]
 

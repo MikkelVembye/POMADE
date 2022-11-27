@@ -100,15 +100,15 @@ plot_MADE.power <-
     ...
   ){
 
-  if (warning) {
-    if(n_distinct(data$model) > 1){
-      warning("We recommend to create the plot for one model only", call. = FALSE)
-    }
-  }
-
   if (is.null(x_lab)) x_lab <- "Number of Studies (J)"
 
   if (!model_comparison) {
+
+    if (warning) {
+      if(n_distinct(data$model) > 1){
+        warning("We recommend to create the plot for one model only", call. = FALSE)
+      }
+    }
 
     plot_dat <-
       data |>

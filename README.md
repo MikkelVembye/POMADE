@@ -275,7 +275,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   41.82    0.29   42.69
+#>   37.72    0.27   38.31
 
 plan(multisession, workers = 2)
 
@@ -295,7 +295,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.09    0.03   28.79
+#>    0.06    0.04   25.42
 
 identical(res_seq, res_par)
 #> [1] TRUE

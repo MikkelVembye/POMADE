@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/MikkelVembye/POMADE/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MikkelVembye/POMADE?branch=main)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for
@@ -273,7 +275,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   46.79    0.45   50.34
+#>   41.82    0.29   42.69
 
 plan(multisession, workers = 2)
 
@@ -293,7 +295,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.09    0.02   30.22
+#>    0.09    0.03   28.79
 
 identical(res_seq, res_par)
 #> [1] TRUE

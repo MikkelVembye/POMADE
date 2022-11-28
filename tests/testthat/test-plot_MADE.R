@@ -17,6 +17,9 @@ test_that("plot_MADE.power() returns one or multiple plots.", {
       warning = FALSE
     )
 
+  res_tibble <- as_tibble(res)
+  expect_error(plot_MADE(res_tibble))
+
   expect_warning(p_all <- plot_MADE(res))
   expect_identical(length(p_all), 6L)
   expect_s3_class(p_all[[1]], "ggplot")
@@ -50,7 +53,7 @@ test_that("plot_MADE.power() returns one or multiple plots.", {
   )
 
   expect_identical(length(tlp), 6L)
-  expect_s3_class(tlp[[1]], "trafficlightplot")
+  for (i in seq_along(tlp)) expect_s3_class(tlp[[i]], "trafficlightplot")
 
   tlp_model <- plot_MADE(
     res, model_comparison = TRUE,
@@ -58,7 +61,7 @@ test_that("plot_MADE.power() returns one or multiple plots.", {
   )
 
   expect_identical(length(tlp_model), 9L)
-  expect_s3_class(tlp_model[[1]], "trafficlightplot")
+  for (i in seq_along(tlp_model)) expect_s3_class(tlp_model[[i]], "trafficlightplot")
 
 })
 
@@ -79,6 +82,10 @@ test_that("plot_MADE.mdes() returns one or multiple plots.", {
       alpha = 0.05,
       warning = FALSE
     )
+
+  res_tibble <- as_tibble(res)
+  expect_error(plot_MADE(res_tibble))
+
 
   expect_warning(p_all <- plot_MADE(res))
   expect_identical(length(p_all), 4L)
@@ -103,7 +110,8 @@ test_that("plot_MADE.mdes() returns one or multiple plots.", {
   )
 
   expect_identical(length(tlp), 4L)
-  expect_s3_class(tlp[[1]], "trafficlightplot")
+  for (i in seq_along(tlp)) expect_s3_class(tlp[[i]], "trafficlightplot")
+
 
 })
 
@@ -157,7 +165,7 @@ test_that("plot_MADE.min_studies() returns one or multiple plots.", {
   )
 
   expect_identical(length(tlp), 4L)
-  expect_s3_class(tlp[[1]], "trafficlightplot")
+  for (i in seq_along(tlp)) expect_s3_class(tlp[[i]], "trafficlightplot")
 
   tlp_omega <-
     subset(res, mu == 0.25) |>
@@ -167,6 +175,7 @@ test_that("plot_MADE.min_studies() returns one or multiple plots.", {
   )
 
   expect_identical(length(tlp_omega), 4L)
-  expect_s3_class(tlp_omega[[1]], "trafficlightplot")
+  for (i in seq_along(tlp_omega)) expect_s3_class(tlp_omega[[i]], "trafficlightplot")
+
 
 })

@@ -349,5 +349,5 @@ traffic_light_engine <-
 #' @export
 
 print.trafficlightplot <- function(x, ...) {
-  grid::grid.draw(x)
+  plot(x)
 }

@@ -261,7 +261,6 @@ plot_MADE_engine <-
      shape_scale_manual <- NULL
     } else if (shape_scale == "model") {
 
-
      legend_lab <-
        data |>
        transmute(

@@ -1,8 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/POMADE_hex.png" align="right" alt="" width="180" />
-
 # POMADE
 
 <!-- badges: start -->
@@ -26,7 +24,6 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
-
 # install.packages("devtools")
 devtools::install_github("MikkelVembye/POMADE")
 ```
@@ -42,7 +39,6 @@ similar to those from a recent meta-analysis examining the effects of
 co-teaching on academic achievement.
 
 ``` r
-
 library(POMADE)
 library(dplyr)
 
@@ -92,7 +88,6 @@ The results can be displayed in a plot to more easily assess power
 across a range of plausible scenarios.
 
 ``` r
-
 power_CHE_RVE_plot <- 
   plot_MADE(
     power_CHE_RVE_empirical,
@@ -112,7 +107,6 @@ detectable effect size (MDES) with a preset levels of significance and
 power. This can obtained using `mdes_MADE()`.
 
 ``` r
-
 mdes_CHE_RVE_empirical <- 
   mdes_MADE(
     J = seq(60, 90, 10),
@@ -150,7 +144,6 @@ mdes_CHE_RVE_empirical %>%
 The MDES data can then be plotted across plausible scenarios.
 
 ``` r
-
 MDES_CHE_RVE_plot <- 
   plot_MADE(
     data = mdes_CHE_RVE_empirical, 
@@ -172,7 +165,6 @@ of practical concern with a given amount of power. This can be conducted
 via `min_studies_MADE()`.
 
 ``` r
-
 min_studies_example <- 
   min_studies_MADE(
     mu = c(0.1, 0.15, 0.2),
@@ -210,7 +202,6 @@ min_studies_example %>%
 and plotted via
 
 ``` r
-
 min_studies_plot <- 
   min_studies_example %>%
   filter(mu == 0.1) %>%
@@ -226,7 +217,6 @@ needed varies across various values of the effect size of practical
 concern.
 
 ``` r
-
 min_studies_plot2 <- 
   plot_MADE(
     min_studies_example
@@ -245,7 +235,6 @@ different assumptions made by the meta-analyst. They can be specified in
 left to the lower right facet grid plot.
 
 ``` r
-
 plot_MADE(
   power_CHE_RVE_empirical,
   power_min = .8,
@@ -284,7 +273,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   40.33    0.29   40.97
+#>   40.36    0.21   41.20
 
 plan(multisession, workers = 2)
 
@@ -304,16 +293,11 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.14    0.02   31.77
+#>    0.06    0.00   24.10
 
 identical(res_seq, res_par)
 #> [1] TRUE
 ```
-
-# Acknowledgments
-
-Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for
-making our hex stickers.
 
 # References
 

@@ -4,7 +4,6 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/POMADE_hex.png" align="right" alt="" width="180" />
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -250,10 +249,6 @@ system.time(
 identical(res_seq, res_par)
 ```
 
-
-# Acknowledgments 
-
-Thanks to [Savhannah Schulz](https://savhannahschulz.netlify.app/) for making our hex stickers.   
 
 # References
 

@@ -97,21 +97,20 @@ estimates, given an effect size of practical concern, estimation method,
 and further assumptions about the distribution of studies.
 }
 \examples{
-studies_needed <- min_studies_MADE(
- mu = 0.2,
- tau = c(0.1, 0.2),
- omega = 0.25,
- rho = 0.7,
- target_power = .8,
 
- model = "CHE", # default
- var_df = "RVE", # default
-
- sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
- n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
- seed = 10052510
+min_studies_MADE(
+  mu = 0.2,
+  tau = c(0.1, 0.2),
+  omega = 0.05,
+  rho = 0.2,
+  target_power = .8,
+  alpha = 0.05,
+  model = "CHE", # default
+  var_df = "RVE", # default
+  sigma2_dist = 4/100,
+  n_ES_dist = 5.5,
+  seed = 10052510
 )
 
-studies_needed
 
 }

@@ -35,22 +35,21 @@
 #'
 #' @examples
 #'
-#' mdes_dat <-
-#'   mdes_MADE(
-#'     J = seq(60, 90, 10),
-#'     tau = c(0, 0.25),
-#'     omega = c(0, 0.1),
-#'     rho = c(0.2, 0.7),
-#'     target_power = .8,
-#'     alpha = 0.05,
-#'     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-#'     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-#'     seed = 10052510,
-#'     iterations = 5
-#'   )
 #'
-#' plot_mdes <- plot_MADE(data = mdes_dat, expected_studies = c(70, 80), numbers_ynudge = 0.139)
-#' plot_mdes
+#' mdes_MADE(
+#'   J = c(20, 40),
+#'   tau = c(0, 0.1),
+#'   omega = 0.05,
+#'   rho = c(0.2, 0.7),
+#'   target_power = .8,
+#'   alpha = 0.05,
+#'   sigma2_dist = 4/100,
+#'   n_ES_dist = 5.5,
+#'   seed = 10052510
+#' ) |>
+#'   plot_MADE(expected_studies = c(25, 35), numbers_ynudge = 0.099)
+#'
+#'
 #'
 #' @export
 

@@ -40,22 +40,17 @@
 #' @seealso \code{\link{plot_MADE}}
 #' @examples
 #'
-#' min_studies_obj <-
-#'   min_studies_MADE(
-#'     mu = 0.2,
-#'     tau = c(0.1, 0.2),
-#'     omega = c(0, 0.1, 0.2, 0.3),
-#'     rho = c(0.2, 0.7),
-#'     target_power = .8,
-#'     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-#'     n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-#'     seed = 10052510,
-#'     iterations = 5
-#'
-#'   )
-#'
-#' min_studies_example <- plot_MADE(data = min_studies_obj)
-#' min_studies_example
+#' min_studies_MADE(
+#'   mu = 0.2,
+#'   tau = 0.05,
+#'   omega = c(0, 0.4),
+#'   rho = c(0.7),
+#'   target_power = .8,
+#'   sigma2_dist = 4/100,
+#'   n_ES_dist = 5.5,
+#'   seed = 10052510
+#' ) |>
+#'   plot_MADE(numbers = FALSE, y_breaks = seq(0, 20, 2))
 #'
 #' @export
 

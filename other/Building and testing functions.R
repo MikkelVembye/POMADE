@@ -206,11 +206,24 @@ CHE_J_1 <- J_obj |> filter(str_detect(model, "CHE-RVE"), mu == 0.1)
 CHE_J <- J_obj |> filter(str_detect(model, "CHE"), omega == 0.25)
 
 
-
 plot_MADE(
   data = J_obj,
   traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected", "likely"))
 
+
+tic()
+min_studies_MADE(
+  mu = 0.2,
+  tau = c(0.1, 0.2),
+  omega = c(0.05, 0.15),
+  rho = c(0.2, 0.7),
+  target_power = .8,
+  sigma2_dist = 4/100,
+  n_ES_dist = 5.5,
+  seed = 10052510
+) |>
+ plot_MADE(y_breaks = seq(0, 20, 2))
+toc()
 
 min_studies_MADE_engine(
   mu = 0.1,
@@ -227,8 +240,44 @@ min_studies_MADE_engine(
   seed = 10052510
 )
 
+
+tic()
+studies_needed <-
+  min_studies_MADE(
+    mu = 0.2,
+    tau = c(0.1, 0.2),
+    omega = c(0.05, 0.1),
+    rho = 0.7,
+    target_power = .8,
+    alpha = 0.05,
+    model = "CHE", # default
+    var_df = "RVE", # default
+    sigma2_dist = 4/100,
+    n_ES_dist = 5.5,
+    seed = 10052510
+)
+
+studies_needed
+toc()
+
 library(future)
 multisession(multisession, workers = future::availableCores()-1)
+
+tic()
+mdes <- mdes_MADE(
+ J = c(40, 60),
+ tau = 0.2,
+ omega = 0.1,
+ rho = 0.7,
+ model = c("CHE", "MLMA", "CE"),
+ var_df = c("Model", "Satt", "RVE"),
+ sigma2_dist = 4/100,
+ n_ES_dist = 5.5,
+ seed = 10052510
+)
+
+mdes
+toc()
 
 #tic()
 MDES_dat <-
@@ -250,6 +299,21 @@ MDES_dat <-
 mdes_dat1 <- MDES_dat |> dplyr::filter(model == "CHE-RVE", target_power == 0.8, alpha == 0.05)
 
 plot_MADE(data = MDES_dat, expected_studies = c(70, 80))
+
+tic()
+mdes_MADE(
+ J = c(40, 50, 60),
+ tau = c(0, 0.2),
+ omega = c(0, 0.1),
+ rho = c(0.2, 0.7),
+ target_power = .8,
+ alpha = 0.05,
+ sigma2_dist = 4/100,
+ n_ES_dist = 5.5,
+ seed = 10052510
+ ) |>
+ plot_MADE(expected_studies = c(45, 55), numbers_ynudge = 0.139)
+toc()
 
 #test_dat2 <-
 #  test_dat |>
@@ -402,6 +466,23 @@ power_MADE_engine(
   model = c("CHE", "MLMA", "CE"),
   var_df = c("Model", "Satt", "RVE")
 )
+
+tic()
+power <- power_MADE(
+  J = c(40, 60),
+  mu = 0.1,
+  tau = 0.2,
+  omega = 0.1,
+  rho = 0.7,
+  sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
+  n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+  model = c("CHE", "MLMA", "CE"),
+  var_df = c("Model", "Satt", "RVE"),
+  alpha = .05,
+  seed = 10052510
+)
+power
+toc()
 
 ####################
 # Precison analysis

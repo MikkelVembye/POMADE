@@ -99,7 +99,7 @@ power approximation assuming independence among effect sizes (Hedges & Pigott, 2
 \examples{
 power <- power_MADE(
    J = c(40, 60),
-   mu = 0.1,
+   mu = 0.2,
    tau = 0.2,
    omega = 0.1,
    rho = 0.7,
@@ -108,7 +108,8 @@ power <- power_MADE(
    model = c("CHE", "MLMA", "CE"),
    var_df = c("Model", "Satt", "RVE"),
    alpha = .05,
-   seed = 10052510
+   seed = 10052510,
+   iterations =5
  )
 
 power

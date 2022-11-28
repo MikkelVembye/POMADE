@@ -28,19 +28,17 @@
 #'
 #' @examples
 #'
-#' mdes <- mdes_MADE(
-#'   J = c(40, 60),
+#' mdes_MADE(
+#'   J = c(20, 40),
 #'   tau = 0.2,
 #'   omega = 0.1,
 #'   rho = 0.7,
 #'   model = c("CHE", "MLMA", "CE"),
-#'   var_df = c("Model", "Satt", "RVE"),
-#'   sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-#'   n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
+#'   var_df = "RVE",
+#'   sigma2_dist = 4/100,
+#'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' )
-#'
-#' mdes
 #'
 #'
 

@@ -16,7 +16,7 @@
   x_lab = NULL,
   x_breaks = NULL,
   x_limits = NULL,
-  y_breaks = NULL,
+  y_breaks = ggplot2::waiver(),
   y_limits = NULL,
   y_expand = NULL,
   warning = TRUE,

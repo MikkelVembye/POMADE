@@ -66,7 +66,7 @@ plot_MADE.mdes <-
     x_lab = NULL,
     x_breaks = NULL,
     x_limits = NULL,
-    y_breaks = NULL,
+    y_breaks = ggplot2::waiver(),
     y_limits = NULL,
     y_expand = NULL,
     warning = TRUE,
@@ -84,20 +84,16 @@ plot_MADE.mdes <-
 
     if (is.null(x_lab)) x_lab <- "Number of Studies (J)"
 
-    if (is.null(y_breaks) && min(data$MDES) >= 0.05){
-      y_breaks <- seq(round(min(data$MDES) - 0.015, 2), round(max(data$MDES) + 0.015, 2), .02)
-    } else if (is.null(y_breaks) && min(data$MDES) < 0.05) {
-      y_breaks <- seq(0, round(max(data$MDES) + 0.015, 2), .02)
+    # if (is.null(y_breaks)) {
+    #   y_breaks <- seq(0, round(max(data$MDES) + 0.015, 2), .02)
+    # }
+
+    if (is.null(y_limits)) {
+      y_limits <- c(0, ceiling(20 * max(data$MDES)) / 20)
     }
 
-    if (is.null(y_limits) && min(data$MDES) >= 0.05){
-      y_limits <- c(round(min(data$MDES) - 0.015, 2) , round(max(data$MDES) + 0.01, 2) )
-    } else if (is.null(y_limits) && min(data$MDES) < 0.05) {
-      y_limits <- c(0, round(max(data$MDES) + 0.015, 2))
-    }
-
-    if (is.null(numbers_ynudge)){
-      numbers_ynudge <- round(max(data$MDES) + 0.015 - min(data$MDES) + 0.015, 2)
+    if (is.null(numbers_ynudge)) {
+      numbers_ynudge <- max(data$MDES)
     }
 
     plot_dat <-

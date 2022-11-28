@@ -67,7 +67,7 @@ plot_MADE.min_studies <-
     x_lab = NULL,
     x_breaks = NULL,
     x_limits = NULL,
-    y_breaks = NULL,
+    y_breaks = ggplot2::waiver(),
     y_limits = NULL,
     y_expand = NULL,
     warning = TRUE,
@@ -84,11 +84,11 @@ plot_MADE.min_studies <-
     }
 
     if (is.null(y_limits)) {
-      y_limits <- data |> dplyr::pull(studies_needed) |> range()
+      y_limits <- c(0, 10 * ceiling(max(data$studies_needed) / 10))
     }
 
-    if (is.null(y_breaks)) {
-      y_breaks <- seq(min(data$studies_needed), max(data$studies_needed) + 10, 10)
+    if (inherits(y_breaks,"waiver")) {
+      y_breaks <- seq(10, max(y_limits), 10)
     }
 
     if (!caption) {
@@ -208,7 +208,7 @@ plot_MADE.min_studies <-
       }
 
       if (is.null(numbers_ynudge)) {
-        numbers_ynudge <- max(data$studies_needed) - min(data$studies_needed)
+        numbers_ynudge <- max(data$studies_needed)
       }
 
       plot_dat <-

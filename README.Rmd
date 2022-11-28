@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 # POMADE
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for tests based on the correlated-hierarchical effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects (CE) models for meta-analysis of dependent effect sizes, with the possibility to vary assumptions about the variance estimation and the estimation of the degrees of freedom. These approximations aim to replace Hedges & Pigott's (2001) previous power approximation based on the assumption of independence between effect sizes, which has been shown to work inadequately to predict power for models that handle dependent effect sizes (Vembye, Pustejovsky, & Pigott, 2022). The package also includes functions for creating graphical displays of power analysis results.

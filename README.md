@@ -4,6 +4,8 @@
 # POMADE
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for
@@ -245,8 +247,6 @@ plot_MADE(
 
 <img src="man/figures/README-example7-1.png" width="100%" />
 
-    #> NULL
-
 ## Parallel processing
 
 The core functions of the package allow for parallel processing via the
@@ -273,7 +273,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   40.36    0.21   41.20
+#>   46.79    0.45   50.34
 
 plan(multisession, workers = 2)
 
@@ -293,7 +293,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.06    0.00   24.10
+#>    0.09    0.02   30.22
 
 identical(res_seq, res_par)
 #> [1] TRUE

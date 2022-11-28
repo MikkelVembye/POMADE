@@ -260,9 +260,26 @@ plot_MADE_engine <-
     if (is.null(shape_scale)) {
      shape_scale_manual <- NULL
     } else if (shape_scale == "model") {
-     model_shapes <- c(`CHE-RVE` = "square", `CHE-Model+Satt` = "diamond", `CHE-Model` = "square open",
-                       `MLMA-RVE` = "triangle", `MLMA-Model+Satt` = "triangle open", `MLMA-Model` = "triangle down open",
+
+
+     legend_lab <-
+       data |>
+       transmute(
+         legend_val = recode(
+           model,
+           "CHE-Model" = "square open", "CHE-Model+Satt" = "diamond", "CHE-RVE" = "square",
+           "MLMA-Model" = "triangle down open", "MLMA-Model+Satt" = "triangle open", "MLMA-RVE" = "triangle",
+           "CE-RVE" = "circle")
+       ) |>
+       pull() |>
+       unique()
+
+     model_shapes <- c(`CHE-Model` = "square open", `CHE-Model+Satt` = "diamond", `CHE-RVE` = "square",
+                       `MLMA-Model` = "triangle down open", `MLMA-Model+Satt` = "triangle open", `MLMA-RVE` = "triangle",
                        `CE-RVE` = "circle")
+
+     model_shapes <- model_shapes[model_shapes %in% legend_lab]
+
      shape_scale_manual <- ggplot2::scale_shape_manual(values = model_shapes)
     } else {
      shape_scale_manual <- ggplot2::scale_shape_manual(values = shape_scale)

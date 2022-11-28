@@ -47,13 +47,20 @@ power_dat <-
     alpha = c(0.01, 0.05),
     sigma2_dist = sigma2_dist,
     n_ES_dist = n_ES_dist,
-    model = c("CHE", "MLMA", "CE"),
-    var_df = c("Model", "Satt", "RVE"),
+    model = c("CHE"),
+    var_df = c("Satt", "RVE"),
     iterations = 5,
     seed = 10052510
   )
 
-power_dat2 <-
+power_dat_test <-
+  power_dat |>
+  mutate(shape = recode(model, "CE-RVE" = "circle", "CHE-Model+Satt" = "triangle",
+                                   "CHE-RVE" = "diamond"))
+
+
+
+glimpower_dat2 <-
   power_MADE(
     J = seq(40, 60, 5),
     mu = 0.1,

@@ -13,12 +13,15 @@ This is the first version of POMADE. A package to conduct power analysis for ove
 * mac-builder (release)
 * r-hub:
   * Windows Server 2022, R-release, 32/64 bit
+  * Ubuntu Linux 16.04 LTS, R-release, GCC
+  * Fedora Linux, R-devel, clang, gfortran
+  * Debian Linux, R-devel, GCC
 
 ## R CMD check results
 
 There were no ERRORs, WARNINGs 
 
-There were 2 NOTES:
+There were 1 NOTES:
 
 * Found the following (possibly) invalid URLs:
   URL: https://doi.org/10.1037/1082-989X.6.3.203
@@ -29,6 +32,5 @@ There were 2 NOTES:
     From: README.md
     Status: 503
     Message: Service Unavailable
-    
 
 The flagged URLs are correct.

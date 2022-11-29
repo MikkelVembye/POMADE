@@ -15,7 +15,7 @@
 #' @param upper Numerical value containing the upper bound of the interval to be
 #'   searched for the minimum number of studies.
 #' @param show_lower Logical value indicating whether to report lower bound of
-#'   the interval searched for the mnimum number of studies. Default is
+#'   the interval searched for the minimum number of studies. Default is
 #'   \code{FALSE}.
 #'
 #' @return Returns a \code{tibble} with information about the expectation of the

@@ -78,7 +78,7 @@ sigma2_dist or n_ES_dist is based on balanced assumptions.}
 searched for the minimum number of studies.}
 
 \item{show_lower}{Logical value indicating whether to report lower bound of
-the interval searched for the mnimum number of studies. Default is
+the interval searched for the minimum number of studies. Default is
 \code{FALSE}.}
 }
 \value{

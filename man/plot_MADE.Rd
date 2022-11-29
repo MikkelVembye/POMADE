@@ -85,13 +85,11 @@ power_dat <-
   power_MADE(
     J = seq(40, 60, 5),
     mu = 0.1,
-    tau = c(0.05, 0.1, 0.2),
-    omega = c(0.1, 0.2),
-    rho = c(0.2, 0.7),
-    sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
-    n_ES_dist = \(x) 1 + stats::rpois(x, 5.5 - 1),
-    iterations = 5, # default is 100
-    seed = 10052510
+    tau = c(0.1, 0.2),
+    omega = c(0.05, 0.10),
+    rho = 0.7,
+    sigma2_dist = 4 / 80,
+    n_ES_dist = 3
   )
 
 power_example <-
@@ -103,7 +101,7 @@ power_example <-
    caption = TRUE,
    color = TRUE,
    model_comparison = FALSE,
-   #traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+   # traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
    )
 
 power_example

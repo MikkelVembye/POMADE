@@ -109,16 +109,16 @@ possible scenarios, which can be done using \code{plot_MADE.power}.
 \examples{
 
 min_studies_MADE(
-  mu = 0.2,
+  mu = seq(0.05, 0.35, 0.1),
   tau = 0.05,
-  omega = c(0, 0.4),
-  rho = c(0.7),
+  omega = 0.02,
+  rho = 0.7,
   target_power = .8,
-  sigma2_dist = 4/100,
+  sigma2_dist = 4 / 100,
   n_ES_dist = 5.5,
   seed = 10052510
 ) |>
-  plot_MADE(numbers = FALSE, y_breaks = seq(0, 20, 2))
+  plot_MADE(numbers = FALSE)
 
 }
 \references{

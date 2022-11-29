@@ -97,13 +97,13 @@ studies.
 \examples{
 
 mdes_MADE(
-  J = c(20, 40),
+  J = 30,
   tau = 0.2,
   omega = 0.1,
   rho = 0.7,
-  model = c("CHE", "MLMA", "CE"),
+  model = c("CHE", "CE"),
   var_df = "RVE",
-  sigma2_dist = 4/100,
+  sigma2_dist = 4 / 100,
   n_ES_dist = 5.5,
   seed = 10052510
 )

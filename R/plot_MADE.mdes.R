@@ -37,13 +37,13 @@
 #'
 #'
 #' mdes_MADE(
-#'   J = c(20, 40),
+#'   J = c(20, 30, 40),
 #'   tau = c(0, 0.1),
 #'   omega = 0.05,
-#'   rho = c(0.2, 0.7),
+#'   rho = 0.7,
 #'   target_power = .8,
 #'   alpha = 0.05,
-#'   sigma2_dist = 4/100,
+#'   sigma2_dist = 4 / 100,
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' ) |>

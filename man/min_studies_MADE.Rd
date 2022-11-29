@@ -100,14 +100,14 @@ and further assumptions about the distribution of studies.
 
 min_studies_MADE(
   mu = 0.2,
-  tau = c(0.1, 0.2),
+  tau = 0.1,
   omega = 0.05,
   rho = 0.2,
   target_power = .8,
   alpha = 0.05,
-  model = "CHE", # default
-  var_df = "RVE", # default
-  sigma2_dist = 4/100,
+  model = "CE",
+  var_df = "RVE",
+  sigma2_dist = 4 / 100,
   n_ES_dist = 5.5,
   seed = 10052510
 )

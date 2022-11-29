@@ -9,6 +9,7 @@
 codecov.yml
 ^codecov\.yml$
 cran-comments.md
+CRAN-submission-steps.R
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

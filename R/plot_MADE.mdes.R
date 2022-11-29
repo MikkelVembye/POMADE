@@ -47,7 +47,7 @@
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' ) |>
-#'   plot_MADE(expected_studies = c(25, 35), numbers_ynudge = 0.099)
+#'   plot_MADE(expected_studies = c(25, 35), numbers_ynudge = 0.149)
 #'
 #'
 #'

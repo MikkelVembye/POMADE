@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ```
 
-# POMADE
+# POMADE: POwer for Meta-Analysis of Dependent Effects 
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)

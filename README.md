@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# POMADE
+# POMADE: POwer for Meta-Analysis of Dependent Effects
 
 <!-- badges: start -->
 
@@ -275,7 +275,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   37.72    0.27   38.31
+#>   37.87    0.25   38.69
 
 plan(multisession, workers = 2)
 
@@ -295,7 +295,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.06    0.04   25.42
+#>    0.11    0.00   24.21
 
 identical(res_seq, res_par)
 #> [1] TRUE

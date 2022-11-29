@@ -258,4 +258,4 @@ Hedges, L. V., & Pigott T. D. (2001). The power of statistical tests in meta-ana
 
 Pustejovsky, J. E., & Tipton E. (2021). Meta-analysis with robust variance estimation: Expanding the range of working models. *Prevention Science*, 23(1), 425-438. <https://doi.org/10.1007/s11121-021-01246-3>
 
-Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power approximations for overall average effects in meta-analysis with dependent effect sizes. *Journal of Educational and Behavioral Statistics*, 1–33. <https://doi.org/10769986221127379>
+Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power approximations for overall average effects in meta-analysis with dependent effect sizes. *Journal of Educational and Behavioral Statistics*, 1–33. <https://doi.org/10.3102/10769986221127379>

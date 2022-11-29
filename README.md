@@ -275,7 +275,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   37.39    0.34   38.87
+#>   36.17    0.19   36.87
 
 plan(multisession, workers = 2)
 
@@ -295,7 +295,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.08    0.02   28.20
+#>    0.09    0.01   25.78
 
 identical(res_seq, res_par)
 #> [1] TRUE
@@ -314,4 +314,4 @@ Science*, 23(1), 425-438. <https://doi.org/10.1007/s11121-021-01246-3>
 Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power
 approximations for overall average effects in meta-analysis with
 dependent effect sizes. *Journal of Educational and Behavioral
-Statistics*, 1–33. <https://doi.org/10769986221127379>
+Statistics*, 1–33. <https://doi.org/10.3102/10769986221127379>

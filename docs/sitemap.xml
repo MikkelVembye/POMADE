@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/cluster_bias_adjustment.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/cluster_bias_adjustment.html</loc>
   </url>
   <url>
-    <loc>/reference/effective_sample_sizes.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/effective_sample_sizes.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/mdes_MADE.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/mdes_MADE.html</loc>
   </url>
   <url>
-    <loc>/reference/min_studies_MADE.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/min_studies_MADE.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_MADE.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/plot_MADE.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_MADE.mdes.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/plot_MADE.mdes.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_MADE.min_studies.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/plot_MADE.min_studies.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_MADE.power.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/plot_MADE.power.html</loc>
   </url>
   <url>
-    <loc>/reference/power_MADE.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/power_MADE.html</loc>
   </url>
   <url>
-    <loc>/reference/tau2_approximation.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/tau2_approximation.html</loc>
   </url>
   <url>
-    <loc>/reference/VWB22_pilot.html</loc>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/VWB22_pilot.html</loc>
   </url>
 </urlset>

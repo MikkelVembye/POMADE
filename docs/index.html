@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">POMADE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effects">POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effects<a class="anchor" aria-label="anchor" href="#pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effects"></a>
+<div class="page-header"><h1 id="pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes">POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effect Sizes<a class="anchor" aria-label="anchor" href="#pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -82,7 +82,7 @@
 </h3>
 <p>We approximate power for the test of the overall average effect size, based on the CHE-RVE model (Pustejovsky &amp; Tipton, 2021). We assume that study sample sizes and the number of reported effect sizes per study are similar to those from a recent meta-analysis examining the effects of co-teaching on academic achievement.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">POMADE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mikkelvembye.github.io/POMADE/">POMADE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Find more information about this dataset by executing the following command below</span></span>
@@ -282,7 +282,7 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   44.00    0.34   44.68</span></span>
+<span><span class="co">#&gt;   37.39    0.34   38.87</span></span>
 <span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -302,7 +302,7 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;    0.08    0.02   19.81</span></span>
+<span><span class="co">#&gt;    0.08    0.02   28.20</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">res_seq</span>, <span class="va">res_par</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
@@ -348,13 +348,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/MikkelVembye/POMADE/actions" class="external-link"><img src="https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/MikkelVembye/POMADE?branch=main" class="external-link"><img src="https://codecov.io/gh/MikkelVembye/POMADE/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>

@@ -3,3 +3,28 @@ template:
   bootstrap: 5
 development:
   mode: auto
+
+reference:
+  - title: "Power calculations"
+    desc: "Functions for performing power analysis"
+    contents:
+      - power_MADE
+      - mdes_MADE
+      - min_studies_MADE
+  - title: "Plotting functions"
+    desc: "Create plots of power analysis results"
+    contents:
+      - plot_MADE
+      - plot_MADE.power
+      - plot_MADE.mdes
+      - plot_MADE.min_studies
+  - title: "Helper functions"
+    desc: "Miscellaneous auxiliary functions"
+    contents:
+      - effective_sample_sizes
+      - cluster_bias_adjustment
+      - tau2_approximation
+  - title: "Datasets"
+    desc: "Example datasets"
+    contents:
+      - VWB22_pilot

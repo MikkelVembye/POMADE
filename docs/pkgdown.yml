@@ -1,8 +1,8 @@
-pandoc: 2.17.1.1
+pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-11-29T14:19Z
+last_built: 2022-11-29T15:19Z
 urls:
   reference: https://mikkelvembye.github.io/POMADE/reference
   article: https://mikkelvembye.github.io/POMADE/articles

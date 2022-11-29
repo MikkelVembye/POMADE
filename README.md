@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# POMADE: POwer for Meta-Analysis of Dependent Effects
+# POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effects
 
 <!-- badges: start -->
 
@@ -275,7 +275,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   37.87    0.25   38.69
+#>   44.00    0.34   44.68
 
 plan(multisession, workers = 2)
 
@@ -295,7 +295,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.11    0.00   24.21
+#>    0.08    0.02   19.81
 
 identical(res_seq, res_par)
 #> [1] TRUE

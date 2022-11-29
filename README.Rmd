@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ```
 
-# POMADE: POwer for Meta-Analysis of Dependent Effects 
+# POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effects 
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)

@@ -32,13 +32,3 @@ There were 2 NOTES:
     
 
 The flagged URLs are correct.
-
-* checking examples ... [25s/93s] NOTE
-Examples with CPU (user + system) or elapsed time > 5s
-                       user system elapsed
-plot_MADE             4.897  0.075  19.262
-plot_MADE.power       4.337  0.012  16.089
-plot_MADE.mdes        3.956  0.008  16.588
-mdes_MADE             2.928  0.044  10.806
-plot_MADE.min_studies 2.762  0.008  10.226
-min_studies_MADE      2.552  0.004   9.061

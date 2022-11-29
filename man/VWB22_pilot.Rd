@@ -19,7 +19,7 @@ A tibble with 76 rows/studies and 9 variables
 }
 }
 \source{
-Find bagground material on \href{https://osf.io/fby7w/}{Vembye's OSF page},
+Find background material on \href{https://osf.io/fby7w/}{Vembye's OSF page},
 and the preprint at \url{https://osf.io/preprints/metaarxiv/mq5v7/}.
 }
 \usage{

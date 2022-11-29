@@ -17,7 +17,7 @@
 #' \item{vg_ms_mean}{Average cluster bias corrected sampling variance estimates}
 #'}
 #'
-#' @source Find bagground material on \href{https://osf.io/fby7w/}{Vembye's OSF page},
+#' @source Find background material on \href{https://osf.io/fby7w/}{Vembye's OSF page},
 #' and the preprint at <https://osf.io/preprints/metaarxiv/mq5v7/>.
 #'
 #' @references Vembye, M. H., Weiss, F., & Bhat, B. H. (In press/forthcoming). The Effects

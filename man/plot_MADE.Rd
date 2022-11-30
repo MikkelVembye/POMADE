@@ -86,8 +86,8 @@ power_dat <-
     mu = 0.15,
     tau = 0.1,
     omega = 0.05,
-    rho = 0.7,
-    sigma2_dist = 4 / 80,
+    rho = 0.2,
+    sigma2_dist = 4 / 100,
     n_ES_dist = 3
   )
 

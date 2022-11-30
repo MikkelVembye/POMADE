@@ -21,7 +21,13 @@ This is the first version of POMADE. A package to conduct power analysis for ove
 
 There were no ERRORs, WARNINGs 
 
-There were 1 NOTES:
+There were 2 NOTES:
+
+* Possibly mis-spelled words in README.md and README.Rmd: al (13:25) et (13:25)
+  jrsm (314:258) López (320:262) Marín (320:262) Martínez (320:262) Meca (320:262)
+  Noortgate (320:262) Sánchez (320:262)
+  
+  All of the identified words are spelled correctly.
 
 * Found the following (possibly) invalid URLs:
     URL: https://doi.org/10.1002/jrsm.5

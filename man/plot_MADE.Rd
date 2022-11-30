@@ -82,10 +82,10 @@ specific methods defined for \code{\link{power_MADE}},
 \examples{
 power_dat <-
   power_MADE(
-    J = seq(40, 60, 5),
-    mu = 0.1,
-    tau = c(0.1, 0.2),
-    omega = c(0.05),
+    J = c(45, 50, 55),
+    mu = 0.15,
+    tau = 0.1,
+    omega = 0.05,
     rho = 0.7,
     sigma2_dist = 4 / 80,
     n_ES_dist = 3
@@ -95,11 +95,12 @@ power_example <-
   plot_MADE(
    data = power_dat,
    power_min = 0.8,
-   expected_studies = c(45, 55),
+   expected_studies = c(48, 52),
    warning = FALSE,
    caption = TRUE,
    color = TRUE,
    model_comparison = FALSE,
+   numbers = FALSE,
    # traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
    )
 

@@ -31,15 +31,15 @@
 #' @examples
 #'
 #' min_studies_MADE(
-#'   mu = 0.2,
-#'   tau = 0.1,
-#'   omega = 0.05,
+#'   mu = 0.3,
+#'   tau = 0.05,
+#'   omega = 0.01,
 #'   rho = 0.2,
-#'   target_power = .8,
+#'   target_power = .7,
 #'   alpha = 0.05,
 #'   model = "CE",
 #'   var_df = "RVE",
-#'   sigma2_dist = 4 / 100,
+#'   sigma2_dist = 4 / 200,
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' )

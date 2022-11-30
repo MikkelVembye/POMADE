@@ -111,10 +111,10 @@ min_studies_MADE(
   mu = c(0.25, 0.35),
   tau = 0.05,
   omega = 0.02,
-  rho = 0.5,
-  target_power = .8,
-  sigma2_dist = 4 / 100,
-  n_ES_dist = 5.5,
+  rho = 0.2,
+  target_power = .7,
+  sigma2_dist = 4 / 200,
+  n_ES_dist = 6,
   seed = 10052510
 ) |>
   plot_MADE(y_breaks = seq(0, 10, 2), numbers = FALSE)

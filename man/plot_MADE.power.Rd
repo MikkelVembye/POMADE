@@ -122,7 +122,6 @@ power_dat <-
     rho = 0.7,
     sigma2_dist = 4 / 100,
     n_ES_dist = 6,
-    iterations = 3, # default is 100
     seed = 10052510
   )
 

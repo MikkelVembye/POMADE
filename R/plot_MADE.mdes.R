@@ -35,17 +35,17 @@
 #'
 #' @examples
 #' mdes_MADE(
-#'   J = c(20, 30, 40),
-#'   tau = 0.1,
-#'   omega = 0.05,
-#'   rho = 0.7,
+#'   J = c(30, 40),
+#'   tau = 0.05,
+#'   omega = 0.02,
+#'   rho = 0.2,
 #'   target_power = .8,
 #'   alpha = 0.05,
-#'   sigma2_dist = 4 / 100,
+#'   sigma2_dist = 4 / 200,
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' ) |>
-#'   plot_MADE(expected_studies = c(25, 35), numbers = FALSE)
+#'   plot_MADE(expected_studies = c(34, 36), numbers = FALSE)
 #'
 #'
 #'

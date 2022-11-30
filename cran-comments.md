@@ -27,7 +27,7 @@ There were 2 NOTES:
   jrsm (314:258) López (320:262) Marín (320:262) Martínez (320:262) Meca (320:262)
   Noortgate (320:262) Sánchez (320:262)
   
-  All of the identified words are spelled correctly.
+All of the identified words are spelled correctly.
 
 * Found the following (possibly) invalid URLs:
     URL: https://doi.org/10.1002/jrsm.5

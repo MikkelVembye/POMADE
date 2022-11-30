@@ -123,7 +123,7 @@ mdes_MADE(
 \references{
 Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (In
 preparation). Conducting power analysis for meta-analysis of dependent
-effect sizes: Common guidelines and an Introduction to the POMADE R
+effect sizes: Common guidelines and an introduction to the POMADE R
 package.
 }
 \seealso{

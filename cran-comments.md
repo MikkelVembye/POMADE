@@ -24,13 +24,17 @@ There were no ERRORs, WARNINGs
 There were 1 NOTES:
 
 * Found the following (possibly) invalid URLs:
-  URL: https://doi.org/10.1037/1082-989X.6.3.203
-    From: README.md
-    Status: 400
-    Message: Bad Request
-  URL: https://doi.org/10.3102/10769986221127379
-    From: README.md
-    Status: 503
-    Message: Service Unavailable
+    URL: https://doi.org/10.1002/jrsm.5
+      From: README.md
+      Status: 503
+      Message: Service Unavailable
+    URL: https://doi.org/10.1037/1082-989X.6.3.203
+      From: README.md
+      Status: 400
+      Message: Bad Request
+    URL: https://doi.org/10.3102/10769986221127379
+      From: README.md
+      Status: 503
+      Message: Service Unavailable
 
 The flagged URLs are correct.

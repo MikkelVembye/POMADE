@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effect Sizes
+# POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis With Dependent Effect Sizes
 
 <!-- badges: start -->
 
@@ -11,8 +11,9 @@ coverage](https://codecov.io/gh/MikkelVembye/POMADE/branch/main/graph/badge.svg)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for
-tests based on the correlated-hierarchical effects (CHE), multi-level
-meta-analysis (MLMA), and correlated-effects (CE) models for
+tests based on the correlated-hierarchical effects (CHE; Pustejovsky &
+Tipton, 2021), multi-level meta-analysis (MLMA; Van den Noortgate et
+al., 2013), and correlated-effects (CE; Hedges et al., 2010) models for
 meta-analysis of dependent effect sizes, with the possibility to vary
 assumptions about the variance estimation and the estimation of the
 degrees of freedom. These approximations aim to replace Hedges &
@@ -275,7 +276,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   36.17    0.19   36.87
+#>   40.45    0.33   41.15
 
 plan(multisession, workers = 2)
 
@@ -295,7 +296,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.09    0.01   25.78
+#>    0.08    0.01   24.46
 
 identical(res_seq, res_par)
 #> [1] TRUE
@@ -307,9 +308,19 @@ Hedges, L. V., & Pigott T. D. (2001). The power of statistical tests in
 meta-analysis. *Psychological Methods*, 6(3), 203-217.
 <https://doi.org/10.1037/1082-989X.6.3.203>
 
+Hedges, L. V., Tipton, E., & Johnson, M. C. (2010). Robust variance
+estimation in meta‐regression with dependent effect size estimates.
+*Research Synthesis Methods*, 1(1), 39–65.
+<https://doi.org/10.1002/jrsm.5>
+
 Pustejovsky, J. E., & Tipton E. (2021). Meta-analysis with robust
 variance estimation: Expanding the range of working models. *Prevention
 Science*, 23(1), 425-438. <https://doi.org/10.1007/s11121-021-01246-3>
+
+Van den Noortgate, W., López-López, J., Marín-Martínez, F., &
+Sánchez-Meca, J. (2013). Three-level meta-analysis of dependent effect
+sizes. *Behavior Research Methods*, 45(2), 576–594.
+<https://doi.org/10.3758/s13428-012-0261-6>
 
 Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power
 approximations for overall average effects in meta-analysis with

@@ -45,7 +45,7 @@
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' ) |>
-#'   plot_MADE(expected_studies = c(34, 36), numbers = FALSE)
+#'   plot_MADE(expected_studies = c(44, 46), numbers = FALSE)
 #'
 #'
 #'

@@ -100,8 +100,7 @@ power_example <-
    caption = TRUE,
    color = TRUE,
    model_comparison = FALSE,
-   numbers = FALSE,
-   # traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+   numbers = FALSE
    )
 
 power_example

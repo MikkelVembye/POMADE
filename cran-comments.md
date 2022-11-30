@@ -25,7 +25,7 @@ There were 2 NOTES:
 
 * Possibly mis-spelled words in README.md and README.Rmd: al (13:25) et (13:25)
   jrsm (314:258) López (320:262) Marín (320:262) Martínez (320:262) Meca (320:262)
-  Noortgate (320:262) Sánchez (320:262)
+  Noortgate (13,320:25,262) Sánchez (320:262)
   
 All of the identified words are spelled correctly.
 

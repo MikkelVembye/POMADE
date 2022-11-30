@@ -23,12 +23,12 @@
 #' power_dat <-
 #'   power_MADE(
 #'     J = c(45, 50, 55),
-#'     mu = 0.15,
+#'     mu = 0.1,
 #'     tau = 0.1,
 #'     omega = 0.05,
-#'     rho = 0.2,
+#'     rho = 0.5,
 #'     sigma2_dist = 4 / 100,
-#'     n_ES_dist = 3
+#'     n_ES_dist = 6
 #'   )
 #'
 #' power_example <-

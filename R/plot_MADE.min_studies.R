@@ -41,7 +41,7 @@
 #' @examples
 #'
 #' min_studies_MADE(
-#'   mu = c(0.20, 0.30),
+#'   mu = c(0.25, 0.35),
 #'   tau = 0.05,
 #'   omega = 0.02,
 #'   rho = 0.5,
@@ -50,7 +50,7 @@
 #'   n_ES_dist = 5.5,
 #'   seed = 10052510
 #' ) |>
-#'   plot_MADE(numbers = FALSE)
+#'   plot_MADE(y_breaks = seq(0, 10, 2), numbers = FALSE)
 #'
 #' @export
 

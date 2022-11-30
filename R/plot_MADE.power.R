@@ -51,8 +51,8 @@
 #'     J = seq(40, 60, 5),
 #'     mu = 0.1,
 #'     tau = c(0.10, 0.20),
-#'     omega = c(0.05),
-#'     rho = c(0.5, 0.7),
+#'     omega = 0.05,
+#'     rho = 0.7,
 #'     sigma2_dist = 4 / 100,
 #'     n_ES_dist = 6,
 #'     iterations = 3, # default is 100

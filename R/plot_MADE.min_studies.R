@@ -38,6 +38,7 @@
 #'   shapes corresponding to different values of the assumed sample correlation.
 #'
 #' @seealso \code{\link{plot_MADE}}
+#'
 #' @examples
 #' min_studies_MADE(
 #'   mu = c(0.25, 0.35),

@@ -19,7 +19,7 @@ This is the first version of POMADE. A package to conduct power analysis for ove
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs 
+There were no ERRORs or WARNINGs. 
 
 There were 2 NOTES:
 

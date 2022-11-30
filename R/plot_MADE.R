@@ -22,26 +22,26 @@
 #' @examples
 #' power_dat <-
 #'   power_MADE(
-#'     J = seq(40, 60, 5),
+#'     J = c(45, 50, 55),
 #'     mu = 0.1,
-#'     tau = c(0.10, 0.20),
+#'     tau = 0.1,
 #'     omega = 0.05,
-#'     rho = 0.7,
+#'     rho = 0.5,
 #'     sigma2_dist = 4 / 100,
-#'     n_ES_dist = 6,
-#'     seed = 10052510
+#'     n_ES_dist = 6
 #'   )
 #'
 #' power_example <-
 #'   plot_MADE(
 #'    data = power_dat,
 #'    power_min = 0.8,
-#'    expected_studies = c(45, 55),
+#'    expected_studies = c(48, 52),
 #'    warning = FALSE,
 #'    caption = TRUE,
 #'    color = TRUE,
 #'    model_comparison = FALSE,
-#'    # traffic_light_assumptions = c("unlikely", "likely", "likely", "expected")
+#'    numbers = FALSE,
+#'    # traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
 #'    )
 #'
 #' power_example

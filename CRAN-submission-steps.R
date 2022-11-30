@@ -1,15 +1,14 @@
 # Locally
-devtools::spell_check()            # fix any spelling errors[DONE]
+devtools::spell_check()            # fix any spelling errors - 9 false positives
 devtools::check()                  # run local package check [DONE]
 
 # Check the package under various architectures, using CRAN build configurations
-devtools::check_win_devel() # Tested
-devtools::check_win_release() # Tested
-devtools::check_win_oldrelease() # Tested
-devtools::check_mac_release() # Tested
-rhub::check_for_cran() # Tested
-#rhub::check_on_windows()
-#rhub::check_on_debian()
+devtools::check_win_devel() # Tested 1 note about DOIs
+devtools::check_win_release() # Tested 1 note about DOIs
+devtools::check_win_oldrelease() # Tested 1 note about maintainer
+devtools::check_mac_release() # Tested Succeeded
+rhub::check_for_cran() # Tested note about maintainer and DOIs
+rhub::check_on_debian() # Succeeded
 
 
 # After all checks complete
@@ -17,5 +16,5 @@ devtools::release()                # final checklist, build and submit package
 
 # After package is accepted to CRAN
 # - Add a Github release
-# - Update version number in DESCRIPTION
-# - Add section for next version in NEWS
+# - Update version number in DESCRIPTION MHV: To 0.2.0.9999?
+# - Add section for next version in NEWS MHV: 0.2.0?

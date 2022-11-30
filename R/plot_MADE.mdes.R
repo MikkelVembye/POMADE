@@ -34,8 +34,6 @@
 #' @seealso \code{\link{plot_MADE}}
 #'
 #' @examples
-#'
-#'
 #' mdes_MADE(
 #'   J = c(20, 30, 40),
 #'   tau = 0.1,

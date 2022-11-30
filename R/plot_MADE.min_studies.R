@@ -39,7 +39,6 @@
 #'
 #' @seealso \code{\link{plot_MADE}}
 #' @examples
-#'
 #' min_studies_MADE(
 #'   mu = c(0.25, 0.35),
 #'   tau = 0.05,

@@ -104,8 +104,6 @@ estimates across a range of possible scenarios, which can be done using
 \code{plot_MADE.mdes}.
 }
 \examples{
-
-
 mdes_MADE(
   J = c(20, 30, 40),
   tau = 0.1,

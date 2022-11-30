@@ -107,7 +107,6 @@ approximations by reporting or plotting power estimates across a range of
 possible scenarios, which can be done using \code{plot_MADE.power}.
 }
 \examples{
-
 min_studies_MADE(
   mu = c(0.25, 0.35),
   tau = 0.05,

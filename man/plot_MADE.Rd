@@ -80,7 +80,6 @@ specific methods defined for \code{\link{power_MADE}},
 \code{\link{mdes_MADE}}, and \code{\link{min_studies_MADE}} objects.
 }
 \examples{
-
 power_dat <-
   power_MADE(
     J = seq(40, 60, 5),

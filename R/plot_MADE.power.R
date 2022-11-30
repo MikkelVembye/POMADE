@@ -45,7 +45,6 @@
 #' @seealso \code{\link{plot_MADE}}
 #'
 #' @examples
-#'
 #' power_dat <-
 #'   power_MADE(
 #'     J = seq(40, 60, 5),

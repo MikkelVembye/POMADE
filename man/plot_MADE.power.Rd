@@ -113,7 +113,6 @@ plotting power estimates across a range of possible scenarios, which can be
 done using \code{plot_MADE.power}.
 }
 \examples{
-
 power_dat <-
   power_MADE(
     J = seq(40, 60, 5),

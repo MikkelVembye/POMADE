@@ -86,7 +86,7 @@ power_dat <-
     J = seq(40, 60, 5),
     mu = 0.1,
     tau = c(0.1, 0.2),
-    omega = c(0.05, 0.10),
+    omega = c(0.05),
     rho = 0.7,
     sigma2_dist = 4 / 80,
     n_ES_dist = 3

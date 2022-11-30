@@ -61,11 +61,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes">POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis with Dependent Effect Sizes<a class="anchor" aria-label="anchor" href="#pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes"></a>
+<div class="page-header"><h1 id="pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes">POMADE: Power Approximation for the Overall Average Effect in Meta-Analysis With Dependent Effect Sizes<a class="anchor" aria-label="anchor" href="#pomade-power-approximation-for-the-overall-average-effect-in-meta-analysis-with-dependent-effect-sizes"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The POMADE package provides functions for conducting power analysis for tests based on the correlated-hierarchical effects (CHE), multi-level meta-analysis (MLMA), and correlated-effects (CE) models for meta-analysis of dependent effect sizes, with the possibility to vary assumptions about the variance estimation and the estimation of the degrees of freedom. These approximations aim to replace Hedges &amp; Pigott’s (2001) previous power approximation based on the assumption of independence between effect sizes, which has been shown to work inadequately to predict power for models that handle dependent effect sizes (Vembye, Pustejovsky, &amp; Pigott, 2022). The package also includes functions for creating graphical displays of power analysis results.</p>
+<p>The POMADE package provides functions for conducting power analysis for tests based on the correlated-hierarchical effects (CHE; Pustejovsky &amp; Tipton, 2021), multi-level meta-analysis (MLMA; Van den Noortgate et al., 2013), and correlated-effects (CE; Hedges et al., 2010) models for meta-analysis of dependent effect sizes, with the possibility to vary assumptions about the variance estimation and the estimation of the degrees of freedom. These approximations aim to replace Hedges &amp; Pigott’s (2001) previous power approximation based on the assumption of independence between effect sizes, which has been shown to work inadequately to predict power for models that handle dependent effect sizes (Vembye, Pustejovsky, &amp; Pigott, 2022). The package also includes functions for creating graphical displays of power analysis results.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -282,7 +282,7 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   36.17    0.19   36.87</span></span>
+<span><span class="co">#&gt;   40.45    0.33   41.15</span></span>
 <span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -302,7 +302,7 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;    0.09    0.01   25.78</span></span>
+<span><span class="co">#&gt;    0.08    0.01   24.46</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">res_seq</span>, <span class="va">res_par</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
@@ -312,7 +312,9 @@
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h1>
 <p>Hedges, L. V., &amp; Pigott T. D. (2001). The power of statistical tests in meta-analysis. <em>Psychological Methods</em>, 6(3), 203-217. <a href="https://doi.org/10.1037/1082-989X.6.3.203" class="external-link uri">https://doi.org/10.1037/1082-989X.6.3.203</a></p>
+<p>Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta‐regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, 1(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5" class="external-link uri">https://doi.org/10.1002/jrsm.5</a></p>
 <p>Pustejovsky, J. E., &amp; Tipton E. (2021). Meta-analysis with robust variance estimation: Expanding the range of working models. <em>Prevention Science</em>, 23(1), 425-438. <a href="https://doi.org/10.1007/s11121-021-01246-3" class="external-link uri">https://doi.org/10.1007/s11121-021-01246-3</a></p>
+<p>Van den Noortgate, W., López-López, J., Marín-Martínez, F., &amp; Sánchez-Meca, J. (2013). Three-level meta-analysis of dependent effect sizes. <em>Behavior Research Methods</em>, 45(2), 576–594. <a href="https://doi.org/10.3758/s13428-012-0261-6" class="external-link uri">https://doi.org/10.3758/s13428-012-0261-6</a></p>
 <p>Vembye, M. H., Pustejovsky, J. E., &amp; Pigott, T. D. (2022). Power approximations for overall average effects in meta-analysis with dependent effect sizes. <em>Journal of Educational and Behavioral Statistics</em>, 1–33. <a href="https://doi.org/10.3102/10769986221127379" class="external-link uri">https://doi.org/10.3102/10769986221127379</a></p>
 </div>
 

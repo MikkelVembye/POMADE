@@ -98,13 +98,13 @@ studies.
 
 mdes_MADE(
   J = 30,
-  tau = 0.2,
-  omega = 0.1,
-  rho = 0.7,
-  model = c("CHE", "CE"),
+  tau = 0.05,
+  omega = 0.02,
+  rho = 0.2,
+  model = "CHE",
   var_df = "RVE",
   sigma2_dist = 4 / 100,
-  n_ES_dist = 5.5,
+  n_ES_dist = 6,
   seed = 10052510
 )
 

@@ -22,7 +22,7 @@
 #' @examples
 #' power_dat <-
 #'   power_MADE(
-#'     J = c(45, 50, 55),
+#'     J = c(50, 56),
 #'     mu = 0.1,
 #'     tau = 0.1,
 #'     omega = 0.05,
@@ -35,7 +35,7 @@
 #'   plot_MADE(
 #'    data = power_dat,
 #'    power_min = 0.8,
-#'    expected_studies = c(48, 52),
+#'    expected_studies = c(52, 54),
 #'    warning = FALSE,
 #'    caption = TRUE,
 #'    color = TRUE,

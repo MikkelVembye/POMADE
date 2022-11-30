@@ -109,7 +109,7 @@ mdes_MADE(
   tau = 0.05,
   omega = 0.02,
   rho = 0.2,
-  target_power = .8,
+  target_power = .7,
   alpha = 0.05,
   sigma2_dist = 4 / 200,
   n_ES_dist = 5.5,

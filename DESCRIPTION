@@ -13,7 +13,6 @@ Authors@R: c(
            role = c("aut"), 
            comment = c(ORCID = "0000-0003-0591-9465"))
            )
-Maintainer: Mikkel H. Vembye <mikkel.vembye@gmail.com>
 BugReports: https://github.com/MikkelVembye/POMADE/issues
 Description: Provides functions to compute and plot power levels, minimum detectable effect sizes, and minimum required sample sizes for the test of the overall average effect size in meta-analysis of dependent effect sizes.
 Depends:

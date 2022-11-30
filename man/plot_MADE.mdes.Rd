@@ -105,12 +105,12 @@ estimates across a range of possible scenarios, which can be done using
 }
 \examples{
 mdes_MADE(
-  J = c(30, 40),
+  J = c(40, 50),
   tau = 0.05,
   omega = 0.02,
-  rho = 0.2,
-  target_power = .7,
-  alpha = 0.05,
+  rho = 0,
+  target_power = .6,
+  alpha = 0.1,
   sigma2_dist = 4 / 200,
   n_ES_dist = 5.5,
   seed = 10052510

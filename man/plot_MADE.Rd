@@ -83,11 +83,11 @@ specific methods defined for \code{\link{power_MADE}},
 power_dat <-
   power_MADE(
     J = c(50, 56),
-    mu = 0.1,
+    mu = 0.15,
     tau = 0.1,
     omega = 0.05,
-    rho = 0.5,
-    sigma2_dist = 4 / 100,
+    rho = 0,
+    sigma2_dist = 4 / 200,
     n_ES_dist = 6
   )
 

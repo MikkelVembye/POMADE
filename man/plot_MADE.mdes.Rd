@@ -108,7 +108,7 @@ estimates across a range of possible scenarios, which can be done using
 
 mdes_MADE(
   J = c(20, 30, 40),
-  tau = c(0, 0.1),
+  tau = 0.1,
   omega = 0.05,
   rho = 0.7,
   target_power = .8,
@@ -117,7 +117,7 @@ mdes_MADE(
   n_ES_dist = 5.5,
   seed = 10052510
 ) |>
-  plot_MADE(expected_studies = c(25, 35), numbers_ynudge = 0.149)
+  plot_MADE(expected_studies = c(25, 35), numbers = FALSE)
 
 
 

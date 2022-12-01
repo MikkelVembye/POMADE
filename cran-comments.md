@@ -28,8 +28,12 @@ There were 2 NOTEs:
     From: man/power_MADE.Rd
     Status: 400
     Message: Bad Request
+  URL: https://doi.org/10.3102/10769986221127379
+    From: man/power_MADE.Rd
+    Status: 503
+    Message: Service Unavailable
 
-The flagged URL is correct.
+The flagged URLs are correct.
 
 * ONLY on Fedora Linux (r-hub): checking HTML version of manual ... NOTE Skipping checking   HTML validation: no command 'tidy' found. 
 

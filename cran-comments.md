@@ -21,20 +21,16 @@ This is the first version of POMADE. A package to conduct power analysis for ove
 
 There were no ERRORs or WARNINGs. 
 
-There was 1 NOTE:
+There were 2 NOTEs:
 
-* Found the following (possibly) invalid URLs:
-    URL: https://doi.org/10.1002/jrsm.5
-      From: README.md
-      Status: 503
-      Message: Service Unavailable
-    URL: https://doi.org/10.1037/1082-989X.6.3.203
-      From: README.md
-      Status: 400
-      Message: Bad Request
-    URL: https://doi.org/10.3102/10769986221127379
-      From: README.md
-      Status: 503
-      Message: Service Unavailable
+* ONLY on win-builder oldrelease: Found the following (possibly) invalid URLs:
+  URL: https://doi.org/10.1037/1082-989X.6.3.203
+    From: man/power_MADE.Rd
+    Status: 400
+    Message: Bad Request
 
-The flagged URLs are correct.
+The flagged URL is correct.
+
+* ONLY on Fedora Linux (R-hub): checking HTML version of manual ... NOTE Skipping checking   HTML validation: no command 'tidy' found. 
+
+We are not able to change that Tidy is not on the path, or update Tidy on the external Fedora Linux server.

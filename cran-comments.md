@@ -31,6 +31,6 @@ There were 2 NOTEs:
 
 The flagged URL is correct.
 
-* ONLY on Fedora Linux (R-hub): checking HTML version of manual ... NOTE Skipping checking   HTML validation: no command 'tidy' found. 
+* ONLY on Fedora Linux (r-hub): checking HTML version of manual ... NOTE Skipping checking   HTML validation: no command 'tidy' found. 
 
 We are not able to change that Tidy is not on the path, or update Tidy on the external Fedora Linux server.

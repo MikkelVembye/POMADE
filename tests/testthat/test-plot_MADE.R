@@ -68,6 +68,8 @@ test_that("plot_MADE.power() returns one or multiple plots.", {
 
 test_that("plot_MADE.mdes() returns one or multiple plots.", {
 
+  skip_on_cran()
+
   res <-
     mdes_MADE(
       J = seq(10,40,10),
@@ -116,6 +118,8 @@ test_that("plot_MADE.mdes() returns one or multiple plots.", {
 })
 
 test_that("plot_MADE.min_studies() returns one or multiple plots.", {
+
+  skip_on_cran()
 
   res <-
     min_studies_MADE(

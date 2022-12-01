@@ -148,6 +148,8 @@ test_that("power_MADE() works with single parameter values, raw power.", {
 
 test_that("power_MADE() works with multiple parameter values, averaged power.", {
 
+  skip_on_cran()
+
   power_MADE(
     J = c(10,20,40),
     mu = 0.1,
@@ -217,6 +219,8 @@ test_that("power_MADE() works with multiple parameter values, averaged power.", 
 })
 
 test_that("power_MADE() works with multiple parameter values, raw power.", {
+
+  skip_on_cran()
 
   power_MADE(
     J = c(10,20,40),

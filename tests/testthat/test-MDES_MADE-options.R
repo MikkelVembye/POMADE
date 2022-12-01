@@ -36,6 +36,7 @@ test_that("mdes_MADE() works with single parameter values.", {
     alpha = 0.05,
     target_power = 0.75,
     seed = 20221011,
+    iterations = 10L,
     warning = FALSE
   )
 
@@ -50,7 +51,7 @@ test_that("mdes_MADE() works with single parameter values.", {
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
     alpha = c(.01, 0.025, .1),
-    iterations = 100L,
+    iterations = 10L,
     seed = 20221012
   )
 
@@ -64,15 +65,15 @@ test_that("mdes_MADE() works with single parameter values.", {
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
-    model = c("CHE", "MLMA", "CE"),
-    var_df = c("Model", "Satt", "RVE"),
-    alpha = c(.01, 0.025, .1),
+    model = c("MLMA", "CE"),
+    var_df = c("Satt", "RVE"),
+    alpha = c(.01, .1),
     target_power = 0.45,
-    iterations = 100,
+    iterations = 10,
     seed = 20221013
   )
 
-  expect_equal(nrow(mdes), 21L)
+  expect_equal(nrow(mdes), 6L)
   expect_equal(mdes$target_power, mdes$power, tolerance = 0.005)
 
 })

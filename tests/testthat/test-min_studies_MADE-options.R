@@ -37,6 +37,7 @@ test_that("min_studies_MADE() works with single parameter values.", {
     model = c("CHE","MLMA"),
     alpha = 0.05,
     target_power = 0.75,
+    iterations = 10L,
     seed = 20221011,
     warning = FALSE
   )
@@ -53,7 +54,7 @@ test_that("min_studies_MADE() works with single parameter values.", {
     sigma2_dist = sigma2_emp,
     n_ES_dist = n_ES_emp,
     alpha = c(.01, 0.025, .1),
-    iterations = 100L,
+    iterations = 10L,
     seed = 20221013
   )
 
@@ -69,15 +70,15 @@ test_that("min_studies_MADE() works with single parameter values.", {
     rho = 0.7,
     sigma2_dist = \(x) rgamma(x, shape = 5, rate = 10),
     n_ES_dist = \(x) 1 + rpois(x, 5.5 - 1),
-    model = c("CHE", "MLMA", "CE"),
+    model = c("CHE", "CE"),
     var_df = c("Model", "Satt", "RVE"),
     alpha = .1,
     target_power = 0.45,
-    iterations = 50,
+    iterations = 10,
     seed = 20221014
   )
 
-  expect_equal(nrow(J_min), 7L)
+  expect_equal(nrow(J_min), 4L)
   expect_lt(max(J_min$less - J_min$target_power), power_tol)
   expect_gte(min(J_min$more - J_min$target_power), -power_tol)
 

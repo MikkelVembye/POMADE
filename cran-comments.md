@@ -1,6 +1,6 @@
 ## Submission
 
-This is the first version of POMADE, which provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we have reduced the unit test computation times by over 50%, so that the total time for checking the package should now be less than 10 minutes.
+This is the first version of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we have reduced the unit test computation times by over 50%, so that the total time for checking the package should now be less than 10 minutes.
 
 ## Test environments
 

@@ -11,6 +11,7 @@ coverage](https://codecov.io/gh/MikkelVembye/POMADE/branch/main/graph/badge.svg)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/POMADE)](https://CRAN.R-project.org/package=POMADE)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/POMADE)](https://CRAN.R-project.org/package=POMADE)
+[![](http://cranlogs.r-pkg.org/badges/last-month/POMADE)](https://CRAN.R-project.org/package=POMADE)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for
@@ -285,7 +286,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   35.30    0.30   37.45
+#>   41.81    0.18   42.80
 
 plan(multisession, workers = 2)
 
@@ -305,7 +306,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.09    0.00   28.01
+#>    0.11    0.01   30.38
 
 identical(res_seq, res_par)
 #> [1] TRUE

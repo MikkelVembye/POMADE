@@ -25,6 +25,12 @@ functions for creating graphical displays of power analysis results.
 
 ## Installation
 
+Install the latest release from CRAN:
+
+``` r
+install.packages("POAMDE")
+```
+
 You can install the development version from
 [GitHub](https://github.com/) with:
 
@@ -276,7 +282,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   40.45    0.33   41.15
+#>   35.79    0.28   36.13
 
 plan(multisession, workers = 2)
 
@@ -296,7 +302,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.08    0.01   24.46
+#>    0.08    0.00   24.59
 
 identical(res_seq, res_par)
 #> [1] TRUE

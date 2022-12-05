@@ -26,6 +26,15 @@ The POMADE package provides functions for conducting power analysis for tests ba
 
 ## Installation
 
+Install the latest release from CRAN:
+
+```{r, eval = FALSE}
+
+install.packages("POAMDE")
+
+```
+
+
 You can install the development version from [GitHub](https://github.com/) with:
 
 ```{r, eval = FALSE}

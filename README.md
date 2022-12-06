@@ -32,7 +32,7 @@ functions for creating graphical displays of power analysis results.
 Install the latest release from CRAN:
 
 ``` r
-install.packages("POAMDE")
+install.packages("POMADE")
 ```
 
 You can install the development version from
@@ -286,7 +286,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   41.81    0.18   42.80
+#>   35.40    0.25   35.81
 
 plan(multisession, workers = 2)
 
@@ -306,7 +306,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.11    0.01   30.38
+#>    0.08    0.00   26.84
 
 identical(res_seq, res_par)
 #> [1] TRUE

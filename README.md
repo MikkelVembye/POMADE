@@ -8,6 +8,10 @@
 [![R-CMD-check](https://github.com/MikkelVembye/POMADE/workflows/R-CMD-check/badge.svg)](https://github.com/MikkelVembye/POMADE/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/MikkelVembye/POMADE/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MikkelVembye/POMADE?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/POMADE)](https://CRAN.R-project.org/package=POMADE)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/POMADE)](https://CRAN.R-project.org/package=POMADE)
+[![](http://cranlogs.r-pkg.org/badges/last-month/POMADE)](https://CRAN.R-project.org/package=POMADE)
 <!-- badges: end -->
 
 The POMADE package provides functions for conducting power analysis for
@@ -24,6 +28,12 @@ sizes (Vembye, Pustejovsky, & Pigott, 2022). The package also includes
 functions for creating graphical displays of power analysis results.
 
 ## Installation
+
+Install the latest release from CRAN:
+
+``` r
+install.packages("POMADE")
+```
 
 You can install the development version from
 [GitHub](https://github.com/) with:
@@ -276,7 +286,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   40.45    0.33   41.15
+#>   35.40    0.25   35.81
 
 plan(multisession, workers = 2)
 
@@ -296,7 +306,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.08    0.01   24.46
+#>    0.08    0.00   26.84
 
 identical(res_seq, res_par)
 #> [1] TRUE

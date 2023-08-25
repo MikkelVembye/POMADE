@@ -469,7 +469,7 @@ power_MADE_single <-
       a <- sum(1/sigma2j)
 
       # Equation 17 in Vembye, Pustejovsky, & Pigott (2023, corrigendum)
-      tau2_e <- tau^2 + omega^2 * (1 - 1/a^2 * sum(1 / (kj * sigma2j^2))) / (1 - 1/a^2 * sum(1 / sigma2j^2))
+      tau2_e <- tau^2 + omega^2 * (1 - sum(1 / (kj * sigma2j^2)) / a^2) / (1 - sum(1 / sigma2j^2) / a^2)
 
       # _dd = dotdot
       wj_dd <- 1 / (sigma2j + tau2_e)

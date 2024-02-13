@@ -4,19 +4,22 @@
     <loc>https://mikkelvembye.github.io/POMADE/404.html</loc>
   </url>
   <url>
-    <loc>https://mikkelvembye.github.io/POMADE/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://mikkelvembye.github.io/POMADE/index.html</loc>
-  </url>
-  <url>
     <loc>https://mikkelvembye.github.io/POMADE/LICENSE-text.html</loc>
   </url>
   <url>
     <loc>https://mikkelvembye.github.io/POMADE/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://mikkelvembye.github.io/POMADE/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://mikkelvembye.github.io/POMADE/index.html</loc>
+  </url>
+  <url>
     <loc>https://mikkelvembye.github.io/POMADE/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mikkelvembye.github.io/POMADE/reference/VWB23_pilot.html</loc>
   </url>
   <url>
     <loc>https://mikkelvembye.github.io/POMADE/reference/cluster_bias_adjustment.html</loc>
@@ -50,8 +53,5 @@
   </url>
   <url>
     <loc>https://mikkelvembye.github.io/POMADE/reference/tau2_approximation.html</loc>
-  </url>
-  <url>
-    <loc>https://mikkelvembye.github.io/POMADE/reference/VWB22_pilot.html</loc>
   </url>
 </urlset>

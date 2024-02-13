@@ -1,6 +1,6 @@
 Package: POMADE
 Title: Power for Meta-Analysis of Dependent Effects
-Version: 0.1.0.9999
+Version: 0.2.0
 Authors@R: c( 
     person(given = "Mikkel H.", 
            family = "Vembye", 

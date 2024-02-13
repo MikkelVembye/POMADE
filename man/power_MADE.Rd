@@ -109,7 +109,7 @@ power <- power_MADE(
    var_df = c("Model", "Satt", "RVE"),
    alpha = .05,
    seed = 10052510,
-   iterations =5
+   iterations = 5
  )
 
 power

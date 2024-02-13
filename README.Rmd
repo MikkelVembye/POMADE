@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 [![](http://cranlogs.r-pkg.org/badges/last-month/POMADE)](https://CRAN.R-project.org/package=POMADE)
 <!-- badges: end -->
 
-The POMADE package provides functions for conducting power analysis for tests based on the correlated-hierarchical effects (CHE; Pustejovsky & Tipton, 2021), multi-level meta-analysis (MLMA; Van den Noortgate et al., 2013), and correlated-effects (CE; Hedges et al., 2010) models for meta-analysis of dependent effect sizes, with the possibility to vary assumptions about the variance estimation and the estimation of the degrees of freedom. These approximations aim to replace Hedges & Pigott's (2001) previous power approximation based on the assumption of independence between effect sizes, which has been shown to work inadequately to predict power for models that handle dependent effect sizes (Vembye, Pustejovsky, & Pigott, 2022). The package also includes functions for creating graphical displays of power analysis results.
+The POMADE package provides functions for conducting power analysis for tests based on the correlated-hierarchical effects (CHE; Pustejovsky & Tipton, 2021), multi-level meta-analysis (MLMA; Van den Noortgate et al., 2013), and correlated-effects (CE; Hedges et al., 2010) models for meta-analysis of dependent effect sizes, with the possibility to vary assumptions about the variance estimation and the estimation of the degrees of freedom. These approximations aim to replace Hedges & Pigott's (2001) previous power approximation based on the assumption of independence between effect sizes, which has been shown to work inadequately to predict power for models that handle dependent effect sizes [(Vembye, Pustejovsky, & Pigott, 2022)](https://osf.io/6tp9y). The package also includes functions for creating graphical displays of power analysis results. Find more detail how to conduct reliable power analyses for meta-analysis in [Vembye, Pustejovsky, & Pigott (2024)](https://osf.io/preprints/metaarxiv/3x2en).
 
 ## Installation
 
@@ -55,8 +55,8 @@ library(POMADE)
 library(dplyr)
 
 # Find more information about this dataset by executing the following command below
-# ?VWB22_pilot
-coteach_dat <- VWB22_pilot
+# ?VWB23_pilot
+coteach_dat <- VWB23_pilot
 #glimpse(coteach_dat)
 
 dat_kjsigma2j <- select(coteach_dat, kj, sigma2j = vg_ms_mean)
@@ -78,8 +78,8 @@ power_CHE_RVE_empirical <-
     seed = 10052510
   )
  
-power_CHE_RVE_empirical %>%
-  select(J, tau, omega, rho, power, mcse) %>%
+power_CHE_RVE_empirical  |> 
+  select(J, tau, omega, rho, power, mcse) |>
   head(10)
 
 ```
@@ -95,7 +95,6 @@ power_CHE_RVE_plot <-
   )
 
 power_CHE_RVE_plot
-
 ```
 
 ### Minimum detectable effect size (MDES)
@@ -119,10 +118,9 @@ mdes_CHE_RVE_empirical <-
     seed = 10052510
   )
 
-mdes_CHE_RVE_empirical %>%
-  select(J, tau, omega, rho, target_power, MDES) %>%
+mdes_CHE_RVE_empirical |>
+  select(J, tau, omega, rho, target_power, MDES) |>
   head(10)
-
 ```
 
 The MDES data can then be plotted across plausible scenarios.
@@ -160,22 +158,20 @@ min_studies_example <-
     seed = 10052510,
 )
 
-min_studies_example %>%
-  select(mu, tau, omega, rho, target_power, studies_needed) %>%
+min_studies_example |>
+  select(mu, tau, omega, rho, target_power, studies_needed) |>
   head(10)
-
 ```
 
 and plotted via
 
 ```{r, example3, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 min_studies_plot <- 
-  min_studies_example %>%
-  filter(mu == 0.1) %>%
+  min_studies_example |>
+  filter(mu == 0.1) |>
   plot_MADE()
 
 min_studies_plot 
-  
 ```
 
 Alternatively, reviewers can investigate how the number of studies needed varies across various values of the effect size of practical concern.
@@ -187,7 +183,6 @@ min_studies_plot2 <-
   )
 
 min_studies_plot2
-
 ```
   
 ### Traffic light power plot
@@ -201,7 +196,6 @@ plot_MADE(
   expected_studies = c(45, 55),
   traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely")
 )
-
 ```
 
 ## Parallel processing
@@ -262,3 +256,6 @@ Pustejovsky, J. E., & Tipton E. (2021). Meta-analysis with robust variance estim
 Van den Noortgate, W., López-López, J., Marín-Martínez, F., & Sánchez-Meca, J. (2013). Three-level meta-analysis of dependent effect sizes. *Behavior Research Methods*, 45(2), 576–594. <https://doi.org/10.3758/s13428-012-0261-6>
 
 Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power approximations for overall average effects in meta-analysis with dependent effect sizes. *Journal of Educational and Behavioral Statistics*, 1–33. <https://doi.org/10.3102/10769986221127379>
+
+Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2024). Conducting Power Analysis for Meta-Analysis of Dependent Effect Sizes: Common Guidelines and an Introduction to the POMADE R package. <https://osf.io/preprints/metaarxiv/3x2en>
+

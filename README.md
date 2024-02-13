@@ -24,8 +24,11 @@ degrees of freedom. These approximations aim to replace Hedges &
 Pigott’s (2001) previous power approximation based on the assumption of
 independence between effect sizes, which has been shown to work
 inadequately to predict power for models that handle dependent effect
-sizes (Vembye, Pustejovsky, & Pigott, 2022). The package also includes
-functions for creating graphical displays of power analysis results.
+sizes [(Vembye, Pustejovsky, & Pigott, 2022)](https://osf.io/6tp9y). The
+package also includes functions for creating graphical displays of power
+analysis results. Find more detail how to conduct reliable power
+analyses for meta-analysis in [Vembye, Pustejovsky, & Pigott
+(2024)](https://osf.io/preprints/metaarxiv/3x2en).
 
 ## Installation
 
@@ -58,8 +61,8 @@ library(POMADE)
 library(dplyr)
 
 # Find more information about this dataset by executing the following command below
-# ?VWB22_pilot
-coteach_dat <- VWB22_pilot
+# ?VWB23_pilot
+coteach_dat <- VWB23_pilot
 #glimpse(coteach_dat)
 
 dat_kjsigma2j <- select(coteach_dat, kj, sigma2j = vg_ms_mean)
@@ -81,8 +84,8 @@ power_CHE_RVE_empirical <-
     seed = 10052510
   )
  
-power_CHE_RVE_empirical %>%
-  select(J, tau, omega, rho, power, mcse) %>%
+power_CHE_RVE_empirical  |> 
+  select(J, tau, omega, rho, power, mcse) |>
   head(10)
 #> # A tibble: 10 × 6
 #>        J   tau omega   rho power    mcse
@@ -138,8 +141,8 @@ mdes_CHE_RVE_empirical <-
     seed = 10052510
   )
 
-mdes_CHE_RVE_empirical %>%
-  select(J, tau, omega, rho, target_power, MDES) %>%
+mdes_CHE_RVE_empirical |>
+  select(J, tau, omega, rho, target_power, MDES) |>
   head(10)
 #> # A tibble: 10 × 6
 #>        J   tau omega   rho target_power   MDES
@@ -196,8 +199,8 @@ min_studies_example <-
     seed = 10052510,
 )
 
-min_studies_example %>%
-  select(mu, tau, omega, rho, target_power, studies_needed) %>%
+min_studies_example |>
+  select(mu, tau, omega, rho, target_power, studies_needed) |>
   head(10)
 #> # A tibble: 10 × 6
 #>       mu   tau omega   rho target_power studies_needed
@@ -218,8 +221,8 @@ and plotted via
 
 ``` r
 min_studies_plot <- 
-  min_studies_example %>%
-  filter(mu == 0.1) %>%
+  min_studies_example |>
+  filter(mu == 0.1) |>
   plot_MADE()
 
 min_studies_plot 
@@ -286,7 +289,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   35.40    0.25   35.81
+#>   33.38    0.58   34.30
 
 plan(multisession, workers = 2)
 
@@ -306,7 +309,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.08    0.00   26.84
+#>    0.14    0.01   23.07
 
 identical(res_seq, res_par)
 #> [1] TRUE
@@ -336,3 +339,8 @@ Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2022). Power
 approximations for overall average effects in meta-analysis with
 dependent effect sizes. *Journal of Educational and Behavioral
 Statistics*, 1–33. <https://doi.org/10.3102/10769986221127379>
+
+Vembye, M. H., Pustejovsky, J. E., & Pigott, T. D. (2024). Conducting
+Power Analysis for Meta-Analysis of Dependent Effect Sizes: Common
+Guidelines and an Introduction to the POMADE R package.
+<https://osf.io/preprints/metaarxiv/3x2en>

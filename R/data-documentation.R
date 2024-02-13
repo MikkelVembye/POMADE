@@ -1,8 +1,8 @@
-#' Co-teaching Dataset
+#' Co-Teaching Dataset
 #'
 #' Data from a meta-analysis on the effects of collaborative models
 #' of instruction on student achievement from Vembye, Weiss, and
-#' Bhat (In press/forthcoming).
+#' Bhat (2023).
 #'
 #' @format A tibble with 76 rows/studies and 9 variables
 #'\describe{
@@ -20,10 +20,10 @@
 #' @source Find background material on \href{https://osf.io/fby7w/}{Vembye's OSF page},
 #' and the preprint at <https://osf.io/preprints/metaarxiv/mq5v7/>.
 #'
-#' @references Vembye, M. H., Weiss, F., & Bhat, B. H. (In press/forthcoming). The Effects
+#' @references Vembye, M. H., Weiss, F., & Bhat, B. H. (2023). The Effects
 #' Co-Teaching and Related Collaborative Models of Instruction on
 #' Student Achievement: A Systematic Review and Meta-Analysis. \emph{Review of
-#' Educational Research}. Access to background material at <https://osf.io/fby7w/>.
+#' Educational Research}, \doi{10.3102/00346543231186588}
 #'
 
-"VWB22_pilot"
+"VWB23_pilot"

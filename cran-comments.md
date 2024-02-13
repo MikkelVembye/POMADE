@@ -1,11 +1,10 @@
 ## Submission
 
-This is the first version of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we have reduced the unit test computation times by over 50%, so that the total time for checking the package should now be less than 10 minutes.
+This is the second version of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we corrected the formula for expectation of tau-squared estimator in the CE-RVE model, in accordance with a published corrigendum in Journal for Educational and Behavioral Statistics.
 
 ## Test environments
 
-* local Windows 10 Enterprise, R 4.2.0
-* local Windows 11 Pro, R 4.1.2
+* local Windows 10 Enterprise, R 4.3.1
 * ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
 * macOS-latest (on Github), R release
 * windows-latest (on Github), R release
@@ -21,20 +20,21 @@ This is the first version of POMADE. The package provides functions for conducti
 
 There were no ERRORs or WARNINGs. 
 
-There were 2 NOTEs:
+There were 2 NOTE:
 
-* ONLY on win-builder oldrelease: Found the following (possibly) invalid URLs:
-  URL: https://doi.org/10.1037/1082-989X.6.3.203
-    From: man/power_MADE.Rd
-    Status: 400
-    Message: Bad Request
-  URL: https://doi.org/10.3102/10769986221127379
-    From: man/power_MADE.Rd
-    Status: 503
-    Message: Service Unavailable
+* Found the following (possibly) invalid URLs: Service Unavailable URL: https://doi.org/10.1002/jrsm.5 From: inst/doc/cwbmeta.html Status: 503 Message: Service Unavailable
 
-The flagged URLs are correct.
+The flagged URLs and DOI are correct.
 
-* ONLY on Fedora Linux (r-hub): checking HTML version of manual ... NOTE Skipping checking   HTML validation: no command 'tidy' found. 
 
-We are not able to change that Tidy is not on the path, or update Tidy on the external Fedora Linux server.
+* ONLY on Fedora Linux (r-hub): checking HTML version of manual ... NOTE Skipping checking HTML validation: no command 'tidy' found.
+
+We are not able to change that Tidy is not on the path, or update Tidy on the external Fedora Linux server
+
+## revdepcheck results
+
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+

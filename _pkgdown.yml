@@ -2,7 +2,7 @@ url: https://mikkelvembye.github.io/POMADE/
 template:
   bootstrap: 5
 development:
-  mode: auto
+  mode: release
 
 reference:
   - title: "Power calculations"

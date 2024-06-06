@@ -198,6 +198,20 @@ plot_MADE(
 )
 ```
 
+### Color-blind friendly plot
+
+The above type of plot can also be made with a gray-scaled color-blind friendly palatte by setting `color_blind = TRUE`, as done in the example below. In this regard, white indicates the expected scenario, light gray indicates other plausible scenarios, and dark gray indicates other, even less likely scenarios.
+
+```{r example8, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+plot_MADE(
+  power_CHE_RVE_empirical,
+  power_min = .8,
+  expected_studies = c(45, 55),
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
+  color_blind = TRUE
+)
+```
+
 ## Parallel processing
 
 The core functions of the package allow for parallel processing via the `future` and `furrr` packages. 

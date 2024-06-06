@@ -263,6 +263,26 @@ plot_MADE(
 
 <img src="man/figures/README-example7-1.png" width="100%" />
 
+### Color-blind friendly plot
+
+The above type of plot can also be made with a gray-scaled color-blind
+friendly palatte by setting `color_blind = TRUE`, as done in the example
+below. In this regard, white indicates the expected scenario, light gray
+indicates other plausible scenarios, and dark gray indicates other, even
+less likely scenarios.
+
+``` r
+plot_MADE(
+  power_CHE_RVE_empirical,
+  power_min = .8,
+  expected_studies = c(45, 55),
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
+  color_blind = TRUE
+)
+```
+
+<img src="man/figures/README-example8-1.png" width="100%" />
+
 ## Parallel processing
 
 The core functions of the package allow for parallel processing via the
@@ -289,7 +309,10 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   33.68    0.46   34.22
+#>   37.45    0.33   38.15
+```
+
+``` r
 
 plan(multisession, workers = 2)
 
@@ -309,7 +332,10 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.10    0.01   22.50
+#>    0.11    0.03   28.22
+```
+
+``` r
 
 identical(res_seq, res_par)
 #> [1] TRUE

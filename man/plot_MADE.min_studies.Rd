@@ -21,6 +21,7 @@
   y_expand = NULL,
   warning = TRUE,
   traffic_light_assumptions = NULL,
+  color_blind = FALSE,
   v_shade = NULL,
   h_lines = NULL,
   ...
@@ -67,8 +68,14 @@ multiple models appear in the data. Default is \code{TRUE}.}
 
 \item{traffic_light_assumptions}{Optional logical to specify coloring of
 strips of the facet grids to emphasize assumptions about the likelihood the
-given analytical scenario. See Vembye, Pustejovsky, & Pigott (In
-preparation) for further details.}
+given analytical scenario. See Vembye, Pustejovsky, & Pigott (forthcoming)
+for further details.}
+
+\item{color_blind}{Logical argument indicating if the figure colors should be
+color-blind friendly. Default is \code{FALSE}. If set \code{TRUE},
+a gray-scale version of the traffic light plot is provided
+with white indicating the expected scenario, light gray indicating
+other plausible scenarios, and dark gray indicating other, even less likely scenarios.}
 
 \item{v_shade}{Optional vector of length 2 specifying the range of the x-axis
 interval to be shaded in each plot.}

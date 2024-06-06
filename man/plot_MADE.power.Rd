@@ -21,6 +21,7 @@
   y_expand = NULL,
   warning = TRUE,
   traffic_light_assumptions = NULL,
+  color_blind = FALSE,
   power_min = NULL,
   expected_studies = NULL,
   model_comparison = FALSE,
@@ -68,8 +69,14 @@ multiple models appear in the data. Default is \code{TRUE}.}
 
 \item{traffic_light_assumptions}{Optional logical to specify coloring of
 strips of the facet grids to emphasize assumptions about the likelihood the
-given analytical scenario. See Vembye, Pustejovsky, & Pigott (In
-preparation) for further details.}
+given analytical scenario. See Vembye, Pustejovsky, & Pigott (forthcoming)
+for further details.}
+
+\item{color_blind}{Logical argument indicating if the figure colors should be
+color-blind friendly. Default is \code{FALSE}. If set \code{TRUE},
+a gray-scale version of the traffic light plot is provided
+with white indicating the expected scenario, light gray indicating
+other plausible scenarios, and dark gray indicating other, even less likely scenarios.}
 
 \item{power_min}{Either an integer specify a horizontal line or a length-2
 vector to specify an interval, indicating a benchmark level of power

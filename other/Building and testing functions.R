@@ -60,7 +60,7 @@ power_dat_test <-
 
 
 
-glimpower_dat2 <-
+power_dat2 <-
   power_MADE(
     J = seq(40, 60, 5),
     mu = 0.1,
@@ -131,7 +131,8 @@ plot_MADE(
   caption = FALSE,
   color = TRUE,
   model_comparison = FALSE,
-  traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected")
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "likely", "expected"),
+  color_blind = TRUE
 )
 
 

@@ -66,6 +66,7 @@ plot_MADE <-
     y_expand = NULL,
     warning,
     traffic_light_assumptions,
+    color_blind = FALSE,
     ...
   ) UseMethod("plot_MADE")
 
@@ -89,6 +90,7 @@ plot_MADE.default <-
     y_expand = NULL,
     warning = TRUE,
     traffic_light_assumptions,
+    color_blind = FALSE,
     ...
   ) {
 
@@ -126,7 +128,8 @@ plot_MADE_engine <-
     labs_ynudge = 0.05,
     labs_size = 2.5,
     shape_scale = NULL,
-    assumptions = NULL
+    assumptions = NULL,
+    blind_colors = FALSE
   ) {
 
     # pre-process color, shape, and linetype
@@ -307,7 +310,7 @@ plot_MADE_engine <-
     if (is.null(assumptions)) {
       return(plot)
     } else {
-      plot <- traffic_light_engine(plot = plot, assumptions = assumptions)
+      plot <- traffic_light_engine(plot = plot, assumptions = assumptions, color_blind_friendly = blind_colors)
       return(plot)
     }
 
@@ -315,8 +318,20 @@ plot_MADE_engine <-
 }
 
 traffic_light_engine <-
-  function(plot, assumptions) {
+  function(plot, assumptions, color_blind_friendly = FALSE) {
 
+    if (color_blind_friendly){
+      assump <-
+        dplyr::tibble(assumptions) %>%
+        dplyr::mutate(
+          color = dplyr::recode(
+            assumptions,
+            "unlikely" = "darkgray",
+            "likely" = "lightgray",
+            "expected" = "white"
+          )
+        )
+    } else {
     assump <-
       dplyr::tibble(assumptions) %>%
       dplyr::mutate(
@@ -327,6 +342,7 @@ traffic_light_engine <-
           "expected" = "mediumaquamarine"
         )
       )
+    }
 
     g <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
     strip_both <- which(grepl('strip-', g$layout$name))

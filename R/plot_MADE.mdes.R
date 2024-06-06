@@ -69,6 +69,7 @@ plot_MADE.mdes <-
     y_expand = NULL,
     warning = TRUE,
     traffic_light_assumptions = NULL,
+    color_blind = FALSE,
     es_min = NULL,
     expected_studies = NULL,
     ...
@@ -121,41 +122,7 @@ plot_MADE.mdes <-
     }
 
 
-    if (color) {
-
-      plot <- suppressWarnings(dplyr::group_map(
-        plot_dat,
-        ~ plot_MADE_engine(
-          data = .x$data[[1]],
-          x = J,
-          y = MDES,
-          x_grid = tau_name,
-          y_grid = omega_name,
-          color = cor,
-          shape = cor,
-          linetype = cor,
-          h_lines = es_min,
-          v_lines = v_lines,
-          v_shade = expected_studies,
-          x_breaks = x_breaks,
-          x_limits = x_limits,
-          y_breaks = y_breaks,
-          y_limits = y_limits,
-          y_expand = y_expand,
-          x_lab = x_lab,
-          y_lab = .x$y_lab,
-          color_lab = "Cor",
-          shape_lab = "Cor",
-          line_lab = "Cor",
-          caption = .x$cap,
-          legend_position = legend_position,
-          grid_labs = numbers,
-          labs_ynudge = numbers_ynudge,
-          labs_size = number_size,
-          assumptions = traffic_light_assumptions
-        ))
-      )
-    } else {
+    if (color_blind){
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -186,10 +153,85 @@ plot_MADE.mdes <-
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
-          assumptions = traffic_light_assumptions
+          assumptions = traffic_light_assumptions,
+          blind_colors = color_blind
         ))
       )
+
+    } else {
+
+      if (color) {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = MDES,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = cor,
+            shape = cor,
+            linetype = cor,
+            h_lines = es_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = "Cor",
+            shape_lab = "Cor",
+            line_lab = "Cor",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      } else {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = MDES,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = NULL,
+            shape = cor,
+            linetype = cor,
+            h_lines = es_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = NULL,
+            shape_lab = "Cor",
+            line_lab = "Cor",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      }
+
     }
+
 
     if (length(plot) == 1) plot <- plot[[1]]
 

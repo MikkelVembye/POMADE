@@ -91,6 +91,7 @@ plot_MADE.power <-
     y_expand = NULL,
     warning = TRUE,
     traffic_light_assumptions = NULL,
+    color_blind = FALSE,
     power_min = NULL,
     expected_studies = NULL,
     model_comparison = FALSE,
@@ -132,41 +133,7 @@ plot_MADE.power <-
     }
 
 
-    if (color) {
-
-      plot <- suppressWarnings(dplyr::group_map(
-        plot_dat,
-        ~ plot_MADE_engine(
-          data = .x$data[[1]],
-          x = J,
-          y = power,
-          x_grid = tau_name,
-          y_grid = omega_name,
-          color = cor,
-          shape = cor,
-          linetype = cor,
-          h_lines = power_min,
-          v_lines = v_lines,
-          v_shade = expected_studies,
-          x_breaks = x_breaks,
-          x_limits = x_limits,
-          y_breaks = y_breaks,
-          y_limits = y_limits,
-          y_expand = y_expand,
-          x_lab = x_lab,
-          y_lab = .x$y_lab,
-          color_lab = "Cor",
-          shape_lab = "Cor",
-          line_lab = "Cor",
-          caption = .x$cap,
-          legend_position = legend_position,
-          grid_labs = numbers,
-          labs_ynudge = numbers_ynudge,
-          labs_size = number_size,
-          assumptions = traffic_light_assumptions
-        ))
-      )
-    } else {
+    if (color_blind){
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -197,10 +164,86 @@ plot_MADE.power <-
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
-          assumptions = traffic_light_assumptions
+          assumptions = traffic_light_assumptions,
+          blind_colors = color_blind
         ))
       )
+
+    } else {
+
+      if (color) {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = power,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = cor,
+            shape = cor,
+            linetype = cor,
+            h_lines = power_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = "Cor",
+            shape_lab = "Cor",
+            line_lab = "Cor",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      } else {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = power,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = NULL,
+            shape = cor,
+            linetype = cor,
+            h_lines = power_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = NULL,
+            shape_lab = "Cor",
+            line_lab = "Cor",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      }
+
     }
+
+
   }
 
   if (model_comparison) {
@@ -233,43 +276,7 @@ plot_MADE.power <-
       plot_dat$cap <- NULL
     }
 
-
-    if (color) {
-
-      plot <- suppressWarnings(dplyr::group_map(
-        plot_dat,
-        ~ plot_MADE_engine(
-          data = .x$data[[1]],
-          x = J,
-          y = power,
-          x_grid = tau_name,
-          y_grid = omega_name,
-          color = model,
-          shape = model,
-          linetype = model,
-          h_lines = power_min,
-          v_lines = v_lines,
-          v_shade = expected_studies,
-          x_breaks = x_breaks,
-          x_limits = x_limits,
-          y_breaks = y_breaks,
-          y_limits = y_limits,
-          y_expand = y_expand,
-          x_lab = x_lab,
-          y_lab = .x$y_lab,
-          color_lab = "Model",
-          shape_lab = "Model",
-          line_lab = "Model",
-          shape_scale = "model",
-          caption = .x$cap,
-          legend_position = legend_position,
-          grid_labs = numbers,
-          labs_ynudge = numbers_ynudge,
-          labs_size = number_size,
-          assumptions = traffic_light_assumptions
-        ))
-      )
-    } else {
+    if (color_blind){
 
       plot <- suppressWarnings(dplyr::group_map(
         plot_dat,
@@ -301,10 +308,89 @@ plot_MADE.power <-
           grid_labs = numbers,
           labs_ynudge = numbers_ynudge,
           labs_size = number_size,
-          assumptions = traffic_light_assumptions
+          assumptions = traffic_light_assumptions,
+          blind_colors = color_blind
         ))
       )
+
+    } else {
+
+      if (color) {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = power,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = model,
+            shape = model,
+            linetype = model,
+            h_lines = power_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = "Model",
+            shape_lab = "Model",
+            line_lab = "Model",
+            shape_scale = "model",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      } else {
+
+        plot <- suppressWarnings(dplyr::group_map(
+          plot_dat,
+          ~ plot_MADE_engine(
+            data = .x$data[[1]],
+            x = J,
+            y = power,
+            x_grid = tau_name,
+            y_grid = omega_name,
+            color = NULL,
+            shape = model,
+            linetype = model,
+            h_lines = power_min,
+            v_lines = v_lines,
+            v_shade = expected_studies,
+            x_breaks = x_breaks,
+            x_limits = x_limits,
+            y_breaks = y_breaks,
+            y_limits = y_limits,
+            y_expand = y_expand,
+            x_lab = x_lab,
+            y_lab = .x$y_lab,
+            color_lab = NULL,
+            shape_lab = "Model",
+            line_lab = "Model",
+            shape_scale = "model",
+            caption = .x$cap,
+            legend_position = legend_position,
+            grid_labs = numbers,
+            labs_ynudge = numbers_ynudge,
+            labs_size = number_size,
+            assumptions = traffic_light_assumptions
+          ))
+        )
+      }
+
+
     }
+
+
 
   }
 

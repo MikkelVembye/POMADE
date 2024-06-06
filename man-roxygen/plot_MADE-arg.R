@@ -23,7 +23,12 @@
 #'   multiple models appear in the data. Default is \code{TRUE}.
 #' @param traffic_light_assumptions Optional logical to specify coloring of
 #'   strips of the facet grids to emphasize assumptions about the likelihood the
-#'   given analytical scenario. See Vembye, Pustejovsky, & Pigott (In
-#'   preparation) for further details.
+#'   given analytical scenario. See Vembye, Pustejovsky, & Pigott (forthcoming)
+#'   for further details.
+#' @param color_blind Logical argument indicating if the figure colors should be
+#'   color-blind friendly. Default is \code{FALSE}. If set \code{TRUE},
+#'   a gray-scale version of the traffic light plot is provided
+#'   with white indicating the expected scenario, light gray indicating
+#'   other plausible scenarios, and dark gray indicating other, even less likely scenarios.
 #' @param ... Additional arguments available for some classes of objects.
 #'

@@ -21,7 +21,7 @@
   y_expand = NULL,
   warning = TRUE,
   traffic_light_assumptions = NULL,
-  color_blind = FALSE,
+  traffic_light_palette = "green-yellow-red",
   es_min = NULL,
   expected_studies = NULL,
   ...
@@ -33,11 +33,14 @@
 \item{v_lines}{Integer or vector to specify vertical line(s) in within each
 plot. Default is \code{NULL}.}
 
-\item{legend_position}{Character string to specify position of legend. Default is \code{"bottom"}.}
+\item{legend_position}{Character string to specify position of legend.
+Default is \code{"bottom"}.}
 
-\item{color}{Logical indicating whether to use color in the plot(s). Default is \code{TRUE}.}
+\item{color}{Logical indicating whether to use color in the plot(s). Default
+is \code{TRUE}.}
 
-\item{numbers}{Logical indicating whether to number the plots. Default is \code{TRUE}.}
+\item{numbers}{Logical indicating whether to number the plots. Default is
+\code{TRUE}.}
 
 \item{number_size}{Integer value specifying the size of the (optional) plot
 numbers. Default is \code{2.5}.}
@@ -51,17 +54,20 @@ information regarding the analysis. Default is \code{TRUE}.}
 \item{x_lab}{Title for the x-axis. If \code{NULL} (the default), the x_lab is
 specified automatically.}
 
-\item{x_breaks}{Optional vector to specify breaks on the x-axis. Default is \code{NULL}.}
+\item{x_breaks}{Optional vector to specify breaks on the x-axis. Default is
+\code{NULL}.}
 
 \item{x_limits}{Optional vector of length 2 to specify the limits of the
-x-axis. Default is \code{NULL}, which allows limits to be determined automatically from the data.}
+x-axis. Default is \code{NULL}, which allows limits to be determined
+automatically from the data.}
 
 \item{y_breaks}{Optional vector to specify breaks on the y-axis.}
 
 \item{y_limits}{Optional vector of length 2 to specify the limits of the
 y-axis.}
 
-\item{y_expand}{Optional vector to expand the limits of the y-axis. Default is \code{NULL}.}
+\item{y_expand}{Optional vector to expand the limits of the y-axis. Default
+is \code{NULL}.}
 
 \item{warning}{Logical indicating whether warnings should be returned when
 multiple models appear in the data. Default is \code{TRUE}.}
@@ -71,11 +77,18 @@ strips of the facet grids to emphasize assumptions about the likelihood the
 given analytical scenario. See Vembye, Pustejovsky, & Pigott (forthcoming)
 for further details.}
 
-\item{color_blind}{Logical argument indicating if the figure colors should be
-color-blind friendly. Default is \code{FALSE}. If set \code{TRUE},
-a gray-scale version of the traffic light plot is provided
-with white indicating the expected scenario, light gray indicating
-other plausible scenarios, and dark gray indicating other, even less likely scenarios.}
+\item{traffic_light_palette}{Character string or character vector to control
+the color of traffic light strips. If set to \code{'green-yellow-red'} (the
+default), expected scenarios will be colored green, likely scenarios will
+be colored yellow, and unlikely scenarios will be colored red. If set to
+\code{'greyscale'}, a gray-scale version of the traffic light plot is
+provided with white indicating the expected scenario, light gray indicating
+other plausible scenarios, and dark gray indicating less likely scenarios.
+Users can also specify their own palette by setting
+\code{traffic_light_palette} to a character vector with colors for the
+expected, likely, and unlikely scenarios. In this case, the vector must
+have three entries named \code{'expected'}, \code{'likely'}, and
+\code{'unlikely'},}
 
 \item{es_min}{Optional integer or vector to specify a horizontal line or
 interval, indicating a benchmark value or values for the minimum effect

@@ -1,6 +1,6 @@
 # POMADE 0.2.0.9999
 
-* Added color-blind friendly palette (gray-scale) to the plot_MADE() functions.
+* Added `traffic_light_palette` option to let users specify their own color palette for traffic light strips in the `plot_MADE()` functions.
 
 # POMADE 0.2.0
 

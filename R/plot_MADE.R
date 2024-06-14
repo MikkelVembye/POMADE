@@ -64,9 +64,9 @@ plot_MADE <-
     y_breaks,
     y_limits,
     y_expand = NULL,
-    warning,
-    traffic_light_assumptions,
-    color_blind = FALSE,
+    warning = TRUE,
+    traffic_light_assumptions = NULL,
+    traffic_light_palette = "green-yellow-red",
     ...
   ) UseMethod("plot_MADE")
 
@@ -89,8 +89,8 @@ plot_MADE.default <-
     y_limits = NULL,
     y_expand = NULL,
     warning = TRUE,
-    traffic_light_assumptions,
-    color_blind = FALSE,
+    traffic_light_assumptions = NULL,
+    traffic_light_palette = "green-yellow-red",
     ...
   ) {
 
@@ -129,7 +129,7 @@ plot_MADE_engine <-
     labs_size = 2.5,
     shape_scale = NULL,
     assumptions = NULL,
-    blind_colors = FALSE
+    palette = "green-yellow-red"
   ) {
 
     # pre-process color, shape, and linetype
@@ -258,6 +258,7 @@ plot_MADE_engine <-
 
 
     # handle user input for shape scales
+
     if (is.null(shape_scale)) {
      shape_scale_manual <- NULL
     } else if (shape_scale == "model") {
@@ -310,7 +311,7 @@ plot_MADE_engine <-
     if (is.null(assumptions)) {
       return(plot)
     } else {
-      plot <- traffic_light_engine(plot = plot, assumptions = assumptions, color_blind_friendly = blind_colors)
+      plot <- traffic_light_engine(plot = plot, assumptions = assumptions, palette = palette)
       return(plot)
     }
 
@@ -318,31 +319,31 @@ plot_MADE_engine <-
 }
 
 traffic_light_engine <-
-  function(plot, assumptions, color_blind_friendly = FALSE) {
+  function(
+    plot,
+    assumptions,
+    palette = "green-yellow-red"
+  ) {
 
-    if (color_blind_friendly){
-      assump <-
-        dplyr::tibble(assumptions) %>%
-        dplyr::mutate(
-          color = dplyr::recode(
-            assumptions,
-            "unlikely" = "darkgray",
-            "likely" = "lightgray",
-            "expected" = "white"
-          )
-        )
+    assumption_labs <- c("expected","likely","unlikely")
+
+    if (identical(palette, "green-yellow-red")) {
+      palette <- c(expected = "mediumaquamarine", likely = "lightgoldenrodyellow", unlikely = "lightcoral")
+    } else if (length(palette) == 1L && palette %in% c("greyscale","grayscale")) {
+      palette <- c(expected = "white", likely = "lightgrey", unlikely = "darkgrey")
     } else {
-    assump <-
-      dplyr::tibble(assumptions) %>%
-      dplyr::mutate(
-        color = dplyr::recode(
-          assumptions,
-          "unlikely" = "lightcoral",
-          "likely" = "lightgoldenrodyellow",
-          "expected" = "mediumaquamarine"
-        )
-      )
+      palette_labs <- assumption_labs[pmatch(names(palette), assumption_labs)]
+      if (length(palette_labs) < 1L || any(is.na(palette_labs))) stop('All names of `traffic_light_palette` must be one of the values "expected", "likely", or "unlikely".')
+      names(palette) <- palette_labs
     }
+
+    assumptions <- assumption_labs[pmatch(assumptions, assumption_labs, duplicates.ok = TRUE)]
+    if (any(is.na(assumptions))) stop('All entries in `traffic_light_assumptions` must be one of the values "expected", "likely", or "unlikely".')
+
+    assump <- data.frame(
+      assumption = assumptions,
+      color = palette[assumptions]
+    )
 
     g <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(plot))
     strip_both <- which(grepl('strip-', g$layout$name))

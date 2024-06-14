@@ -183,3 +183,115 @@ test_that("plot_MADE.min_studies() returns one or multiple plots.", {
 
 
 })
+
+get_strip_style <- function(g) {
+  strip_both <- which(grepl('strip-', g$layout$name))
+  lapply(strip_both, \(i) {
+    j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$childrenOrder))
+    g$grobs[[i]]$grobs[[1]]$children[[j]]$gp
+  })
+}
+
+
+test_that("traffic_light_engine handles color palettes.", {
+
+  res <-
+    power_MADE(
+      J = seq(40, 60, 5),
+      mu = 0.1,
+      tau = c(0.05, 0.1, 0.2),
+      omega = c(0.1, 0.2, 0.3),
+      rho = c(0.2, 0.7),
+      alpha = 0.05,
+      sigma2_dist = 4 / 100,
+      n_ES_dist = 5.5,
+      model = "CHE",  # Default
+      var_df = "RVE", # Default
+      iterations = 10, # default = 100 (recommended)
+      seed = 10052510,
+      warning = FALSE
+    )
+
+  tlp1 <- plot_MADE(
+    filter(res, omega < 0.25),
+    traffic_light_assumptions = c("un", "lik", "exp", "expect", "like")
+  )
+
+  tlp2 <- plot_MADE(
+    filter(res, omega < 0.25),
+    traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
+    traffic_light_palette = "green-yellow-red"
+  )
+
+  tlp3 <- plot_MADE(
+    filter(res, omega < 0.25),
+    traffic_light_assumptions = c("unlikely", "like", "expec", "expected", "likely"),
+    traffic_light_palette = c(expected = "mediumaquamarine", likely = "lightgoldenrodyellow", unlikely = "lightcoral")
+  )
+
+  expect_s3_class(tlp1, "trafficlightplot")
+  expect_s3_class(tlp2, "trafficlightplot")
+  expect_s3_class(tlp3, "trafficlightplot")
+  expect_identical(get_strip_style(tlp1), get_strip_style(tlp2))
+  expect_identical(get_strip_style(tlp1), get_strip_style(tlp3))
+
+  tlp4 <- plot_MADE(
+    res,
+    traffic_light_assumptions = c("like", "expe", "lik", "expec", "li", "un"),
+    traffic_light_palette = "greyscale"
+  )
+
+  tlp5 <- plot_MADE(
+    res,
+    traffic_light_assumptions = c("likely", "expected", "likely", "expected", "likely", "unlikely"),
+    traffic_light_palette = "grayscale"
+  )
+
+  tlp6 <- plot_MADE(
+    res,
+    traffic_light_assumptions = c("likely", "expected", "likely", "expected", "likely", "unlikely"),
+    traffic_light_palette = c(expected = "white", likely = "lightgrey", unlikely = "darkgrey")
+  )
+
+  expect_s3_class(tlp4, "trafficlightplot")
+  expect_s3_class(tlp5, "trafficlightplot")
+  expect_s3_class(tlp6, "trafficlightplot")
+  expect_identical(
+    get_strip_style(tlp4), get_strip_style(tlp5)
+  )
+  expect_identical(
+    get_strip_style(tlp4), get_strip_style(tlp6)
+  )
+
+  tlp7 <- plot_MADE(
+    res,
+    traffic_light_assumptions = c("likely", "expected", "likely", "expected", "likely", "unlikely"),
+    traffic_light_palette = c(expected = "turquoise", likely = "orchid", unlikely = "slateblue")
+  )
+
+  expect_s3_class(tlp4, "trafficlightplot")
+
+  expect_error(
+    plot_MADE(
+      res,
+      traffic_light_assumptions = c("like", "expeted", "likly", "expected", "likely", "unlikely"),
+    )
+  )
+
+  expect_error(
+    plot_MADE(
+      res,
+      traffic_light_assumptions = c("like", "expected", "lik", "expected", "likely", "unlikely"),
+      traffic_light_palette = c(expeted = "turquoise", likely = "orchid", unlikely = "slateblue")
+    )
+  )
+
+  expect_error(
+    plot_MADE(
+      res,
+      traffic_light_assumptions = c("like", "expected", "lik", "expected", "likely", "unlikely"),
+      traffic_light_palette = "greenyellowred"
+    )
+  )
+
+})

@@ -75,7 +75,7 @@ power, as calculated using <code>min_studies_MADE</code>.</p>
 <span>  y_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  warning <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  traffic_light_assumptions <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  color_blind <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  traffic_light_palette <span class="op">=</span> <span class="st">"green-yellow-red"</span>,</span>
 <span>  v_shade <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  h_lines <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -94,15 +94,18 @@ plot. Default is <code>NULL</code>.</p></dd>
 
 
 <dt>legend_position</dt>
-<dd><p>Character string to specify position of legend. Default is <code>"bottom"</code>.</p></dd>
+<dd><p>Character string to specify position of legend.
+Default is <code>"bottom"</code>.</p></dd>
 
 
 <dt>color</dt>
-<dd><p>Logical indicating whether to use color in the plot(s). Default is <code>TRUE</code>.</p></dd>
+<dd><p>Logical indicating whether to use color in the plot(s). Default
+is <code>TRUE</code>.</p></dd>
 
 
 <dt>numbers</dt>
-<dd><p>Logical indicating whether to number the plots. Default is <code>TRUE</code>.</p></dd>
+<dd><p>Logical indicating whether to number the plots. Default is
+<code>TRUE</code>.</p></dd>
 
 
 <dt>number_size</dt>
@@ -126,12 +129,14 @@ specified automatically.</p></dd>
 
 
 <dt>x_breaks</dt>
-<dd><p>Optional vector to specify breaks on the x-axis. Default is <code>NULL</code>.</p></dd>
+<dd><p>Optional vector to specify breaks on the x-axis. Default is
+<code>NULL</code>.</p></dd>
 
 
 <dt>x_limits</dt>
 <dd><p>Optional vector of length 2 to specify the limits of the
-x-axis. Default is <code>NULL</code>, which allows limits to be determined automatically from the data.</p></dd>
+x-axis. Default is <code>NULL</code>, which allows limits to be determined
+automatically from the data.</p></dd>
 
 
 <dt>y_breaks</dt>
@@ -144,7 +149,8 @@ y-axis.</p></dd>
 
 
 <dt>y_expand</dt>
-<dd><p>Optional vector to expand the limits of the y-axis. Default is <code>NULL</code>.</p></dd>
+<dd><p>Optional vector to expand the limits of the y-axis. Default
+is <code>NULL</code>.</p></dd>
 
 
 <dt>warning</dt>
@@ -159,12 +165,19 @@ given analytical scenario. See Vembye, Pustejovsky, &amp; Pigott (forthcoming)
 for further details.</p></dd>
 
 
-<dt>color_blind</dt>
-<dd><p>Logical argument indicating if the figure colors should be
-color-blind friendly. Default is <code>FALSE</code>. If set <code>TRUE</code>,
-a gray-scale version of the traffic light plot is provided
-with white indicating the expected scenario, light gray indicating
-other plausible scenarios, and dark gray indicating other, even less likely scenarios.</p></dd>
+<dt>traffic_light_palette</dt>
+<dd><p>Character string or character vector to control
+the color of traffic light strips. If set to <code>'green-yellow-red'</code> (the
+default), expected scenarios will be colored green, likely scenarios will
+be colored yellow, and unlikely scenarios will be colored red. If set to
+<code>'greyscale'</code>, a gray-scale version of the traffic light plot is
+provided with white indicating the expected scenario, light gray indicating
+other plausible scenarios, and dark gray indicating less likely scenarios.
+Users can also specify their own palette by setting
+<code>traffic_light_palette</code> to a character vector with colors for the
+expected, likely, and unlikely scenarios. In this case, the vector must
+have three entries named <code>'expected'</code>, <code>'likely'</code>, and
+<code>'unlikely'</code>,</p></dd>
 
 
 <dt>v_shade</dt>

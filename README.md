@@ -263,13 +263,13 @@ plot_MADE(
 
 <img src="man/figures/README-example7-1.png" width="100%" />
 
-### Color-blind friendly plot
+### Traffic light color palettes
 
-The above type of plot can also be made with a gray-scaled color-blind
-friendly palatte by setting `color_blind = TRUE`, as done in the example
-below. In this regard, white indicates the expected scenario, light gray
-indicates other plausible scenarios, and dark gray indicates other, even
-less likely scenarios.
+The above type of plot can also be made with a grey-scale palette, which
+may be preferable for viewers with color blindness, by setting
+`traffic_light_palette = "greyscale"`. With this palette, white
+indicates the expected scenario, light gray indicates other plausible
+scenarios, and dark gray indicates other, even less likely scenarios.
 
 ``` r
 plot_MADE(
@@ -277,11 +277,32 @@ plot_MADE(
   power_min = .8,
   expected_studies = c(45, 55),
   traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
-  color_blind = TRUE
+  traffic_light_palette = "greyscale",
+  color = FALSE
 )
 ```
 
 <img src="man/figures/README-example8-1.png" width="100%" />
+
+Users may also specify their own color palettes for the traffic light
+strips by passing a named vector of colors to `traffic_light_plot`, as
+in the following:
+
+``` r
+plot_MADE(
+  power_CHE_RVE_empirical,
+  power_min = .8,
+  expected_studies = c(45, 55),
+  traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
+  traffic_light_palette = c(
+    expected = "turquoise",
+    likely = "orchid",
+    unlikely = "slateblue"
+  )
+)
+```
+
+<img src="man/figures/README-example9-1.png" width="100%" />
 
 ## Parallel processing
 
@@ -309,7 +330,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   37.45    0.33   38.15
+#>   37.74    0.43   38.50
 ```
 
 ``` r
@@ -332,7 +353,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.11    0.03   28.22
+#>    0.11    0.00   25.68
 ```
 
 ``` r

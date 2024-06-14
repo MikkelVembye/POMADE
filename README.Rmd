@@ -208,7 +208,8 @@ plot_MADE(
   power_min = .8,
   expected_studies = c(45, 55),
   traffic_light_assumptions = c("unlikely", "likely", "expected", "expected", "likely"),
-  traffic_light_palette = "greyscale"
+  traffic_light_palette = "greyscale",
+  color = FALSE
 )
 ```
 

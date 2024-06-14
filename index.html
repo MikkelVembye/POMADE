@@ -260,25 +260,40 @@
 <p><img src="reference/figures/README-example7-1.png" width="100%"></p>
 </div>
 <div class="section level3">
-<h3 id="color-blind-friendly-plot">Color-blind friendly plot<a class="anchor" aria-label="anchor" href="#color-blind-friendly-plot"></a>
+<h3 id="traffic-light-color-palettes">Traffic light color palettes<a class="anchor" aria-label="anchor" href="#traffic-light-color-palettes"></a>
 </h3>
-<p>The above type of plot can also be made with a gray-scaled color-blind friendly palatte by setting <code>color_blind = TRUE</code>, as done in the example below. In this regard, white indicates the expected scenario, light gray indicates other plausible scenarios, and dark gray indicates other, even less likely scenarios.</p>
+<p>The above type of plot can also be made with a grey-scale palette, which may be preferable for viewers with color blindness, by setting <code>traffic_light_palette = "greyscale"</code>. With this palette, white indicates the expected scenario, light gray indicates other plausible scenarios, and dark gray indicates other, even less likely scenarios.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/plot_MADE.html">plot_MADE</a></span><span class="op">(</span></span>
 <span>  <span class="va">power_CHE_RVE_empirical</span>,</span>
 <span>  power_min <span class="op">=</span> <span class="fl">.8</span>,</span>
 <span>  expected_studies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">55</span><span class="op">)</span>,</span>
 <span>  traffic_light_assumptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unlikely"</span>, <span class="st">"likely"</span>, <span class="st">"expected"</span>, <span class="st">"expected"</span>, <span class="st">"likely"</span><span class="op">)</span>,</span>
-<span>  color_blind <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  traffic_light_palette <span class="op">=</span> <span class="st">"greyscale"</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example8-1.png" width="100%"></p>
+<p>Users may also specify their own color palettes for the traffic light strips by passing a named vector of colors to <code>traffic_light_plot</code>, as in the following:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plot_MADE.html">plot_MADE</a></span><span class="op">(</span></span>
+<span>  <span class="va">power_CHE_RVE_empirical</span>,</span>
+<span>  power_min <span class="op">=</span> <span class="fl">.8</span>,</span>
+<span>  expected_studies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">55</span><span class="op">)</span>,</span>
+<span>  traffic_light_assumptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unlikely"</span>, <span class="st">"likely"</span>, <span class="st">"expected"</span>, <span class="st">"expected"</span>, <span class="st">"likely"</span><span class="op">)</span>,</span>
+<span>  traffic_light_palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    expected <span class="op">=</span> <span class="st">"turquoise"</span>,</span>
+<span>    likely <span class="op">=</span> <span class="st">"orchid"</span>,</span>
+<span>    unlikely <span class="op">=</span> <span class="st">"slateblue"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example9-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="parallel-processing">Parallel processing<a class="anchor" aria-label="anchor" href="#parallel-processing"></a>
 </h2>
 <p>The core functions of the package allow for parallel processing via the <code>future</code> and <code>furrr</code> packages.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span>
@@ -299,8 +314,8 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   37.45    0.33   38.15</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;   37.74    0.43   38.50</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
@@ -320,8 +335,8 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;    0.11    0.03   28.22</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;    0.11    0.00   25.68</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">res_seq</span>, <span class="va">res_par</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>

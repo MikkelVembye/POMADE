@@ -105,15 +105,15 @@
 <span><span class="co">#&gt;        J   tau omega   rho power    mcse</span></span>
 <span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1    40  0.05   0.1   0.2 0.858 0.0168 </span></span>
-<span><span class="co">#&gt;  2    45  0.05   0.1   0.2 0.890 0.0190 </span></span>
-<span><span class="co">#&gt;  3    50  0.05   0.1   0.2 0.929 0.0131 </span></span>
-<span><span class="co">#&gt;  4    55  0.05   0.1   0.2 0.955 0.00611</span></span>
-<span><span class="co">#&gt;  5    60  0.05   0.1   0.2 0.967 0.00751</span></span>
-<span><span class="co">#&gt;  6    40  0.1    0.1   0.2 0.744 0.0152 </span></span>
-<span><span class="co">#&gt;  7    45  0.1    0.1   0.2 0.793 0.0198 </span></span>
-<span><span class="co">#&gt;  8    50  0.1    0.1   0.2 0.840 0.0135 </span></span>
-<span><span class="co">#&gt;  9    55  0.1    0.1   0.2 0.880 0.00709</span></span>
-<span><span class="co">#&gt; 10    60  0.1    0.1   0.2 0.903 0.00941</span></span></code></pre></div>
+<span><span class="co">#&gt;  2    40  0.05   0.1   0.7 0.728 0.0265 </span></span>
+<span><span class="co">#&gt;  3    40  0.05   0.2   0.2 0.715 0.0144 </span></span>
+<span><span class="co">#&gt;  4    40  0.05   0.2   0.7 0.575 0.0165 </span></span>
+<span><span class="co">#&gt;  5    40  0.1    0.1   0.2 0.744 0.0152 </span></span>
+<span><span class="co">#&gt;  6    40  0.1    0.1   0.7 0.620 0.0204 </span></span>
+<span><span class="co">#&gt;  7    40  0.1    0.2   0.2 0.632 0.0117 </span></span>
+<span><span class="co">#&gt;  8    40  0.1    0.2   0.7 0.512 0.0127 </span></span>
+<span><span class="co">#&gt;  9    40  0.2    0.1   0.2 0.504 0.00864</span></span>
+<span><span class="co">#&gt; 10    40  0.2    0.1   0.7 0.425 0.00989</span></span></code></pre></div>
 <p>The results can be displayed in a plot to more easily assess power across a range of plausible scenarios.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">power_CHE_RVE_plot</span> <span class="op">&lt;-</span> </span>
@@ -124,7 +124,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">power_CHE_RVE_plot</span></span></code></pre></div>
-<p><img src="reference/figures/README-example2-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example2-1.png" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="minimum-detectable-effect-size-mdes">Minimum detectable effect size (MDES)<a class="anchor" aria-label="anchor" href="#minimum-detectable-effect-size-mdes"></a>
@@ -174,7 +174,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">MDES_CHE_RVE_plot</span> </span></code></pre></div>
-<p><img src="reference/figures/README-example5-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example5-1.png" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="finding-the-number-of-studies-needed-to-obtain-a-certain-amount-of-power">Finding the number of studies needed to obtain a certain amount of power<a class="anchor" aria-label="anchor" href="#finding-the-number-of-studies-needed-to-obtain-a-certain-amount-of-power"></a>
@@ -221,7 +221,7 @@
 <span>  <span class="fu"><a href="reference/plot_MADE.html">plot_MADE</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">min_studies_plot</span> </span></code></pre></div>
-<p><img src="reference/figures/README-example3-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example3-1.png" alt="" width="100%"></p>
 <p>Alternatively, reviewers can investigate how the number of studies needed varies across various values of the effect size of practical concern.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">min_studies_plot2</span> <span class="op">&lt;-</span> </span>
@@ -230,7 +230,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">min_studies_plot2</span></span></code></pre></div>
-<p><img src="reference/figures/README-example4-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example4-1.png" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="traffic-light-power-plot">Traffic light power plot<a class="anchor" aria-label="anchor" href="#traffic-light-power-plot"></a>
@@ -243,7 +243,7 @@
 <span>  expected_studies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">55</span><span class="op">)</span>,</span>
 <span>  traffic_light_assumptions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unlikely"</span>, <span class="st">"likely"</span>, <span class="st">"expected"</span>, <span class="st">"expected"</span>, <span class="st">"likely"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example7-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example7-1.png" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="traffic-light-color-palettes">Traffic light color palettes<a class="anchor" aria-label="anchor" href="#traffic-light-color-palettes"></a>
@@ -258,7 +258,7 @@
 <span>  traffic_light_palette <span class="op">=</span> <span class="st">"greyscale"</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example8-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example8-1.png" alt="" width="100%"></p>
 <p>Users may also specify their own color palettes for the traffic light strips by passing a named vector of colors to <code>traffic_light_plot</code>, as in the following:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/plot_MADE.html">plot_MADE</a></span><span class="op">(</span></span>
@@ -272,7 +272,7 @@
 <span>    unlikely <span class="op">=</span> <span class="st">"slateblue"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example9-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example9-1.png" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -300,9 +300,8 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   37.74    0.43   38.50</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;   21.13    0.48   22.16</span></span>
+<span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span></span>
@@ -321,9 +320,8 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;    0.11    0.00   25.68</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;    0.95    0.75   15.99</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">res_seq</span>, <span class="va">res_par</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>

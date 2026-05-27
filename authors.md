@@ -11,16 +11,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/MikkelVembye/POMADE/blob/v0.2.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/MikkelVembye/POMADE/blob/main/DESCRIPTION)
 
 Vembye M, Pustejovsky J (2026). *POMADE: Power for Meta-Analysis of
-Dependent Effects*. R package version 0.2.1,
+Dependent Effects*. R package version 0.2.1.9000,
 <https://mikkelvembye.github.io/POMADE/>.
 
     @Manual{,
       title = {POMADE: Power for Meta-Analysis of Dependent Effects},
       author = {Mikkel H. Vembye and James E. Pustejovsky},
       year = {2026},
-      note = {R package version 0.2.1},
+      note = {R package version 0.2.1.9000},
       url = {https://mikkelvembye.github.io/POMADE/},
     }

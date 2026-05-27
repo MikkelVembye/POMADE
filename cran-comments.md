@@ -4,7 +4,7 @@ This is a patch version update of POMADE. The package provides functions for con
 
 ## Test environments
 
-* local Windows 10 Enterprise, R 4.3.1
+* local Windows 10 Enterprise, R 4.5.3
 * ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
 * macOS-latest (on Github), R release
 * windows-latest (on Github), R release
@@ -18,23 +18,20 @@ This is a patch version update of POMADE. The package provides functions for con
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs. 
+There were no ERRORs, WARNINGs or NOTEs. 
 
-There were 2 NOTE:
+## URL check results
 
-* Found the following (possibly) invalid URLs: Service Unavailable URL: https://doi.org/10.1002/jrsm.5 From: inst/doc/cwbmeta.html Status: 503 Message: Service Unavailable
+We found two potential URL errors
+
+* Error: README.md:368:2 403: Forbidden
+<https://doi.org/10.1002/jrsm.5>
+
+* Error: README.md:363:2 404: Not Found
+<https://doi.org/10.1037/1082-989X.6.3.203>
 
 The flagged URLs and DOI are correct.
 
 
-* ONLY on Fedora Linux (r-hub): checking HTML version of manual ... NOTE Skipping checking HTML validation: no command 'tidy' found.
 
-We are not able to change that Tidy is not on the path, or update Tidy on the external Fedora Linux server
-
-## revdepcheck results
-
-We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 0 packages
 

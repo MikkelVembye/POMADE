@@ -91,15 +91,15 @@ power_CHE_RVE_empirical  |>
 #>        J   tau omega   rho power    mcse
 #>    <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>
 #>  1    40  0.05   0.1   0.2 0.858 0.0168 
-#>  2    45  0.05   0.1   0.2 0.890 0.0190 
-#>  3    50  0.05   0.1   0.2 0.929 0.0131 
-#>  4    55  0.05   0.1   0.2 0.955 0.00611
-#>  5    60  0.05   0.1   0.2 0.967 0.00751
-#>  6    40  0.1    0.1   0.2 0.744 0.0152 
-#>  7    45  0.1    0.1   0.2 0.793 0.0198 
-#>  8    50  0.1    0.1   0.2 0.840 0.0135 
-#>  9    55  0.1    0.1   0.2 0.880 0.00709
-#> 10    60  0.1    0.1   0.2 0.903 0.00941
+#>  2    40  0.05   0.1   0.7 0.728 0.0265 
+#>  3    40  0.05   0.2   0.2 0.715 0.0144 
+#>  4    40  0.05   0.2   0.7 0.575 0.0165 
+#>  5    40  0.1    0.1   0.2 0.744 0.0152 
+#>  6    40  0.1    0.1   0.7 0.620 0.0204 
+#>  7    40  0.1    0.2   0.2 0.632 0.0117 
+#>  8    40  0.1    0.2   0.7 0.512 0.0127 
+#>  9    40  0.2    0.1   0.2 0.504 0.00864
+#> 10    40  0.2    0.1   0.7 0.425 0.00989
 ```
 
 The results can be displayed in a plot to more easily assess power
@@ -116,7 +116,7 @@ power_CHE_RVE_plot <-
 power_CHE_RVE_plot
 ```
 
-<img src="man/figures/README-example2-1.png" width="100%" />
+<img src="man/figures/README-example2-1.png" alt="" width="100%" />
 
 ### Minimum detectable effect size (MDES)
 
@@ -173,7 +173,7 @@ MDES_CHE_RVE_plot <-
 MDES_CHE_RVE_plot 
 ```
 
-<img src="man/figures/README-example5-1.png" width="100%" />
+<img src="man/figures/README-example5-1.png" alt="" width="100%" />
 
 ### Finding the number of studies needed to obtain a certain amount of power
 
@@ -228,7 +228,7 @@ min_studies_plot <-
 min_studies_plot 
 ```
 
-<img src="man/figures/README-example3-1.png" width="100%" />
+<img src="man/figures/README-example3-1.png" alt="" width="100%" />
 
 Alternatively, reviewers can investigate how the number of studies
 needed varies across various values of the effect size of practical
@@ -243,7 +243,7 @@ min_studies_plot2 <-
 min_studies_plot2
 ```
 
-<img src="man/figures/README-example4-1.png" width="100%" />
+<img src="man/figures/README-example4-1.png" alt="" width="100%" />
 
 ### Traffic light power plot
 
@@ -261,7 +261,7 @@ plot_MADE(
 )
 ```
 
-<img src="man/figures/README-example7-1.png" width="100%" />
+<img src="man/figures/README-example7-1.png" alt="" width="100%" />
 
 ### Traffic light color palettes
 
@@ -282,7 +282,7 @@ plot_MADE(
 )
 ```
 
-<img src="man/figures/README-example8-1.png" width="100%" />
+<img src="man/figures/README-example8-1.png" alt="" width="100%" />
 
 Users may also specify their own color palettes for the traffic light
 strips by passing a named vector of colors to `traffic_light_plot`, as
@@ -302,7 +302,7 @@ plot_MADE(
 )
 ```
 
-<img src="man/figures/README-example9-1.png" width="100%" />
+<img src="man/figures/README-example9-1.png" alt="" width="100%" />
 
 ## Parallel processing
 
@@ -330,10 +330,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   37.74    0.43   38.50
-```
-
-``` r
+#>   21.13    0.48   22.16
 
 plan(multisession, workers = 2)
 
@@ -353,10 +350,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>    0.11    0.00   25.68
-```
-
-``` r
+#>    0.95    0.75   15.99
 
 identical(res_seq, res_par)
 #> [1] TRUE

@@ -21,7 +21,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Imports: 
     ggplot2,
     dplyr,
@@ -40,4 +40,4 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Language: en-US
-URL: https://mikkelvembye.github.io/POMADE/
+URL: https://mikkelvembye.github.io/POMADE/, https://github.com/MikkelVembye/POMADE

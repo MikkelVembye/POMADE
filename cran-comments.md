@@ -1,6 +1,6 @@
 ## Submission
 
-This is the second version of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we corrected the formula for expectation of tau-squared estimator in the CE-RVE model, in accordance with a published corrigendum in Journal for Educational and Behavioral Statistics.
+This is a patch version update of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we replaced the deprecated `purrr::rerun()` with `purrr::map()` and updated the traffic light color options to make them more flexible for the user. 
 
 ## Test environments
 

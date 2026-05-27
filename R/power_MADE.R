@@ -99,8 +99,8 @@ power_MADE <-
     var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok = TRUE)
     if ("CE" %in% model & !("RVE" %in% var_df)) stop("CE model is only available for var_df = 'RVE'.")
 
-    design_factors <-
-      list(
+    params <-
+      tidyr::expand_grid(
         J = J,
         mu = mu,
         tau = tau,
@@ -108,9 +108,8 @@ power_MADE <-
         rho = rho,
         d = d
       )
-
-    params <- purrr::cross_df(design_factors)
-
+    
+    
     furrr_seed <- if (is.null(seed)) TRUE else NULL
 
     suppressPackageStartupMessages(
@@ -136,7 +135,7 @@ power_MADE <-
 
     tibble::new_tibble(dat, class = "power")
 
-}
+  }
 
 
 power_MADE_engine <-
@@ -178,15 +177,14 @@ power_MADE_engine <-
   if (is.function(sigma2_dist)) {
 
     samp_method_sigma2 <- "stylized"
-    sigma2js <- purrr::rerun(iterations, sigma2_dist(J_hi)[1:J])
-
+    sigma2js <- purrr::map(1:iterations, \(x) sigma2_dist(J_hi)[1:J]) 
   }
 
   # Empirical distribution of sampling variance estimates across studies
   if (is.numeric(sigma2_dist) & length(sigma2_dist) > 1 & length(sigma2_dist) != length(n_ES_dist)) {
 
     samp_method_sigma2 <- "empirical"
-    sigma2js <- purrr::rerun(iterations, sample(sigma2_dist, J_hi, replace = TRUE)[1:J])
+    sigma2js <- purrr::map(1:iterations, \(x) sample(sigma2_dist, J_hi, replace = TRUE)[1:J])
 
   }
 
@@ -204,13 +202,14 @@ power_MADE_engine <-
 
     # Stylized distribution of the number of effect sizes per study
     samp_method_kj <- "stylized"
-    kjs <- purrr::rerun(iterations, n_ES_dist(J_hi)[1:J])
+    kjs <- purrr::map(1:iterations, \(x) n_ES_dist(J_hi)[1:J])
+    
 
   } else if (is.numeric(n_ES_dist) && length(n_ES_dist) > 1 && length(sigma2_dist) != length(n_ES_dist)) {
 
     # Empirical distribution of the number of effect sizes per study
     samp_method_kj <- "empirical"
-    kjs <- purrr::rerun(iterations, sample(n_ES_dist, J_hi, replace = TRUE)[1:J])
+    kjs <- purrr::map(1:iterations, \(x) sample(n_ES_dist, J_hi, replace = TRUE)[1:J])
 
   } else if (length(sigma2_dist) > 1 && length(n_ES_dist) > 1 && length(sigma2_dist) == length(n_ES_dist)) {
 
@@ -221,7 +220,7 @@ power_MADE_engine <-
 
     pilot_data <- bind_cols(sigma2j = sigma2_dist, kj = n_ES_dist)
     id <- seq_along(sigma2_dist)
-    pilot_sigma2j_kj <- purrr::rerun(iterations, pilot_data[sample(id, size = J_hi, replace = TRUE)[1:J],])
+    pilot_sigma2j_kj <- purrr::map(1:iterations, \(x) pilot_data[sample(id, size = J_hi, replace = TRUE)[1:J],])
     sigma2js <- purrr::map(pilot_sigma2j_kj, ~ .x$sigma2j)
     kjs <- purrr::map(pilot_sigma2j_kj, ~ .x$kj)
 

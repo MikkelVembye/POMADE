@@ -86,8 +86,8 @@ min_studies_MADE <-
     var_df <- match.arg(var_df, c("Model","Satt","RVE"), several.ok = TRUE)
     if ("CE" %in% model & !("RVE" %in% var_df)) stop("CE model is only available for var_df = 'RVE'.")
 
-    design_factors <-
-      list(
+    params <-
+      tidyr::expand_grid(
         mu = mu,
         tau = tau,
         omega = omega,
@@ -97,10 +97,8 @@ min_studies_MADE <-
         d = d,
         model = model,
         var_df = var_df
-      )
-
-    params <- purrr::cross_df(design_factors) |>
-      filter(model != "CE" | var_df == "RVE")
+      ) |>
+      dplyr::filter(model != "CE" | var_df == "RVE")
 
     furrr_seed <- if (is.null(seed)) TRUE else NULL
 

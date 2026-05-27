@@ -1,6 +1,6 @@
 ## Submission
 
-This is a patch version update of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we replaced the deprecated `purrr::rerun()` with `purrr::map()` and updated the traffic light color options to make them more flexible for the user. 
+This is a patch version update of POMADE. The package provides functions for conducting power analysis for overall average effects in meta-analysis with dependent effect sizes. In this submission, we replaced the deprecated function from `purrr` and updated the traffic light color options to make them more flexible for the user. 
 
 ## Test environments
 
@@ -10,11 +10,7 @@ This is a patch version update of POMADE. The package provides functions for con
 * windows-latest (on Github), R release
 * win-builder (devel, release, oldrelease)
 * mac-builder (release)
-* r-hub:
-  * Windows Server 2022, R-release, 32/64 bit
-  * Ubuntu Linux 16.04 LTS, R-release, GCC
-  * Fedora Linux, R-devel, clang, gfortran
-  * Debian Linux, R-devel, GCC
+
 
 ## R CMD check results
 
